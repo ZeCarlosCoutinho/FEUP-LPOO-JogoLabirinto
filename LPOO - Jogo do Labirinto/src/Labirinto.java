@@ -95,6 +95,41 @@ public class Labirinto {
 			return tabuleiro[x][y];
 	}
 	
+	
+	public boolean verifica_casa_heroi(char casa) //Retorna true se o heroi se mover para dentro da casa
+	{
+		switch(casa)
+		{
+		case 'X':	//Andar para uma parede
+			return false;
+		case 'D':	//Andar para o dragao
+			if(hero.isArmado())
+			{
+				dragon.setMorto(true);
+				return true;
+			}
+			else
+			{
+				hero.setMorto(true);
+				return false;
+			}
+		case ' ':	//Andar para um espaço em branco
+			return true;
+		case 'E':	//Andar para a espada
+			hero.setArmado(true);
+			sword.setNa_mao(true);
+			return true;
+		case 'S':	//Andar para a saida
+			if(dragon.isMorto())
+				return true;
+			else
+				return false;
+		default:
+			return false;
+				
+		}
+	}
+	
 	public void preenche_saida(Saida s)
 	{
 		tabuleiro[s.getPosx()][s.getPosy()]='S';

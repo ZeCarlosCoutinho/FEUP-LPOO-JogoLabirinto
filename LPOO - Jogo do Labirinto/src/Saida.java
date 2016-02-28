@@ -1,6 +1,7 @@
 
 public class Saida {
 	private int posx, posy;
+	private boolean chegou_heroi;
 	
 	public int getPosx() {
 		return posx;
@@ -20,6 +21,7 @@ public class Saida {
 
 	public Saida(){
 		posx=9;
-		posy=5;		
+		posy=5;	
+		chegou_heroi = false;
 	}
 }

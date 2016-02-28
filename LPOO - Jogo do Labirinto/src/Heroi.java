@@ -2,7 +2,16 @@
 public class Heroi {
 	private int posx, posy;
 	private boolean armado;
+	private boolean morto;
 	
+	public boolean isMorto() {
+		return morto;
+	}
+
+	public void setMorto(boolean morto) {
+		this.morto = morto;
+	}
+
 	public int getPosx() {
 		return posx;
 	}
@@ -32,23 +41,24 @@ public class Heroi {
 		posx=1;
 		posy=1;
 		armado=false;
+		morto = false;
 	}
 	
-	public void move_heroi(int direcao){
-		// 0 - N, 1 - E, 2 - S, 3 - O
+	public void move_heroi(char direcao){
+		// W - N, A - E, S - S, D - O
 		
 		switch(direcao)
 		{
-		case 0 :
+		case 'w':
 			posy=posy-1;
 			break;
-		case 1 : 
+		case 'a': 
 			posx=posx+1;
 			break;
-		case 2 :
+		case 's':
 			posy=posy+1;
 			break;
-		case 3 : 
+		case 'd': 
 			posx=posx-1;
 			break;
 		default :
