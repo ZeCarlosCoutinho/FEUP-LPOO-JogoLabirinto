@@ -1,20 +1,7 @@
 
-public class Espada {
-	private int posx, posy;
+public class Espada extends SerInanimado{
 	private boolean na_mao;
 	
-	public int getPosx() {
-		return posx;
-	}
-	public void setPosx(int posx) {
-		this.posx = posx;
-	}
-	public int getPosy() {
-		return posy;
-	}
-	public void setPosy(int posy) {
-		this.posy = posy;
-	}
 	public boolean isNa_mao() {
 		return na_mao;
 	}
