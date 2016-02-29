@@ -3,6 +3,14 @@ public class Saida {
 	private int posx, posy;
 	private boolean chegou_heroi;
 	
+	public boolean isChegou_heroi() {
+		return chegou_heroi;
+	}
+
+	public void setChegou_heroi(boolean chegou_heroi) {
+		this.chegou_heroi = chegou_heroi;
+	}
+
 	public int getPosx() {
 		return posx;
 	}

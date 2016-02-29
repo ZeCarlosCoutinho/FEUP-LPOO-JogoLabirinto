@@ -6,6 +6,54 @@ public class Labirinto {
 	private Dragao dragon;
 	private Saida exit;
 	private Espada sword;
+	public int getTamx() {
+		return tamx;
+	}
+
+	public void setTamx(int tamx) {
+		this.tamx = tamx;
+	}
+
+	public int getTamy() {
+		return tamy;
+	}
+
+	public void setTamy(int tamy) {
+		this.tamy = tamy;
+	}
+
+	public Heroi getHero() {
+		return hero;
+	}
+
+	public void setHero(Heroi hero) {
+		this.hero = hero;
+	}
+
+	public Dragao getDragon() {
+		return dragon;
+	}
+
+	public void setDragon(Dragao dragon) {
+		this.dragon = dragon;
+	}
+
+	public Saida getExit() {
+		return exit;
+	}
+
+	public void setExit(Saida exit) {
+		this.exit = exit;
+	}
+
+	public Espada getSword() {
+		return sword;
+	}
+
+	public void setSword(Espada sword) {
+		this.sword = sword;
+	}
+
 	public char tabuleiro[][] = new char[tamx][tamy];
 		
 	// construtor
@@ -121,7 +169,10 @@ public class Labirinto {
 			return true;
 		case 'S':	//Andar para a saida
 			if(dragon.isMorto())
+			{
+				exit.setChegou_heroi(true);
 				return true;
+			}
 			else
 				return false;
 		default:

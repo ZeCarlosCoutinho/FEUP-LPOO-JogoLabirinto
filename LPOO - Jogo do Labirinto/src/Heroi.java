@@ -53,13 +53,13 @@ public class Heroi {
 			posy=posy-1;
 			break;
 		case 'a': 
-			posx=posx+1;
+			posx=posx-1;
 			break;
 		case 's':
 			posy=posy+1;
 			break;
 		case 'd': 
-			posx=posx-1;
+			posx=posx+1;
 			break;
 		default :
 			break;
