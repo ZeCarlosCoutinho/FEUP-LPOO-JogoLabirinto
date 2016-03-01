@@ -1,3 +1,4 @@
+package logic;
 
 public class Espada extends SerInanimado{
 	private boolean na_mao;
@@ -13,5 +14,6 @@ public class Espada extends SerInanimado{
 		posx=1;
 		posy=8;
 		na_mao=false;
+		porcima = null;
 	}
 }

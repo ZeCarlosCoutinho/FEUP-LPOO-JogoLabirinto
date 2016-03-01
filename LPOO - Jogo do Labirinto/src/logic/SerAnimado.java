@@ -1,7 +1,8 @@
+package logic;
+
 
 public class SerAnimado extends Elemento{
 	protected boolean alive;
-
 	public boolean isAlive() {
 		return alive;
 	}
@@ -33,5 +34,4 @@ public class SerAnimado extends Elemento{
 		return;
 	}
 	
-	//FALTA Função que gera posição random
 }

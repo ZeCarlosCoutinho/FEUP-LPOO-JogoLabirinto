@@ -1,3 +1,4 @@
+package logic;
 
 public class Saida extends SerInanimado{
 	private boolean chegou_heroi;
@@ -14,5 +15,6 @@ public class Saida extends SerInanimado{
 		posx=9;
 		posy=5;	
 		chegou_heroi = false;
+		porcima = null;
 	}
 }

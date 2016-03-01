@@ -1,3 +1,4 @@
+package logic;
 
 public class SerInanimado extends Elemento{
 	protected SerAnimado porcima;
@@ -8,5 +9,10 @@ public class SerInanimado extends Elemento{
 
 	public void setPorcima(SerAnimado porcima) {
 		this.porcima = porcima;
+	}
+	
+	public void resetPorcima()
+	{
+		this.porcima = null;
 	}
 }

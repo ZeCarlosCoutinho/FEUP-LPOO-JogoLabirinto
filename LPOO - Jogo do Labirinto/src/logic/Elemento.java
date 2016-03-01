@@ -1,3 +1,4 @@
+package logic;
 
 public class Elemento {
 	protected int posx, posy;

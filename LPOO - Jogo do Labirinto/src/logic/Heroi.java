@@ -1,3 +1,4 @@
+package logic;
 
 public class Heroi extends SerAnimado{
 	private boolean armado;
