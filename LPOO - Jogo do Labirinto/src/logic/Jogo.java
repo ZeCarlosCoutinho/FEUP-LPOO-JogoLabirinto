@@ -1,5 +1,6 @@
 package logic;
 import java.util.Random; //Ainda não se usa, mas servirá para mover random o Dragao
+import java.lang.*;
 
 public class Jogo {
 
@@ -46,6 +47,19 @@ public class Jogo {
 		
 		//Move o Heroi
 		tab.move_SerAnimado(tab.getHero(), direcao_int);
+		
+		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
+		{
+			setGame_over(true);
+			setWin(true);
+			return;
+		}
+		if(!(tab.getHero().isAlive())) //Se o heroi estiver morto
+		{
+			setGame_over(true);
+			setWin(false);
+			return;
+		}
 		
 		//Move o Dragao
 		tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));

@@ -1,5 +1,5 @@
 import logic.Jogo;
-import cli.CommandLine;;
+import cli.CommandLine;
 
 public class Start {
 	public static void main(String[] args)

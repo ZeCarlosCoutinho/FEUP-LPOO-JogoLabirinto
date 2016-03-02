@@ -198,7 +198,10 @@ public class Labirinto {
 				return true;
 			}
 			else if(npc == dragon)
+			{
+				preenche_dragao(dragon);
 				return false;
+			}
 			else
 				return false;
 		default:
@@ -289,18 +292,24 @@ public class Labirinto {
 	
 	public boolean verifica_presenca_dragao(Elemento elem) //Verifica se está um dragão na casa adjacente a ELEM
 	{
-		if(board.getChar(elem.getPosx()+1, elem.getPosy()) == 'D' || board.getChar(elem.getPosx()+1, elem.getPosy()) == 'F')//Verifica à direita
-			return true;
-		else if(board.getChar(elem.getPosx()-1, elem.getPosy()) == 'D' || board.getChar(elem.getPosx()-1, elem.getPosy()) == 'F')//Verifica à esquerda
-			return true;
-		else if(board.getChar(elem.getPosx(), elem.getPosy()+1) == 'D' || board.getChar(elem.getPosx(), elem.getPosy()+1) == 'F')//Verifica em baixo
-			return true;
-		else if(board.getChar(elem.getPosx(), elem.getPosy()-1) == 'D' || board.getChar(elem.getPosx(), elem.getPosy() -1) == 'F')//Verifica em cima
+		if(verifica_adjacencia(elem, dragon))	//Se eles estiverem adjacentes
 			return true;
 		else
 			return false;
 	}
 	
+	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2)
+	{
+		if(Math.abs(elem1.getPosx()-elem2.getPosx()) == 1 && elem1.getPosy() == elem2.getPosy())
+		{
+			//Estao adjacentes
+			return true;
+		}
+		else if(Math.abs(elem1.getPosy()-elem2.getPosy()) == 1 && elem1.getPosx() == elem2.getPosx())
+			return true;
+		else
+			return false;
+	}
 	public void move_SerAnimado(SerAnimado npc, int direcao)
 	{
 		npc.move(direcao);	//altera a posição do npc
