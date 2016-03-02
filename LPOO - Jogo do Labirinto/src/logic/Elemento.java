@@ -19,6 +19,13 @@ public class Elemento {
 		this.posy = posy;
 	}
 
+	public boolean isSobreposto(Elemento elem)
+	{
+		if(posx == elem.getPosx() && posy == elem.getPosy() && elem != this)
+			return true;
+		else
+			return false;
+	}
 	public Elemento()
 	{
 		posx = 0;

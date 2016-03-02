@@ -1,6 +1,6 @@
 package logic;
 import java.util.Random; //Ainda não se usa, mas servirá para mover random o Dragao
-import java.lang.*;
+
 
 public class Jogo {
 
@@ -44,6 +44,8 @@ public class Jogo {
 	public void turno(char direcao)//direcao é fornecida pela interface com o jogador
 	{	
 		int direcao_int = direcao_chartoint(direcao); //Converte direcao para um int
+		
+		tab.getSword().setPorcima(tab.verifica_sobreposicao(tab.getSword())); //Verifica se ha alguma coisa por cima da espada
 		
 		//Move o Heroi
 		tab.move_SerAnimado(tab.getHero(), direcao_int);

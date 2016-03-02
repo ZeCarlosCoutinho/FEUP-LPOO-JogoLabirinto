@@ -51,7 +51,7 @@ public class Labirinto {
 	public Labirinto()
 	{
 		hero = new Heroi();
-		dragon = new Dragao(1, 7);
+		dragon = new Dragao(1, 8);
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
@@ -111,6 +111,7 @@ public class Labirinto {
 				{
 					dragon.setAlive(false);
 					sword.resetPorcima(); //Retira o SerAnimado de cima
+					apaga_npc(dragon);
 					return true;
 				}
 				else
@@ -133,6 +134,7 @@ public class Labirinto {
 				if(hero.isArmado())
 				{
 					dragon.setAlive(false);
+					apaga_npc(dragon);
 					return true;
 				}
 				else
@@ -153,6 +155,7 @@ public class Labirinto {
 					if(hero.isArmado())
 					{
 						dragon.setAlive(false);
+						apaga_npc(dragon);
 						return true;
 					}
 					else
@@ -171,6 +174,7 @@ public class Labirinto {
 					if(hero.isArmado())
 					{
 						dragon.setAlive(false);
+						apaga_npc(dragon);
 						return true;
 					}
 					else
@@ -269,6 +273,12 @@ public class Labirinto {
 			return;
 	}
 	
+	public void apaga_npc(Elemento elem)
+	{
+		board.setChar(' ', elem.getPosx(), elem.getPosy());
+		return;
+	}
+	
 	public void clean_track(Elemento elem, int direcao) //limpa o rasto deixado pelo SerAnimado
 	{
 		switch(direcao)
@@ -310,8 +320,21 @@ public class Labirinto {
 		else
 			return false;
 	}
+	
+	public SerAnimado verifica_sobreposicao(SerInanimado elem)
+	{
+		if(elem.isSobreposto(hero))
+			return hero;
+		else if (elem.isSobreposto(dragon))
+			return dragon;
+		else
+			return null;
+	}
+	
 	public void move_SerAnimado(SerAnimado npc, int direcao)
 	{
+		if(!(npc.isAlive()))	//Se tiver morto não se mexe
+			return;
 		npc.move(direcao);	//altera a posição do npc
 		if(move_para_casa(posCharacter(npc), npc)) //Se o npc se puder mover
 		{
