@@ -51,7 +51,7 @@ public class Labirinto {
 	public Labirinto()
 	{
 		hero = new Heroi();
-		dragon = new Dragao();
+		dragon = new Dragao(1, 7);
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
@@ -104,7 +104,7 @@ public class Labirinto {
 		{
 		case 'X':	//Andar para uma parede
 			return false;
-		case 'D':	//Andar para o dragao
+		case 'D':	//Andar para o dragao (não faz muito sentido)
 			if(npc == hero)	//Heroi
 			{
 				if(hero.isArmado())
@@ -116,7 +116,7 @@ public class Labirinto {
 				else
 				{
 					hero.setAlive(false);
-					return false;
+					return true;
 				}
 			}
 			else if(npc == dragon)//NPC é o Dragao
@@ -127,12 +127,60 @@ public class Labirinto {
 				return false;
 		case ' ':	//Andar para um espaço em branco
 			sword.resetPorcima(); //Retira o SerAnimado de cima
+			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player nao a tiver apanhado)
+			if(verifica_presenca_dragao(hero)) //Batalha entre Heroi e Dragao
+			{
+				if(hero.isArmado())
+				{
+					dragon.setAlive(false);
+					return true;
+				}
+				else
+				{
+					hero.setAlive(false);
+					return true;
+				}
+			}
 			return true;
 		case 'E':	//Andar para a espada
-			hero.setArmado(true);
-			sword.setNa_mao(true);
-			sword.setPorcima(hero);
-			return true;
+			if(npc == hero)
+			{
+				hero.setArmado(true);
+				sword.setNa_mao(true);
+				sword.setPorcima(hero);
+				if(verifica_presenca_dragao(hero))//Batalha entre Heroi e Dragao
+				{
+					if(hero.isArmado())
+					{
+						dragon.setAlive(false);
+						return true;
+					}
+					else
+					{
+						hero.setAlive(false);
+						return true;
+					}
+				}
+				return true;
+			}
+			else if(npc == dragon)
+			{
+				sword.setPorcima(dragon);
+				if(verifica_presenca_dragao(hero)) //Batalha entre Heroi e Dragao
+				{
+					if(hero.isArmado())
+					{
+						dragon.setAlive(false);
+						return true;
+					}
+					else
+					{
+						hero.setAlive(false);
+						return true;
+					}
+				}
+				return true;
+			}
 		case 'S':	//Andar para a saida
 			if(!(dragon.isAlive()))
 			{
@@ -141,6 +189,16 @@ public class Labirinto {
 				sword.resetPorcima(); //Retira o SerAnimado de cima
 				return true;
 			}
+			else
+				return false;
+		case 'F':
+			if(npc == hero)
+			{
+				hero.setAlive(false);
+				return true;
+			}
+			else if(npc == dragon)
+				return false;
 			else
 				return false;
 		default:
@@ -166,12 +224,17 @@ public class Labirinto {
 	public void preenche_dragao(Dragao d)
 	{
 		if(d.isAlive())
-			board.setChar('D', d.getPosx(), d.getPosy());
+		{
+			if(sword.getPorcima() == d)
+				board.setChar('F', d.getPosx(), d.getPosy());
+			else
+				board.setChar('D', d.getPosx(), d.getPosy());
+		}
 	}
 	
 	public void preenche_espada(Espada e)
 	{
-		if(!(e.isNa_mao()))
+		if(!(e.isNa_mao()) && e.getPorcima() == null) //Se o heroi ainda nao tiver apanhado, e nao tiver nada por cima
 			board.setChar('E', e.getPosx(), e.getPosy());
 	}
 	
@@ -202,6 +265,7 @@ public class Labirinto {
 		else
 			return;
 	}
+	
 	public void clean_track(Elemento elem, int direcao) //limpa o rasto deixado pelo SerAnimado
 	{
 		switch(direcao)
@@ -222,13 +286,51 @@ public class Labirinto {
 			break;
 		}
 	}
+	
+	public boolean verifica_presenca_dragao(Elemento elem) //Verifica se está um dragão na casa adjacente a ELEM
+	{
+		if(board.getChar(elem.getPosx()+1, elem.getPosy()) == 'D' || board.getChar(elem.getPosx()+1, elem.getPosy()) == 'F')//Verifica à direita
+			return true;
+		else if(board.getChar(elem.getPosx()-1, elem.getPosy()) == 'D' || board.getChar(elem.getPosx()-1, elem.getPosy()) == 'F')//Verifica à esquerda
+			return true;
+		else if(board.getChar(elem.getPosx(), elem.getPosy()+1) == 'D' || board.getChar(elem.getPosx(), elem.getPosy()+1) == 'F')//Verifica em baixo
+			return true;
+		else if(board.getChar(elem.getPosx(), elem.getPosy()-1) == 'D' || board.getChar(elem.getPosx(), elem.getPosy() -1) == 'F')//Verifica em cima
+			return true;
+		else
+			return false;
+	}
+	
 	public void move_SerAnimado(SerAnimado npc, int direcao)
 	{
-		if(move_para_casa(posCharacter(npc, direcao), npc)) //Se o npc se puder mover
+		npc.move(direcao);	//altera a posição do npc
+		if(move_para_casa(posCharacter(npc), npc)) //Se o npc se puder mover
 		{
-			npc.move(direcao);	//altera a posição do npc
 			clean_track(npc, direcao); //limpa o rasto
+			preenche_espada(sword);
 			preenche_npc(npc);
+		}
+		else
+		{
+			switch(direcao)	//Desfaz o movimento do Elemento
+			{
+			case 0:
+				direcao = 2;
+				break;
+			case 1:
+				direcao = 3;
+				break;
+			case 2:
+				direcao = 0;
+				break;
+			case 3:
+				direcao = 1;
+				break;
+			default:
+				break;
+			}
+			
+			npc.move(direcao);
 		}
 		return;
 	}

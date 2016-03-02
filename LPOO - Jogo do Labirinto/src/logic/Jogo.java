@@ -6,6 +6,8 @@ public class Jogo {
 	private Labirinto tab;
 	private boolean game_over;
 	private boolean win;
+	private Random generator;
+	
 	public boolean isWin() {
 		return win;
 	}
@@ -35,17 +37,18 @@ public class Jogo {
 		tab = new Labirinto();
 		game_over = false;
 		win = false;
+		generator = new Random();
 	}
 	
 	public void turno(char direcao)//direcao é fornecida pela interface com o jogador
 	{	
 		int direcao_int = direcao_chartoint(direcao); //Converte direcao para um int
 		
-		//Move o Dragao
-		//FALTA FAZER (DEPOIS)
-		
 		//Move o Heroi
-		tab.move_SerAnimado(tab.getHero(), direcao_int); //Move o heroi
+		tab.move_SerAnimado(tab.getHero(), direcao_int);
+		
+		//Move o Dragao
+		tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
 		
 		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
 		{

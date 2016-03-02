@@ -14,6 +14,8 @@ public class Start {
 			jogar.turno(cmd.pede_movimentacao());
 		}
 		
+		cmd.display(jogar.getTab().getBoard());
+
 		if(jogar.isWin())
 			System.out.println("GANHASTE!!!!");
 		else

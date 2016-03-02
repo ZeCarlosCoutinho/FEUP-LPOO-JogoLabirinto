@@ -7,4 +7,11 @@ public class Dragao extends SerAnimado{
 		posy=3;	
 		alive =true;
 	}
+	
+	public Dragao(int x, int y)
+	{
+		posx = x;
+		posy = y;
+		alive = true;
+	}
 }
