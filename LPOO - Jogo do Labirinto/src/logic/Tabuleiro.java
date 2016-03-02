@@ -2,16 +2,7 @@ package logic;
 
 public class Tabuleiro {
 	private int tamx, tamy;
-	private char board[][] = {{'X','X','X','X','X','X','X','X','X','X'},
-							{'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-							{'X',' ','X','X',' ','X',' ','X',' ','X'},
-							{'X',' ','X','X',' ','X',' ','X',' ','X'},
-							{'X',' ','X','X',' ','X',' ','X',' ','X'},
-							{'X',' ',' ',' ',' ',' ',' ','X',' ','X'},
-							{'X',' ','X','X',' ','X',' ','X',' ','X'},
-							{'X',' ','X','X',' ','X',' ','X',' ','X'},
-							{'X',' ','X','X',' ',' ',' ',' ',' ','X'},
-							{'X','X','X','X','X','X','X','X','X','X'}};
+	private char board[][];
 	
 	public Tabuleiro(int tamx, int tamy)
 	{
@@ -61,5 +52,56 @@ public class Tabuleiro {
 			board[x][y] = c;
 			return;
 		}
+	}
+	
+	public void preenche_tabuleiro()
+	{
+		for(int j = 0; j < tamy; j++)	//Enche tabuleiro de X
+		{
+			for(int i = 0; i < tamx; i++)
+			{
+				board[i][j] = 'X';
+			}
+		}
+		
+		abre_linha(1, 1, true, 8);
+		abre_linha(1, 5, true, 6);
+		abre_linha(4, 8, true, 5);
+		abre_linha(1, 1, false, 8);
+		abre_linha(4, 1, false, 8);
+		abre_linha(6, 1, false, 8);
+		abre_linha(8, 1, false, 8);
+		
+	}
+	
+	public void abre_linha(int x, int y, boolean isHorizontal, int length) //Abre um caminho de espaços brancos. Pode dar jeito se gerarmos um tabuleiro aleatorio
+	{
+		if(x<0 || y <0 || x > tamx || y > tamy) //verificações de modo a que não faça os caminhos fora dos limites
+			return;
+		if(isHorizontal)
+		{
+			if(x+length > tamx)
+				return;
+			else			//Escreve a linha de espaços
+			{
+				for(int i = 0; i < length; i++)
+				{
+					setChar(' ', x+i, y);
+				}
+			}
+		}
+		else
+		{
+			if(y+length > tamy)
+				return;
+			else			//Escreve a linha de espaços
+			{
+				for(int i = 0; i < length; i++)
+				{
+					setChar(' ', x, y+i);
+				}
+			}
+		}
+				
 	}
 }

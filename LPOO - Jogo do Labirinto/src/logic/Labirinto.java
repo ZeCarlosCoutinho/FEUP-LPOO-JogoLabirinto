@@ -55,12 +55,14 @@ public class Labirinto {
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
-		//FALTA PREENCHER OS BONECOS NO TABULEIRO
+		
+		preenche_tab_default();
 	}
 	
 	//Coloca os Seres no tabuleiro
 	public void preenche_tab_default()
 	{	
+		board.preenche_tabuleiro();
 		preenche_heroi(hero);
 		preenche_dragao(dragon);
 		preenche_saida(exit);
@@ -173,6 +175,33 @@ public class Labirinto {
 			board.setChar('E', e.getPosx(), e.getPosy());
 	}
 	
+	public void preenche_npc(Elemento elem)		//função que escreve um Elemento no board
+	{
+		if(elem == hero)
+		{
+			preenche_heroi(hero);
+			return;
+		}
+		else if(elem == dragon)
+		{
+			preenche_dragao(dragon);			//DUVIDA: SE PASSARMOS elem COMO ARGUMENTO (e elem for um dragao)
+												//O PROGRAMA VAI USAR OS DADOS DE DRAGAO? OU VAI DESCARTALOS E ASSUMIR
+												//elem COM APENAS OS ATRIBUTOS DE elemento?
+			return;
+		}
+		else if(elem == sword)
+		{
+			preenche_espada(sword);
+			return;
+		}
+		else if(elem == exit)
+		{
+			preenche_saida(exit);
+			return;
+		}
+		else
+			return;
+	}
 	public void clean_track(Elemento elem, int direcao) //limpa o rasto deixado pelo SerAnimado
 	{
 		switch(direcao)
@@ -199,6 +228,7 @@ public class Labirinto {
 		{
 			npc.move(direcao);	//altera a posição do npc
 			clean_track(npc, direcao); //limpa o rasto
+			preenche_npc(npc);
 		}
 		return;
 	}

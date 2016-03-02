@@ -1,13 +1,25 @@
 import logic.Jogo;
+import cli.CommandLine;;
 
 public class Start {
 	public static void main(String[] args)
 	{
 		Jogo jogar = new Jogo();
+		CommandLine cmd = new CommandLine();
+		
 		while(!(jogar.isGame_over()))	//Enquanto não for game_over
 		{
-			//FAZER SEQUENCIA DE FUNÇÕES DE INTERFACE COM O JOGADOR ENQUANTO JOGA
+			cmd.display(jogar.getTab().getBoard());
+			
+			jogar.turno(cmd.pede_movimentacao());
 		}
+		
+		if(jogar.isWin())
+			System.out.println("GANHASTE!!!!");
+		else
+			System.out.println("PERDESTE. NOOB");
+		
 		return;
 	}
+	
 }
