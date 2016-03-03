@@ -1,5 +1,5 @@
 package logic;
-import java.util.Random; //Ainda n�o se usa, mas servir� para mover random o Dragao
+import java.util.Random; //Mover o Dragão random
 
 
 public class Jogo {
@@ -7,7 +7,7 @@ public class Jogo {
 	private Labirinto tab;
 	private boolean game_over;
 	private boolean win;
-	private int game_mode; //0 - dragao parado; 1 - dragao mover; 2- dragao que adormece
+	private int game_mode; //0 - dragão parado; 1 - dragão move-se; 2- dragão adormece
 	private Random generator;
 	
 	public boolean isWin() {
@@ -53,9 +53,9 @@ public class Jogo {
 		generator = new Random();
 	}
 	
-	public void turno(char direcao)//direcao � fornecida pela interface com o jogador
+	public void turno(char direcao)//direção é fornecida pela interface com o jogador
 	{	
-		int direcao_int = direcao_chartoint(direcao); //Converte direcao para um int
+		int direcao_int = direcao_chartoint(direcao); //Converte direção para um int
 		
 		
 		
@@ -64,25 +64,25 @@ public class Jogo {
 		
 		
 		
-		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
+		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saída depois de matar o dragao
 		{
 			setGame_over(true);
 			setWin(true);
 			return;
 		}
-		if(!(tab.getHero().isAlive())) //Se o heroi estiver morto
+		if(!(tab.getHero().isAlive())) //Se o herói estiver morto
 		{
 			setGame_over(true);
 			setWin(false);
 			return;
 		}
 		
-		//Move o Dragao
-		if(game_mode == 1) //Modo jogo 1, simplesmente move o dragao
+		//Move o Dragão
+		if(game_mode == 1) //Modo jogo 1, simplesmente move o dragão
 			tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
 		else if(game_mode == 2)
 		{
-			if(!modificar_estado_drag�o(tab.getDragon())) //Modo jogo 2, move e pode muda-lo de estado
+			if(!modificar_estado_dragao(tab.getDragon())) //Modo jogo 2, move e pode mudá-lo de estado
 			{
 				if(!(tab.getDragon().isSleeping()))
 					tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
@@ -90,13 +90,13 @@ public class Jogo {
 		}
 		
 		
-		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
+		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saida depois de matar o dragao
 		{
 			setGame_over(true);
 			setWin(true);
 			return;
 		}
-		if(!(tab.getHero().isAlive())) //Se o heroi estiver morto
+		if(!(tab.getHero().isAlive())) //Se o herói estiver morto
 		{
 			setGame_over(true);
 			setWin(false);
@@ -108,19 +108,19 @@ public class Jogo {
 		return;
 	}
 	
-	public boolean modificar_estado_drag�o(Dragao dragon) //modifica aleatoriamente o estado do dragao
+	public boolean modificar_estado_dragao(Dragao dragon) //modifica aleatoriamente o estado do dragão
 	{
 		if(generator.nextBoolean()) //Se decidir modificar
 		{
 			if(dragon.isSleeping())
-				dragon.setSleeping(false); //Acorda o dragao
+				dragon.setSleeping(false); //Acorda o dragão
 			else
-				dragon.setSleeping(true); // Adormece o dragao
+				dragon.setSleeping(true); // Adormece o dragão
 			
-			return true; //Mudou o estado do dragao
+			return true; //Mudou o estado do dragão
 		}
 		else
-			return false; //N�o mudou o estado do dragao
+			return false; //Não mudou o estado do dragão
 	}
 	
 	public int direcao_chartoint(char direcao)
@@ -137,7 +137,7 @@ public class Jogo {
 		case 'a':
 			return 3;
 		default:
-			return 4; //PODE SER NECESS�RIO UM THROW
+			return 4; //PODE SER NECESSÁRIO UM THROW
 		}
 	}
 }

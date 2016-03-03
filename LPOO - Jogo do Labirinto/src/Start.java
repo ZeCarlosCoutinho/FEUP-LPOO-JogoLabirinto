@@ -9,7 +9,7 @@ public class Start {
 		
 		jogar.setGame_mode(cmd.pede_modo_jogo());
 		
-		while(!(jogar.isGame_over()))	//Enquanto n„o for game_over
+		while(!(jogar.isGame_over()))	//Enquanto n√£o for game_over
 		{
 			cmd.display(jogar.getTab().getBoard());
 			
@@ -24,7 +24,7 @@ public class Start {
 		if(jogar.isWin())
 			System.out.println("GANHASTE!!!!");
 		else
-			System.out.println("PERDESTE. NOOB");
+			System.out.println("PERDESTE. NOOB!");
 		
 		return;
 	}

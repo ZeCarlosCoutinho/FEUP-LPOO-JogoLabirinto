@@ -35,7 +35,7 @@ public class Tabuleiro {
 		this.board = board;
 	}
 	
-	public char getChar(int x, int y)		//Devolve a char da posição (x,y)
+	public char getChar(int x, int y)		//Devolve a char da posiÃ§Ã£o (x,y)
 	{
 		if (x<0 || x>tamx || y<0 || y>tamy) //Out of bounds
 			return 'N';
@@ -43,7 +43,7 @@ public class Tabuleiro {
 			return board[x][y];
 	}
 	
-	public void setChar(char c, int x, int y)	//Coloca a char na posição (x,y)
+	public void setChar(char c, int x, int y)	//Coloca a char na posiÃ§Ã£o (x,y)
 	{
 		if (x<0 || x>tamx || y<0 || y>tamy) //Out of bounds
 			return;
@@ -74,15 +74,15 @@ public class Tabuleiro {
 		
 	}
 	
-	public void abre_linha(int x, int y, boolean isHorizontal, int length) //Abre um caminho de espaços brancos. Pode dar jeito se gerarmos um tabuleiro aleatorio
+	public void abre_linha(int x, int y, boolean isHorizontal, int length) //Abre um caminho de espaÃ§os brancos. Pode dar jeito se gerarmos um tabuleiro aleatÃ³rio
 	{
-		if(x<0 || y <0 || x > tamx || y > tamy) //verificações de modo a que não faça os caminhos fora dos limites
+		if(x<0 || y <0 || x > tamx || y > tamy) //verificaÃ§Ãµes de modo a que nÃ£o faÃ§a os caminhos fora dos limites
 			return;
 		if(isHorizontal)
 		{
 			if(x+length > tamx)
 				return;
-			else			//Escreve a linha de espaços
+			else			//Escreve a linha de espaÃ§os
 			{
 				for(int i = 0; i < length; i++)
 				{
@@ -94,7 +94,7 @@ public class Tabuleiro {
 		{
 			if(y+length > tamy)
 				return;
-			else			//Escreve a linha de espaços
+			else			//Escreve a linha de espaÃ§os
 			{
 				for(int i = 0; i < length; i++)
 				{
