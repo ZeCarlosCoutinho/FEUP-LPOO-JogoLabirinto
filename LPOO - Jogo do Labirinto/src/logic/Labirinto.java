@@ -56,12 +56,12 @@ public class Labirinto {
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
 		
-		check_list(); //Faz uma sÈrie de verificaÁıes
+		check_list(); //Faz uma s√©rie de verifica√ß√µes
 		
 		preenche_tab_default();
 	}
 	
-	//Coloca os Seres no tabuleiro
+	//Coloca os seres no tabuleiro
 	public void preenche_tab_default()
 	{	
 		board.preenche_tabuleiro();
@@ -78,12 +78,12 @@ public class Labirinto {
 		return board.getChar(x, y);
 	}
 	
-	public char posCharacter(Elemento elem)	//Retorna o char na posicao do Elemento
+	public char posCharacter(Elemento elem)	//Retorna o char na posi√ß√£o do Elemento
 	{
 		return retorna_casa(elem.getPosx(), elem.getPosy());
 	}
 	
-	public char posCharacter(Elemento elem, int direcao) //Retorna o char na casa seguinte consoante a direÁ„o e posiÁ„o do Elemento
+	public char posCharacter(Elemento elem, int direcao) //Retorna o char na casa seguinte consoante a dire√ß√£o e posi√ß√£o do Elemento
 	{
 		switch(direcao)
 		{
@@ -106,8 +106,8 @@ public class Labirinto {
 		{
 		case 'X':	//Andar para uma parede
 			return false;
-		case 'D':	//Andar para o dragao (n„o faz muito sentido)
-			if(npc == hero)	//Heroi
+		case 'D':	//Andar para o drag√£o (n√£o faz muito sentido)
+			if(npc == hero)	//Her√≥i
 			{
 				if(hero.isArmado())
 				{
@@ -122,7 +122,7 @@ public class Labirinto {
 					return true;
 				}
 			}
-			else if(npc == dragon)//NPC È o Dragao
+			else if(npc == dragon)//NPC √© o Dragao
 			{
 				return false;
 			}
@@ -146,10 +146,10 @@ public class Labirinto {
 				return false;
 			else
 				return false;
-		case ' ':	//Andar para um espaÁo em branco
+		case ' ':	//Andar para um espa√ßo em branco
 			check_list();
-			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player nao a tiver apanhado)
-			if(verifica_presenca_dragao(hero)) //Batalha entre Heroi e Dragao
+			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player n√£o a tiver apanhado)
+			if(verifica_presenca_dragao(hero)) //Batalha entre Her√≥i e Drag√£o
 			{
 				if(hero.isArmado())
 				{
@@ -160,7 +160,7 @@ public class Labirinto {
 				}
 				else
 				{
-					if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+					if(dragon.isSleeping()) //Se o drag√£o estiver a dormir, ele n√£o mata o jogador
 						return false;
 					else
 					{
@@ -176,7 +176,7 @@ public class Labirinto {
 				hero.setArmado(true);
 				sword.setNa_mao(true);
 				sword.setPorcima(hero);
-				if(verifica_presenca_dragao(hero))//Batalha entre Heroi e Dragao
+				if(verifica_presenca_dragao(hero))//Batalha entre Her√≥i e Drag√£o
 				{
 					if(hero.isArmado())
 					{
@@ -187,7 +187,7 @@ public class Labirinto {
 					}
 					else
 					{
-						if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+						if(dragon.isSleeping()) //Se o drag√£o estiver a dormir, ele n√£o mata o jogador
 							return false;
 						else
 						{
@@ -201,7 +201,7 @@ public class Labirinto {
 			else if(npc == dragon)
 			{
 				sword.setPorcima(dragon);
-				if(verifica_presenca_dragao(hero)) //Batalha entre Heroi e Dragao
+				if(verifica_presenca_dragao(hero)) //Batalha entre Her√≥i e Drag√£o
 				{
 					if(hero.isArmado())
 					{
@@ -212,7 +212,7 @@ public class Labirinto {
 					}
 					else
 					{
-						if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+						if(dragon.isSleeping()) //Se o drag√£o estiver a dormir, ele n√£o mata o jogador
 							return false;
 						else
 						{
@@ -223,7 +223,7 @@ public class Labirinto {
 				}
 				return true;
 			}
-		case 'S':	//Andar para a saida
+		case 'S':	//Andar para a sa√≠da
 			if(!(dragon.isAlive()))
 			{
 				exit.setChegou_heroi(true);
@@ -248,8 +248,7 @@ public class Labirinto {
 				return false;
 		case 'f':
 			//Sim, eu sei que bastava ter um return false em vez disto tudo
-			//No entanto, se for preciso meter alguma feature nova, È mais f·cil se
-			//estiver assim
+			//No entanto, se for preciso meter alguma feature nova, √© mais f√°cil se estiver assim
 			if(npc == hero)
 				return false;
 			else if(npc == dragon)
@@ -299,11 +298,11 @@ public class Labirinto {
 	
 	public void preenche_espada(Espada e)
 	{
-		if(!(e.isNa_mao()) && e.getPorcima() == null) //Se o heroi ainda nao tiver apanhado, e nao tiver nada por cima
+		if(!(e.isNa_mao()) && e.getPorcima() == null) //Se o her√≥i ainda n√£o tiver apanhado, e nao tiver nada por cima
 			board.setChar('E', e.getPosx(), e.getPosy());
 	}
 	
-	public void preenche_npc(Elemento elem)		//funÁ„o que escreve um Elemento no board
+	public void preenche_npc(Elemento elem)		//fun√ß√£o que escreve um Elemento no board
 	{
 		if(elem == hero)
 		{
@@ -312,8 +311,8 @@ public class Labirinto {
 		}
 		else if(elem == dragon)
 		{
-			preenche_dragao(dragon);			//DUVIDA: SE PASSARMOS elem COMO ARGUMENTO (e elem for um dragao)
-												//O PROGRAMA VAI USAR OS DADOS DE DRAGAO? OU VAI DESCARTALOS E ASSUMIR
+			preenche_dragao(dragon);			//DUVIDA: SE PASSARMOS elem COMO ARGUMENTO (e elem for um drag√£o)
+												//O PROGRAMA VAI USAR OS DADOS DE DRAGAO? OU VAI DESCARTA-LOS E ASSUMIR
 												//elem COM APENAS OS ATRIBUTOS DE elemento?
 			return;
 		}
@@ -362,20 +361,20 @@ public class Labirinto {
 			board.setChar(' ', elem.getPosx(), elem.getPosy()+1);//O rasto ficou 1 casa abaixo
 			break;
 		case 1://Oeste
-			board.setChar(' ', elem.getPosx()-1, elem.getPosy());//O rasto ficou 1 casa ‡ esquerda
+			board.setChar(' ', elem.getPosx()-1, elem.getPosy());//O rasto ficou 1 casa √† esquerda
 			break;
 		case 2://Sul
 			board.setChar(' ', elem.getPosx(), elem.getPosy()-1);//O rasto ficou 1 casa acima
 			break;
 		case 3://Este
-			board.setChar(' ', elem.getPosx()+1, elem.getPosy());//O rasto ficou 1 casa ‡ direita
+			board.setChar(' ', elem.getPosx()+1, elem.getPosy());//O rasto ficou 1 casa √† direita
 			break;
 		default:
 			break;
 		}
 	}
 	
-	public boolean verifica_presenca_dragao(Elemento elem) //Verifica se est· um drag„o na casa adjacente a ELEM
+	public boolean verifica_presenca_dragao(Elemento elem) //Verifica se est√° um drag√£o na casa adjacente a ELEM
 	{
 		if(verifica_adjacencia(elem, dragon))	//Se eles estiverem adjacentes
 			return true;
@@ -387,7 +386,7 @@ public class Labirinto {
 	{
 		if(Math.abs(elem1.getPosx()-elem2.getPosx()) == 1 && elem1.getPosy() == elem2.getPosy())
 		{
-			//Estao adjacentes
+			//Est√£o adjacentes
 			return true;
 		}
 		else if(Math.abs(elem1.getPosy()-elem2.getPosy()) == 1 && elem1.getPosx() == elem2.getPosx())
@@ -406,12 +405,12 @@ public class Labirinto {
 			return null;
 	}
 	
-	public void check_list()		//FunÁ„o que verifica tudo o que È necess·rio antes do turno comeÁar, fazendo as alteraÁıes necess·rias
+	public void check_list()		//Fun√ß√£o que verifica tudo o que √© necess√°rio antes do turno come√ßaar, fazendo as altera√ß√µes necess√°rias
 	{
-		sword.setPorcima(verifica_sobreposicao(sword)); //Verifica se est· algo por cima da espada
+		sword.setPorcima(verifica_sobreposicao(sword)); //Verifica se est√° algo por cima da espada
 		if(sword.getPorcima() == hero)	//Verifica se o heroi apanhou a espada
 			hero.setArmado(true);
-		if(verifica_presenca_dragao(hero)&& !(dragon.isSleeping()))	//Verifica se o heroi È morto pelo drag„o, ou vice versa, caso estejam a distancia de combate
+		if(verifica_presenca_dragao(hero)&& !(dragon.isSleeping()))	//Verifica se o heroi √© morto pelo drag√£o, ou vice versa, caso estejam √† dist√¢ncia de combate
 		{
 			if(hero.isArmado())
 				dragon.setAlive(false);
@@ -419,14 +418,14 @@ public class Labirinto {
 				hero.setAlive(false);
 		}
 		
-		//AINDA N√O SEI SE VALE A PENA INCLUIR A VERIFICACAO SE ESTA NA SAIDA OU NAO
+		//AINDA N√ÉO SEI SE VALE A PENA INCLUIR A VERIFICA√á√ÉO SE EST√Å NA SA√çDA OU N√ÉO
 		return;
 	}
 	public void move_SerAnimado(SerAnimado npc, int direcao)
 	{
-		if(!(npc.isAlive()))	//Se tiver morto n„o se mexe
+		if(!(npc.isAlive()))	//Se tiver morto n√£o se mexe
 			return;
-		npc.move(direcao);	//altera a posiÁ„o do npc
+		npc.move(direcao);	//altera a posi√ß√£o do npc
 		if(move_para_casa(posCharacter(npc), npc)) //Se o npc se puder mover
 		{
 			clean_track(npc, direcao); //limpa o rasto
