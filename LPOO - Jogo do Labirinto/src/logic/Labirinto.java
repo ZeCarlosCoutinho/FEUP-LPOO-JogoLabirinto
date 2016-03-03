@@ -56,6 +56,8 @@ public class Labirinto {
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
 		
+		check_list(); //Faz uma série de verificações
+		
 		preenche_tab_default();
 	}
 	
@@ -110,8 +112,8 @@ public class Labirinto {
 				if(hero.isArmado())
 				{
 					dragon.setAlive(false);
-					sword.resetPorcima(); //Retira o SerAnimado de cima
 					apaga_npc(dragon);
+					check_list();
 					return true;
 				}
 				else
@@ -127,7 +129,7 @@ public class Labirinto {
 			else
 				return false;
 		case ' ':	//Andar para um espaço em branco
-			sword.resetPorcima(); //Retira o SerAnimado de cima
+			check_list();
 			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player nao a tiver apanhado)
 			if(verifica_presenca_dragao(hero)) //Batalha entre Heroi e Dragao
 			{
@@ -135,6 +137,7 @@ public class Labirinto {
 				{
 					dragon.setAlive(false);
 					apaga_npc(dragon);
+					check_list();
 					return true;
 				}
 				else
@@ -156,6 +159,7 @@ public class Labirinto {
 					{
 						dragon.setAlive(false);
 						apaga_npc(dragon);
+						check_list();
 						return true;
 					}
 					else
@@ -175,6 +179,7 @@ public class Labirinto {
 					{
 						dragon.setAlive(false);
 						apaga_npc(dragon);
+						check_list();
 						return true;
 					}
 					else
@@ -190,7 +195,7 @@ public class Labirinto {
 			{
 				exit.setChegou_heroi(true);
 				exit.setPorcima(hero);
-				sword.resetPorcima(); //Retira o SerAnimado de cima
+				check_list();
 				return true;
 			}
 			else
@@ -273,6 +278,23 @@ public class Labirinto {
 			return;
 	}
 	
+	public void preenche_all()
+	{
+		preenche_saida(exit);
+		preenche_espada(sword);
+		preenche_heroi(hero);
+		preenche_dragao(dragon);
+		return;
+	}
+	public void apaga_all()
+	{
+		apaga_npc(exit);
+		apaga_npc(sword);
+		apaga_npc(hero);
+		apaga_npc(dragon);
+		return;
+	}
+	
 	public void apaga_npc(Elemento elem)
 	{
 		board.setChar(' ', elem.getPosx(), elem.getPosy());
@@ -323,14 +345,30 @@ public class Labirinto {
 	
 	public SerAnimado verifica_sobreposicao(SerInanimado elem)
 	{
-		if(elem.isSobreposto(hero))
+		if(elem.isSobreposto(hero) && hero.isAlive())
 			return hero;
-		else if (elem.isSobreposto(dragon))
+		else if (elem.isSobreposto(dragon) && dragon.isAlive())
 			return dragon;
 		else
 			return null;
 	}
 	
+	public void check_list()		//Função que verifica tudo o que é necessário antes do turno começar, fazendo as alterações necessárias
+	{
+		sword.setPorcima(verifica_sobreposicao(sword)); //Verifica se está algo por cima da espada
+		if(sword.getPorcima() == hero)	//Verifica se o heroi apanhou a espada
+			hero.setArmado(true);
+		if(verifica_presenca_dragao(hero))	//Verifica se o heroi é morto pelo dragão, ou vice versa, caso estejam a distancia de combate
+		{
+			if(hero.isArmado())
+				dragon.setAlive(false);
+			else
+				hero.setAlive(false);
+		}
+		
+		//AINDA NÃO SEI SE VALE A PENA INCLUIR A VERIFICACAO SE ESTA NA SAIDA OU NAO
+		return;
+	}
 	public void move_SerAnimado(SerAnimado npc, int direcao)
 	{
 		if(!(npc.isAlive()))	//Se tiver morto não se mexe

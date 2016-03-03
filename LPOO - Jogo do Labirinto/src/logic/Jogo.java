@@ -45,10 +45,12 @@ public class Jogo {
 	{	
 		int direcao_int = direcao_chartoint(direcao); //Converte direcao para um int
 		
-		tab.getSword().setPorcima(tab.verifica_sobreposicao(tab.getSword())); //Verifica se ha alguma coisa por cima da espada
+		
 		
 		//Move o Heroi
 		tab.move_SerAnimado(tab.getHero(), direcao_int);
+		
+		
 		
 		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
 		{
@@ -65,6 +67,8 @@ public class Jogo {
 		
 		//Move o Dragao
 		tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
+		
+		
 		
 		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
 		{
