@@ -7,6 +7,7 @@ public class Jogo {
 	private Labirinto tab;
 	private boolean game_over;
 	private boolean win;
+	private int game_mode; //0 - dragao parado; 1 - dragao mover; 2- dragao que adormece
 	private Random generator;
 	
 	public boolean isWin() {
@@ -33,6 +34,17 @@ public class Jogo {
 		this.game_over = game_over;
 	}
 
+	public int getGame_mode() {
+		return game_mode;
+	}
+
+	public void setGame_mode(int game_mode) {
+		if(Math.abs(game_mode) <= 2)
+			this.game_mode = game_mode;
+		else
+			this.game_mode = 0;
+	}
+	
 	public Jogo()
 	{
 		tab = new Labirinto();
@@ -66,8 +78,16 @@ public class Jogo {
 		}
 		
 		//Move o Dragao
-		tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
-		
+		if(game_mode == 1) //Modo jogo 1, simplesmente move o dragao
+			tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
+		else if(game_mode == 2)
+		{
+			if(!modificar_estado_dragão(tab.getDragon())) //Modo jogo 2, move e pode muda-lo de estado
+			{
+				if(!(tab.getDragon().isSleeping()))
+					tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
+			}
+		}
 		
 		
 		if(tab.getExit().getPorcima() == tab.getHero()) //Se o heroi estiver na saida depois de matar o dragao
@@ -82,9 +102,26 @@ public class Jogo {
 			setWin(false);
 			return;
 		}
+		
+		tab.apaga_all();
+		tab.preenche_all();
 		return;
 	}
 	
+	public boolean modificar_estado_dragão(Dragao dragon) //modifica aleatoriamente o estado do dragao
+	{
+		if(generator.nextBoolean()) //Se decidir modificar
+		{
+			if(dragon.isSleeping())
+				dragon.setSleeping(false); //Acorda o dragao
+			else
+				dragon.setSleeping(true); // Adormece o dragao
+			
+			return true; //Mudou o estado do dragao
+		}
+		else
+			return false; //Não mudou o estado do dragao
+	}
 	
 	public int direcao_chartoint(char direcao)
 	{

@@ -51,7 +51,7 @@ public class Labirinto {
 	public Labirinto()
 	{
 		hero = new Heroi();
-		dragon = new Dragao(1, 8);
+		dragon = new Dragao();
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
@@ -128,6 +128,24 @@ public class Labirinto {
 			}
 			else
 				return false;
+		case 'd':
+			if(npc == hero)
+			{
+				if(hero.isArmado())
+				{
+					dragon.setAlive(false);
+					apaga_npc(dragon);
+					check_list();
+					return true;
+				}
+				else
+					return false;
+					
+			}
+			else if (npc == dragon)
+				return false;
+			else
+				return false;
 		case ' ':	//Andar para um espaço em branco
 			check_list();
 			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player nao a tiver apanhado)
@@ -142,8 +160,13 @@ public class Labirinto {
 				}
 				else
 				{
-					hero.setAlive(false);
-					return true;
+					if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+						return false;
+					else
+					{
+						hero.setAlive(false);
+						return true;
+					}
 				}
 			}
 			return true;
@@ -164,8 +187,13 @@ public class Labirinto {
 					}
 					else
 					{
-						hero.setAlive(false);
-						return true;
+						if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+							return false;
+						else
+						{
+							hero.setAlive(false);
+							return true;
+						}
 					}
 				}
 				return true;
@@ -184,8 +212,13 @@ public class Labirinto {
 					}
 					else
 					{
-						hero.setAlive(false);
-						return true;
+						if(dragon.isSleeping()) //Se o dragao estiver a dormir, ele nao mata o jogador
+							return false;
+						else
+						{
+							hero.setAlive(false);
+							return true;
+						}
 					}
 				}
 				return true;
@@ -213,6 +246,16 @@ public class Labirinto {
 			}
 			else
 				return false;
+		case 'f':
+			//Sim, eu sei que bastava ter um return false em vez disto tudo
+			//No entanto, se for preciso meter alguma feature nova, é mais fácil se
+			//estiver assim
+			if(npc == hero)
+				return false;
+			else if(npc == dragon)
+				return false;
+			else
+				return false;
 		default:
 			return false;
 				
@@ -238,9 +281,19 @@ public class Labirinto {
 		if(d.isAlive())
 		{
 			if(sword.getPorcima() == d)
-				board.setChar('F', d.getPosx(), d.getPosy());
+			{
+				if(d.isSleeping())
+					board.setChar('f', d.getPosx(), d.getPosy());
+				else
+					board.setChar('F', d.getPosx(), d.getPosy());
+			}
 			else
-				board.setChar('D', d.getPosx(), d.getPosy());
+			{
+				if(d.isSleeping())
+					board.setChar('d', d.getPosx(), d.getPosy());
+				else
+					board.setChar('D', d.getPosx(), d.getPosy());
+			}
 		}
 	}
 	
@@ -358,7 +411,7 @@ public class Labirinto {
 		sword.setPorcima(verifica_sobreposicao(sword)); //Verifica se está algo por cima da espada
 		if(sword.getPorcima() == hero)	//Verifica se o heroi apanhou a espada
 			hero.setArmado(true);
-		if(verifica_presenca_dragao(hero))	//Verifica se o heroi é morto pelo dragão, ou vice versa, caso estejam a distancia de combate
+		if(verifica_presenca_dragao(hero)&& !(dragon.isSleeping()))	//Verifica se o heroi é morto pelo dragão, ou vice versa, caso estejam a distancia de combate
 		{
 			if(hero.isArmado())
 				dragon.setAlive(false);
