@@ -20,11 +20,8 @@ public class Start {
 		}
 		
 		cmd.display(jogar.getTab().getBoard());
-
-		if(jogar.isWin())
-			System.out.println("GANHASTE!!!!");
-		else
-			System.out.println("PERDESTE. NOOB!");
+		
+		cmd.fim_jogo();
 		
 		return;
 	}

@@ -1,9 +1,12 @@
 package cli;
 import java.util.Scanner;
+
+import logic.Jogo;
 import logic.Tabuleiro;
 
 public class CommandLine {
 	Scanner scan = new Scanner(System.in);
+	Jogo jogar = new Jogo();
 	
 	public void display(Tabuleiro tab)
 	{
@@ -39,5 +42,12 @@ public class CommandLine {
 	{
 		System.out.println("MATASTE O DRAGÃO, SEU BANDIDOLA!");
 		return;
+	}
+	
+	public void fim_jogo(){
+		if(jogar.isWin())
+			System.out.println("GANHASTE!!!!");
+		else
+			System.out.println("PERDESTE. NOOB!");
 	}
 }

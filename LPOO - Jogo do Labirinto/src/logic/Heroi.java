@@ -1,6 +1,7 @@
 package logic;
 
 public class Heroi extends SerAnimado{
+	public static final String SerAnimado = null;
 	private boolean armado;
 	
 	public boolean isArmado() {
