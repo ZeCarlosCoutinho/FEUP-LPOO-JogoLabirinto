@@ -25,5 +25,14 @@ public class TestarLabirintoDragaoEstatico {
 		assertEquals(1, hero.getPosy());
 	}
 	
+	//@Test
+	public void test2c() {
+		Labirinto lab = new Labirinto();
+		Heroi hero = new Heroi();
+		
+		lab.move_SerAnimado(hero, 0);
+		
+		
+	}
 
 }

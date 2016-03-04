@@ -14,9 +14,18 @@ public class Heroi extends SerAnimado{
 	
 	public Heroi()
 	{
-		posx=1;
-		posy=1;
-		armado=false;
+		posx = 1;
+		posy = 1;
+		armado = false;
 		alive = true;
+	}
+	
+	public Heroi(int x, int y)
+	{
+		posx = x;
+		posy = y;
+		armado = false;
+		alive = true;
+		
 	}
 }
