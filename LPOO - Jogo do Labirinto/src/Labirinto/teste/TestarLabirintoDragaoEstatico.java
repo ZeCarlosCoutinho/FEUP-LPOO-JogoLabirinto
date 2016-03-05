@@ -5,7 +5,7 @@ import logic.*;
 
 public class TestarLabirintoDragaoEstatico {
 
-	//@Test
+	@Test
 	public void test2a() {
 		Labirinto lab = new Labirinto();
 		Heroi hero = new Heroi();
@@ -15,7 +15,7 @@ public class TestarLabirintoDragaoEstatico {
 		assertEquals(1, hero.getPosy());	
 	}
 	
-	//@Test
+	@Test
 	public void test2b() {
 		Labirinto lab = new Labirinto();
 		Heroi hero = new Heroi();
@@ -25,15 +25,16 @@ public class TestarLabirintoDragaoEstatico {
 		assertEquals(1, hero.getPosy());
 	}
 	
-	@Test
+	//@Test
 	public void test2c() {
 		Labirinto lab = new Labirinto();
 		Heroi hero = new Heroi(1, 7);
-		Tabuleiro board = new Tabuleiro(10, 10);
-		
-		lab.move_SerAnimado(hero, 0);
-		assertEquals('A', board.getChar(1, 8));	
-		
+		Espada sword = new Espada();
+
+		lab.move_SerAnimado(hero, 1);
+		System.out.println(hero.getPosy());
+		assertEquals(true, hero.isArmado());
+		assertEquals(true, sword.isNa_mao());
 	}
 
 }

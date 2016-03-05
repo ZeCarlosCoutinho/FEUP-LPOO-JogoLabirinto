@@ -62,21 +62,6 @@ public class Jogo {
 		//Move o Heroi
 		tab.move_SerAnimado(tab.getHero(), direcao_int);
 		
-		
-		
-		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saída depois de matar o dragao
-		{
-			setGame_over(true);
-			setWin(true);
-			return;
-		}
-		if(!(tab.getHero().isAlive())) //Se o herói estiver morto
-		{
-			setGame_over(true);
-			setWin(false);
-			return;
-		}
-		
 		//Move o Dragão
 		if(game_mode == 1) //Modo jogo 1, simplesmente move o dragão
 			tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
