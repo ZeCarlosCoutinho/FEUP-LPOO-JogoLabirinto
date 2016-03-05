@@ -436,16 +436,16 @@ public class Labirinto {
 		{
 			switch(direcao)	//Desfaz o movimento do Elemento
 			{
-			case 0:
+			case 0: //Sul
 				direcao = 2;
 				break;
-			case 1:
+			case 1: //Oeste
 				direcao = 3;
 				break;
-			case 2:
+			case 2: //Norte
 				direcao = 0;
 				break;
-			case 3:
+			case 3: //Este
 				direcao = 1;
 				break;
 			default:
