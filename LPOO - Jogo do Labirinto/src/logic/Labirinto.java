@@ -439,13 +439,13 @@ public class Labirinto {
 			case 0: //Sul
 				direcao = 2;
 				break;
-			case 1: //Oeste
+			case 1: //Este
 				direcao = 3;
 				break;
 			case 2: //Norte
 				direcao = 0;
 				break;
-			case 3: //Este
+			case 3: //Oeste
 				direcao = 1;
 				break;
 			default:
