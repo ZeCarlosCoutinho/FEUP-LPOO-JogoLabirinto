@@ -5,7 +5,7 @@ public class Start {
 	public static void main(String[] args)
 	{
 		Jogo jogar = new Jogo();
-		CommandLine cmd = new CommandLine();
+		CommandLine cmd = new CommandLine(jogar);
 		
 		jogar.setGame_mode(cmd.pede_modo_jogo());
 		
@@ -20,9 +20,9 @@ public class Start {
 		}
 		
 		cmd.display(jogar.getTab().getBoard());
-		
+
 		cmd.fim_jogo();
-		
+	
 		return;
 	}
 	

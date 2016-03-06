@@ -8,34 +8,113 @@ public class TestarLabirintoDragaoEstatico {
 	@Test
 	public void test2a() {
 		Labirinto lab = new Labirinto();
-		Heroi hero = new Heroi();
+		lab.getHero();
 		
-		lab.move_SerAnimado(hero, 1);
-		assertEquals(2, hero.getPosx());
-		assertEquals(1, hero.getPosy());	
+		lab.move_SerAnimado(lab.getHero(), 1);
+		assertEquals(2, lab.getHero().getPosx());
+		assertEquals(1, lab.getHero().getPosy());	
 	}
 	
 	@Test
 	public void test2b() {
 		Labirinto lab = new Labirinto();
-		Heroi hero = new Heroi();
+		lab.getHero();
 		
-		lab.move_SerAnimado(hero, 0);
-		assertEquals(1, hero.getPosx());
-		assertEquals(1, hero.getPosy());
+		lab.move_SerAnimado(lab.getHero(), 0);
+		assertEquals(1, lab.getHero().getPosx());
+		assertEquals(1, lab.getHero().getPosy());
 	}
 	
 	@Test
 	public void test2c() {
 		Labirinto lab = new Labirinto();
 		Heroi hero = new Heroi(1, 7);
-		Espada sword = new Espada();
+		lab.setHero(hero);
 		
-		System.out.println(hero.getPosy());
-		lab.move_SerAnimado(hero, 0);
-		System.out.println(hero.getPosy());
-		assertEquals(true, hero.isArmado());
-		assertEquals(true, sword.isNa_mao());
+		lab.move_SerAnimado(lab.getHero(), 2);
+		assertEquals(true, lab.getHero().isArmado());
+		assertEquals(true, lab.getSword().isNa_mao());
 	}
-
+	
+	@Test
+	public void test2d() {
+		Labirinto lab = new Labirinto();
+		lab.getHero();
+		
+		lab.move_SerAnimado(lab.getHero(), 2);
+		assertEquals(false, lab.getHero().isArmado());
+		assertEquals(false, lab.getHero().isAlive());
+	}
+	
+	@Test
+	public void test2e() {
+		Labirinto lab = new Labirinto();
+		Heroi hero = new Heroi(1, 5);
+		hero.setArmado(true);
+		lab.setHero(hero);
+		
+		lab.move_SerAnimado(lab.getHero(), 0);
+		assertEquals(true, lab.getHero().isArmado());
+		/*lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);*/
+		assertEquals(false, lab.getDragon().isAlive());
+	}
+	
+	@Test
+	public void test2f() {
+		Labirinto lab = new Labirinto();
+		Heroi hero = new Heroi(8, 5);
+		hero.setArmado(true);
+		lab.getDragon().setAlive(false);
+		lab.setHero(hero);
+		
+		lab.move_SerAnimado(lab.getHero(), 1);
+		assertEquals(true, lab.getHero().isArmado());
+		/*lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);*/
+		assertEquals(false, lab.getDragon().isAlive());
+		/*lab.move_SerAnimado(lab.getHero(), 2);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 2);
+		lab.move_SerAnimado(lab.getHero(), 2);
+		lab.move_SerAnimado(lab.getHero(), 2);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 1);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 0);
+		lab.move_SerAnimado(lab.getHero(), 1);*/
+		assertEquals(true, lab.getExit().isChegou_heroi());
+	}
+	
+	@Test
+	public void test2g() {
+		Labirinto lab = new Labirinto();
+		Heroi hero = new Heroi(8, 5);
+		lab.setHero(hero);
+		
+		lab.move_SerAnimado(lab.getHero(), 1);
+		assertEquals(false, lab.getHero().isArmado());
+		assertEquals(false, lab.getExit().isChegou_heroi());
+	}
+	
+	@Test
+	public void test2h() {
+		Labirinto lab = new Labirinto();
+		Heroi hero = new Heroi(8, 5);
+		hero.setArmado(true);
+		lab.setHero(hero);
+		
+		lab.move_SerAnimado(lab.getHero(), 1);
+		assertEquals(true, lab.getHero().isArmado());
+		assertEquals(false, lab.getExit().isChegou_heroi());
+	}
 }

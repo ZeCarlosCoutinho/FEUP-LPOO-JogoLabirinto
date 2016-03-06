@@ -85,7 +85,6 @@ public class Jogo {
 			}
 		}
 		
-		
 		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saida depois de matar o dragao
 		{
 			setGame_over(true);

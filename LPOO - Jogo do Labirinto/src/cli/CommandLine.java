@@ -6,8 +6,16 @@ import logic.Tabuleiro;
 
 public class CommandLine {
 	Scanner scan = new Scanner(System.in);
-	Jogo jogar = new Jogo();
+	Jogo jogar;
 	
+	//construtor
+	public CommandLine(Jogo jogar){
+		this.jogar = jogar;
+	}
+	
+	public CommandLine (){
+		
+	}
 	public void display(Tabuleiro tab)
 	{
 		for(int j = 0; j < tab.getTamy(); j++)
@@ -43,7 +51,7 @@ public class CommandLine {
 		System.out.println("MATASTE O DRAGÃO, SEU BANDIDOLA!");
 		return;
 	}
-	
+
 	public void fim_jogo(){
 		if(jogar.isWin())
 			System.out.println("GANHASTE!!!!");
