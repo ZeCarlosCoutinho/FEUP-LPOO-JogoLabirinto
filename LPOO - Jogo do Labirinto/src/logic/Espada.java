@@ -11,8 +11,8 @@ public class Espada extends SerInanimado{
 	}
 	
 	public Espada(){
-		posx=1;
-		posy=8;
+		posX=1;
+		posY=8;
 		naMao=false;
 		porCima = null;
 	}

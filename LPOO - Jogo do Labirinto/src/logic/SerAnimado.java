@@ -16,16 +16,16 @@ public class SerAnimado extends Elemento{
 		switch(direcao)
 		{
 		case 0: //Norte
-			posy -= 1;
+			posY -= 1;
 			break;
 		case 1: //Este
-			posx += 1;
+			posX += 1;
 			break;
 		case 2: //Sul 
-			posy += 1;
+			posY += 1;
 			break;
 		case 3: //Oeste
-			posx -= 1;
+			posX -= 1;
 			break;
 		default:
 			break;

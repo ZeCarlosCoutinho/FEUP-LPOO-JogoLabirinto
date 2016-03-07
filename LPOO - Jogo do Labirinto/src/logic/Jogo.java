@@ -4,7 +4,7 @@ import java.util.Random; //Mover o Dragão random
 
 public class Jogo {
 
-	private Labirinto tab;
+	private Labirinto lab;
 	private boolean game_over;
 	private boolean win;
 	private int game_mode; //0 - dragão parado; 1 - dragão move-se; 2- dragão adormece
@@ -19,11 +19,11 @@ public class Jogo {
 	}
 
 	public Labirinto getTab() {
-		return tab;
+		return lab;
 	}
 
 	public void setTab(Labirinto tab) {
-		this.tab = tab;
+		this.lab = tab;
 	}
 
 	public boolean isGame_over() {
@@ -47,7 +47,7 @@ public class Jogo {
 	
 	public Jogo()
 	{
-		tab = new Labirinto();
+		lab = new Labirinto();
 		game_over = false;
 		win = false;
 		generator = new Random();
@@ -58,15 +58,15 @@ public class Jogo {
 		int direcao_int = direcao_chartoint(direcao); //Converte direção para um int
 		
 		//Move o Heroi
-		tab.move_SerAnimado(tab.getHero(), direcao_int);
+		lab.move_SerAnimado(lab.getHero(), direcao_int);
 		
-		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saída depois de matar o dragao
+		if(lab.getExit().getPorcima() == lab.getHero()) //Se o herói estiver na saída depois de matar o dragao
 		{
 			setGame_over(true);
 			setWin(true);
 			return;
 		}
-		if(!(tab.getHero().isAlive())) //Se o herói estiver morto
+		if(!(lab.getHero().isAlive())) //Se o herói estiver morto
 		{
 			setGame_over(true);
 			setWin(false);
@@ -75,31 +75,31 @@ public class Jogo {
 		
 		//Move o Dragão
 		if(game_mode == 1) //Modo jogo 1, simplesmente move o dragão
-			tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
+			lab.move_SerAnimado(lab.getDragon(), generator.nextInt(4));
 		else if(game_mode == 2)
 		{
-			if(!modificar_estado_dragao(tab.getDragon())) //Modo jogo 2, move e pode mudá-lo de estado
+			if(!modificar_estado_dragao(lab.getDragon())) //Modo jogo 2, move e pode mudá-lo de estado
 			{
-				if(!(tab.getDragon().isSleeping()))
-					tab.move_SerAnimado(tab.getDragon(), generator.nextInt(4));
+				if(!(lab.getDragon().isSleeping()))
+					lab.move_SerAnimado(lab.getDragon(), generator.nextInt(4));
 			}
 		}
 		
-		if(tab.getExit().getPorcima() == tab.getHero()) //Se o herói estiver na saida depois de matar o dragao
+		if(lab.getExit().getPorcima() == lab.getHero()) //Se o herói estiver na saida depois de matar o dragao
 		{
 			setGame_over(true);
 			setWin(true);
 			return;
 		}
-		if(!(tab.getHero().isAlive())) //Se o herói estiver morto
+		if(!(lab.getHero().isAlive())) //Se o herói estiver morto
 		{
 			setGame_over(true);
 			setWin(false);
 			return;
 		}
 		
-		tab.apaga_all();
-		tab.preenche_all();
+		lab.apaga_all();
+		lab.preenche_all();
 		return;
 	}
 	

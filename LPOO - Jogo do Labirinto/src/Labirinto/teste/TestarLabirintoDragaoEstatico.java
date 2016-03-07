@@ -11,8 +11,8 @@ public class TestarLabirintoDragaoEstatico {
 		lab.getHero();
 		
 		lab.move_SerAnimado(lab.getHero(), 1);
-		assertEquals(2, lab.getHero().getPosx());
-		assertEquals(1, lab.getHero().getPosy());	
+		assertEquals(2, lab.getHero().getPosX());
+		assertEquals(1, lab.getHero().getPosY());	
 	}
 	
 	@Test
@@ -21,8 +21,8 @@ public class TestarLabirintoDragaoEstatico {
 		lab.getHero();
 		
 		lab.move_SerAnimado(lab.getHero(), 0);
-		assertEquals(1, lab.getHero().getPosx());
-		assertEquals(1, lab.getHero().getPosy());
+		assertEquals(1, lab.getHero().getPosX());
+		assertEquals(1, lab.getHero().getPosY());
 	}
 	
 	@Test

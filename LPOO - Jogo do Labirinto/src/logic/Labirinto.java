@@ -80,7 +80,7 @@ public class Labirinto {
 	
 	public char posCharacter(Elemento elem)	//Retorna o char na posição do Elemento
 	{
-		return retorna_casa(elem.getPosx(), elem.getPosy());
+		return retorna_casa(elem.getPosX(), elem.getPosY());
 	}
 	
 	public char posCharacter(Elemento elem, int direcao) //Retorna o char na casa seguinte consoante a direção e posição do Elemento
@@ -88,15 +88,15 @@ public class Labirinto {
 		switch(direcao)
 		{
 		case 0:
-			return retorna_casa(elem.getPosx(), elem.getPosy()-1);
+			return retorna_casa(elem.getPosX(), elem.getPosY()-1);
 		case 1:
-			return retorna_casa(elem.getPosx()+1, elem.getPosy());
+			return retorna_casa(elem.getPosX()+1, elem.getPosY());
 		case 2:
-			return retorna_casa(elem.getPosx(), elem.getPosy()+1);
+			return retorna_casa(elem.getPosX(), elem.getPosY()+1);
 		case 3:
-			return retorna_casa(elem.getPosx()-1, elem.getPosy());
+			return retorna_casa(elem.getPosX()-1, elem.getPosY());
 		default:
-			return retorna_casa(elem.getPosx(), elem.getPosy());
+			return retorna_casa(elem.getPosX(), elem.getPosY());
 		}
 	}
 	
@@ -263,16 +263,16 @@ public class Labirinto {
 	
 	public void preenche_saida(Saida s)
 	{
-		board.setChar('S', s.getPosx(), s.getPosy());
+		board.setChar('S', s.getPosX(), s.getPosY());
 		return;
 	}
 	
 	public void preenche_heroi(Heroi h)
 	{
 		if(h.isArmado())
-			board.setChar('A', h.getPosx(), h.getPosy());
+			board.setChar('A', h.getPosX(), h.getPosY());
 		else
-			board.setChar('H', h.getPosx(), h.getPosy());
+			board.setChar('H', h.getPosX(), h.getPosY());
 	}
 	
 	public void preenche_dragao(Dragao d)
@@ -282,16 +282,16 @@ public class Labirinto {
 			if(sword.getPorcima() == d)
 			{
 				if(d.isSleeping())
-					board.setChar('f', d.getPosx(), d.getPosy());
+					board.setChar('f', d.getPosX(), d.getPosY());
 				else
-					board.setChar('F', d.getPosx(), d.getPosy());
+					board.setChar('F', d.getPosX(), d.getPosY());
 			}
 			else
 			{
 				if(d.isSleeping())
-					board.setChar('d', d.getPosx(), d.getPosy());
+					board.setChar('d', d.getPosX(), d.getPosY());
 				else
-					board.setChar('D', d.getPosx(), d.getPosy());
+					board.setChar('D', d.getPosX(), d.getPosY());
 			}
 		}
 	}
@@ -299,7 +299,7 @@ public class Labirinto {
 	public void preenche_espada(Espada e)
 	{
 		if(!(e.isNaMao()) && e.getPorcima() == null) //Se o herói ainda não tiver apanhado, e nao tiver nada por cima
-			board.setChar('E', e.getPosx(), e.getPosy());
+			board.setChar('E', e.getPosX(), e.getPosY());
 	}
 	
 	public void preenche_npc(Elemento elem)		//função que escreve um Elemento no board
@@ -349,7 +349,7 @@ public class Labirinto {
 	
 	public void apaga_npc(Elemento elem)
 	{
-		board.setChar(' ', elem.getPosx(), elem.getPosy());
+		board.setChar(' ', elem.getPosX(), elem.getPosY());
 		return;
 	}
 	
@@ -358,16 +358,16 @@ public class Labirinto {
 		switch(direcao)
 		{
 		case 0://Norte
-			board.setChar(' ', elem.getPosx(), elem.getPosy()+1);//O rasto ficou 1 casa abaixo
+			board.setChar(' ', elem.getPosX(), elem.getPosY()+1);//O rasto ficou 1 casa abaixo
 			break;
 		case 1://Oeste
-			board.setChar(' ', elem.getPosx()-1, elem.getPosy());//O rasto ficou 1 casa à esquerda
+			board.setChar(' ', elem.getPosX()-1, elem.getPosY());//O rasto ficou 1 casa à esquerda
 			break;
 		case 2://Sul
-			board.setChar(' ', elem.getPosx(), elem.getPosy()-1);//O rasto ficou 1 casa acima
+			board.setChar(' ', elem.getPosX(), elem.getPosY()-1);//O rasto ficou 1 casa acima
 			break;
 		case 3://Este
-			board.setChar(' ', elem.getPosx()+1, elem.getPosy());//O rasto ficou 1 casa à direita
+			board.setChar(' ', elem.getPosX()+1, elem.getPosY());//O rasto ficou 1 casa à direita
 			break;
 		default:
 			break;
@@ -384,12 +384,12 @@ public class Labirinto {
 	
 	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2)
 	{
-		if(Math.abs(elem1.getPosx()-elem2.getPosx()) == 1 && elem1.getPosy() == elem2.getPosy())
+		if(Math.abs(elem1.getPosX()-elem2.getPosX()) == 1 && elem1.getPosY() == elem2.getPosY())
 		{
 			//Estão adjacentes
 			return true;
 		}
-		else if(Math.abs(elem1.getPosy()-elem2.getPosy()) == 1 && elem1.getPosx() == elem2.getPosx())
+		else if(Math.abs(elem1.getPosY()-elem2.getPosY()) == 1 && elem1.getPosX() == elem2.getPosX())
 			return true;
 		else
 			return false;

@@ -12,8 +12,8 @@ public class Saida extends SerInanimado{
 	}
 
 	public Saida(){
-		posx=9;
-		posy=5;	
+		posX=9;
+		posY=5;	
 		chegou_heroi = false;
 		porCima = null;
 	}

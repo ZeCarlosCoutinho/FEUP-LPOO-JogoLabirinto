@@ -48,7 +48,7 @@ public class CommandLine {
 	
 	public void heroi_matou_dragao()
 	{
-		System.out.println("MATASTE O DRAGÃO, SEU BANDIDOLA!");
+		System.out.println("MATASTE O DRAGÃO!");
 		return;
 	}
 
@@ -56,6 +56,6 @@ public class CommandLine {
 		if(jogar.isWin())
 			System.out.println("GANHASTE!!!!");
 		else
-			System.out.println("PERDESTE. NOOB!");
+			System.out.println("PERDESTE.");
 	}
 }

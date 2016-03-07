@@ -13,16 +13,16 @@ public class Dragao extends SerAnimado{
 
 	
 	public Dragao(){
-		posx = 1;
-		posy = 3;	
+		posX = 1;
+		posY = 3;	
 		alive = true;
 		sleeping = false;
 	}
 	
 	public Dragao(int x, int y)
 	{
-		posx = x;
-		posy = y;
+		posX = x;
+		posY = y;
 		alive = true;
 		sleeping = false;
 	}
