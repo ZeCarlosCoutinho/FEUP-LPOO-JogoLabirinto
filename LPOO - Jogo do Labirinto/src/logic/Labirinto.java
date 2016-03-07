@@ -149,7 +149,7 @@ public class Labirinto {
 		case ' ':	//Andar para um espaço em branco
 			check_list();
 			preenche_espada(sword); //Volta a imprimir a espada (so imprime se o player não a tiver apanhado)
-			if(verifica_presenca_dragao(hero)) //Batalha entre Herói e Dragão
+			if(verificaPresencaDragao(hero)) //Batalha entre Herói e Dragão
 			{
 				if(hero.isArmado())
 				{
@@ -174,9 +174,9 @@ public class Labirinto {
 			if(npc == hero)
 			{
 				hero.setArmado(true);
-				sword.setNa_mao(true);
+				sword.setNaMao(true);
 				sword.setPorcima(hero);
-				if(verifica_presenca_dragao(hero))//Batalha entre Herói e Dragão
+				if(verificaPresencaDragao(hero)) //Batalha entre Herói e Dragão
 				{
 					if(hero.isArmado())
 					{
@@ -201,7 +201,7 @@ public class Labirinto {
 			else if(npc == dragon)
 			{
 				sword.setPorcima(dragon);
-				if(verifica_presenca_dragao(hero)) //Batalha entre Herói e Dragão
+				if(verificaPresencaDragao(hero)) //Batalha entre Herói e Dragão
 				{
 					if(hero.isArmado())
 					{
@@ -298,7 +298,7 @@ public class Labirinto {
 	
 	public void preenche_espada(Espada e)
 	{
-		if(!(e.isNa_mao()) && e.getPorcima() == null) //Se o herói ainda não tiver apanhado, e nao tiver nada por cima
+		if(!(e.isNaMao()) && e.getPorcima() == null) //Se o herói ainda não tiver apanhado, e nao tiver nada por cima
 			board.setChar('E', e.getPosx(), e.getPosy());
 	}
 	
@@ -374,7 +374,7 @@ public class Labirinto {
 		}
 	}
 	
-	public boolean verifica_presenca_dragao(Elemento elem) //Verifica se está um dragão na casa adjacente a ELEM
+	public boolean verificaPresencaDragao(Elemento elem) //Verifica se está um dragão na casa adjacente a ELEM
 	{
 		if(verifica_adjacencia(elem, dragon))	//Se eles estiverem adjacentes
 			return true;
@@ -410,7 +410,7 @@ public class Labirinto {
 		sword.setPorcima(verifica_sobreposicao(sword)); //Verifica se está algo por cima da espada
 		if(sword.getPorcima() == hero)	//Verifica se o heroi apanhou a espada
 			hero.setArmado(true);
-		if(verifica_presenca_dragao(hero)&& !(dragon.isSleeping()))	//Verifica se o heroi é morto pelo dragão, ou vice versa, caso estejam à distância de combate
+		if(verificaPresencaDragao(hero)&& !(dragon.isSleeping()))	//Verifica se o heroi é morto pelo dragão, ou vice versa, caso estejam à distância de combate
 		{
 			if(hero.isArmado())
 				dragon.setAlive(false);

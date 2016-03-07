@@ -1,18 +1,18 @@
 package logic;
 
 public class SerInanimado extends Elemento{
-	protected SerAnimado porcima;
+	protected SerAnimado porCima;
 
 	public SerAnimado getPorcima() {
-		return porcima;
+		return porCima;
 	}
 
 	public void setPorcima(SerAnimado porcima) {
-		this.porcima = porcima;
+		this.porCima = porcima;
 	}
 	
 	public void resetPorcima()
 	{
-		this.porcima = null;
+		this.porCima = null;
 	}
 }

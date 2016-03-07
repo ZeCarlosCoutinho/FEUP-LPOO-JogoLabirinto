@@ -1,19 +1,19 @@
 package logic;
 
 public class Espada extends SerInanimado{
-	private boolean na_mao;
+	private boolean naMao;
 	
-	public boolean isNa_mao() {
-		return na_mao;
+	public boolean isNaMao() {
+		return naMao;
 	}
-	public void setNa_mao(boolean na_mao) {
-		this.na_mao = na_mao;
+	public void setNaMao(boolean na_mao) {
+		this.naMao = na_mao;
 	}
 	
 	public Espada(){
 		posx=1;
 		posy=8;
-		na_mao=false;
-		porcima = null;
+		naMao=false;
+		porCima = null;
 	}
 }

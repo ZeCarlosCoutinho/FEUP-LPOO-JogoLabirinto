@@ -5,4 +5,8 @@ import logic.*;
 
 public class TestarLabirintoDragaoAdicional {
 	
+	@Test
+	public void test2a() {
+		
+	}
 }

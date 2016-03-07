@@ -33,7 +33,7 @@ public class TestarLabirintoDragaoEstatico {
 		
 		lab.move_SerAnimado(lab.getHero(), 2);
 		assertEquals(true, lab.getHero().isArmado());
-		assertEquals(true, lab.getSword().isNa_mao());
+		assertEquals(true, lab.getSword().isNaMao());
 	}
 	
 	@Test
