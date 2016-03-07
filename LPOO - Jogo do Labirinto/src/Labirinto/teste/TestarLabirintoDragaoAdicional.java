@@ -6,9 +6,9 @@ import logic.*;
 
 public class TestarLabirintoDragaoAdicional {
 	
-	@Test
+	@Test(timeout=10000)
 	public void testMoveDragon() {
-		Labirinto lab = new Labirinto();
+		/*Labirinto lab = new Labirinto();
 		int oldX = lab.getDragon().getPosX();
 		int oldY = lab.getDragon().getPosY();
 		Random generator = new Random();
@@ -16,6 +16,23 @@ public class TestarLabirintoDragaoAdicional {
 		lab.move_SerAnimado(lab.getDragon(), generator.nextInt(4));
 		assertTrue("Error on x move!", lab.getDragon().getPosX() <= oldX+1 && lab.getDragon().getPosX() >= oldX-1);
 		assertTrue("Error on y move!", lab.getDragon().getPosY() <= oldY+1 && lab.getDragon().getPosY() >= oldY-1);
+		*/
+		
+		Labirinto lab = new Labirinto();
+		Dragao dragon = new Dragao(5, 5);
+		lab.setDragon(dragon);
+		Random generator = new Random();
+		
+		boolean xMovement = false, yMovement = false;
+		int initialX = dragon.getPosX(), initialY = dragon.getPosY();
+		
+		 while(xMovement == false || yMovement == false){
+			 lab.move_SerAnimado(lab.getDragon(), generator.nextInt(4));
+			 if(dragon.getPosX() != initialX)
+				 xMovement = true;
+			 else if(dragon.getPosY() != initialY)
+				 yMovement = true;
+		 }
 	}
 	
 	//está a adormecer?
