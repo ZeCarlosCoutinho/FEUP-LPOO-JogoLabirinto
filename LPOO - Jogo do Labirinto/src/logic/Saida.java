@@ -17,4 +17,12 @@ public class Saida extends SerInanimado{
 		chegou_heroi = false;
 		porcima = null;
 	}
+	
+	public Saida(int x, int y)
+	{
+		posx=x;
+		posy=y;	
+		chegou_heroi = false;
+		porcima = null;
+	}
 }
