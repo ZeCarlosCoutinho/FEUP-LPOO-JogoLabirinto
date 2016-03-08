@@ -11,6 +11,12 @@ public class Tabuleiro {
 		this.board = new char[tamx][tamy];
 	}
 
+	public Tabuleiro(int tam)
+	{
+		this.tamx = this.tamy = tam;
+		this.board = new char[tamx][tamy];
+	}
+	
 	public int getTamx() {
 		return tamx;
 	}
@@ -56,13 +62,7 @@ public class Tabuleiro {
 	
 	public void preenche_tabuleiro()
 	{
-		for(int j = 0; j < tamy; j++)	//Enche tabuleiro de X
-		{
-			for(int i = 0; i < tamx; i++)
-			{
-				board[i][j] = 'X';
-			}
-		}
+		fill_tabuleiro();
 		
 		abre_linha(1, 1, true, 8);
 		abre_linha(1, 5, true, 6);
@@ -72,6 +72,18 @@ public class Tabuleiro {
 		abre_linha(6, 1, false, 8);
 		abre_linha(8, 1, false, 8);
 		
+	}
+	
+	public void fill_tabuleiro()
+	{
+		for(int j = 0; j < tamy; j++)	//Enche tabuleiro de X
+		{
+			for(int i = 0; i < tamx; i++)
+			{
+				board[i][j] = 'X';
+			}
+		}
+		return;
 	}
 	
 	public void abre_linha(int x, int y, boolean isHorizontal, int length) //Abre um caminho de espaços brancos. Pode dar jeito se gerarmos um tabuleiro aleatório
