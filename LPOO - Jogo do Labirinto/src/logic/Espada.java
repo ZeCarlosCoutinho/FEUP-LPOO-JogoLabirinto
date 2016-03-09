@@ -17,4 +17,11 @@ public class Espada extends SerInanimado {
 		naMao = false;
 		porCima = null;
 	}
+	
+	public Espada(int x, int y) {
+		posX = x;
+		posY = y;
+		naMao = false;
+		porCima = null;
+	}
 }

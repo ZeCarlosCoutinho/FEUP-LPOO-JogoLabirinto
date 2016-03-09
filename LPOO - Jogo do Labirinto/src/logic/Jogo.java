@@ -81,7 +81,7 @@ public class Jogo {
 		if (game_mode == 1) // Modo jogo 1, simplesmente move o dragão
 			lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4));
 		else if (game_mode == 2) {
-			if (!modificar_estado_dragao(lab.getDragon())) // Modo jogo 2, move
+			if (!modificarEstadoDragao(lab.getDragon())) // Modo jogo 2, move
 															// e pode mudá-lo de
 															// estado
 			{
@@ -110,7 +110,7 @@ public class Jogo {
 		return;
 	}
 
-	public boolean modificar_estado_dragao(Dragao dragon) // modifica
+	public boolean modificarEstadoDragao(Dragao dragon) // modifica
 															// aleatoriamente o
 															// estado do dragão
 	{

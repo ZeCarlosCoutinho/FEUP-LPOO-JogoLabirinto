@@ -55,7 +55,7 @@ public class Labirinto {
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
 
-		check_list(); // Faz uma série de verificações
+		checkList(); // Faz uma série de verificações
 
 		preenche_tab_default();
 	}
@@ -111,7 +111,7 @@ public class Labirinto {
 				if (hero.isArmado()) {
 					dragon.setAlive(false);
 					apaga_npc(dragon);
-					check_list();
+					checkList();
 					return true;
 				} else {
 					hero.setAlive(false);
@@ -127,7 +127,7 @@ public class Labirinto {
 				if (hero.isArmado()) {
 					dragon.setAlive(false);
 					apaga_npc(dragon);
-					check_list();
+					checkList();
 					return true;
 				} else
 					return false;
@@ -137,7 +137,7 @@ public class Labirinto {
 			else
 				return false;
 		case ' ': // Andar para um espaço em branco
-			check_list();
+			checkList();
 			preenche_espada(sword); // Volta a imprimir a espada (so imprime se
 									// o player não a tiver apanhado)
 			if (verificaPresencaDragao(hero)) // Batalha entre Herói e Dragão
@@ -145,7 +145,7 @@ public class Labirinto {
 				if (hero.isArmado()) {
 					dragon.setAlive(false);
 					apaga_npc(dragon);
-					check_list();
+					checkList();
 					return true;
 				} else {
 					if (dragon.isSleeping()) // Se o dragão estiver a dormir,
@@ -169,7 +169,7 @@ public class Labirinto {
 					if (hero.isArmado()) {
 						dragon.setAlive(false);
 						apaga_npc(dragon);
-						check_list();
+						checkList();
 						return true;
 					} else {
 						if (dragon.isSleeping()) // Se o dragão estiver a
@@ -191,7 +191,7 @@ public class Labirinto {
 					if (hero.isArmado()) {
 						dragon.setAlive(false);
 						apaga_npc(dragon);
-						check_list();
+						checkList();
 						return true;
 					} else {
 						if (dragon.isSleeping()) // Se o dragão estiver a
@@ -210,7 +210,7 @@ public class Labirinto {
 			if (!(dragon.isAlive())) {
 				exit.setChegou_heroi(true);
 				exit.setPorcima(hero);
-				check_list();
+				checkList();
 				return true;
 			} else
 				return false;
@@ -372,7 +372,7 @@ public class Labirinto {
 			return false;
 	}
 
-	public SerAnimado verifica_sobreposicao(SerInanimado elem) {
+	public SerAnimado verificaSobreposicao(SerInanimado elem) {
 		if (elem.isSobreposto(hero) && hero.isAlive())
 			return hero;
 		else if (elem.isSobreposto(dragon) && dragon.isAlive())
@@ -381,27 +381,14 @@ public class Labirinto {
 			return null;
 	}
 
-	public void check_list() // Função que verifica tudo o que é necessário
-								// antes do turno começaar, fazendo as
-								// alterações necessárias
+	public void checkList() /*Função que verifica tudo o que é necessário antes do turno começaar, fazendo as
+							 alterações necessárias*/
 	{
-		sword.setPorcima(verifica_sobreposicao(sword)); // Verifica se está algo
-														// por cima da espada
+		sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está algo por cima da espada
 		if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a espada
 			hero.setArmado(true);
-		if (verificaPresencaDragao(hero) && !(dragon.isSleeping())) // Verifica
-																	// se o
-																	// heroi é
-																	// morto
-																	// pelo
-																	// dragão,
-																	// ou vice
-																	// versa,
-																	// caso
-																	// estejam à
-																	// distância
-																	// de
-																	// combate
+		if (verificaPresencaDragao(hero) && !(dragon.isSleeping())) /*Verifica se o heroi é morto pelo dragão, ou 
+																	vice versa, caso estejam à distância de combate*/
 		{
 			if (hero.isArmado())
 				dragon.setAlive(false);
