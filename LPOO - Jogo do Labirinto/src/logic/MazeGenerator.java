@@ -7,7 +7,7 @@ public class MazeGenerator {
 	private Saida exit;
 	private char[][] visitedCells;
 	private Celula guideCell;
-	private Stack lastCells;
+	private Stack<Celula> lastCells;
 	private Random generator;
 	
 	public MazeGenerator(int size)
@@ -29,7 +29,8 @@ public class MazeGenerator {
 		
 		this.exit = iniciar_saida(guideCell);
 		
-		this.lastCells = new Stack();
+		this.lastCells = new Stack<Celula>();
+		this.lastCells.push(guideCell);
 		
 	}
 	
@@ -158,4 +159,115 @@ public class MazeGenerator {
 	{
 		return (num-1)/2;
 	}
+	
+	public boolean moveGuideCell()
+	{
+	//Gera uma direcao aleatoria
+		int direction = generator.nextInt(4);
+		
+	//Cria copia da guideCell
+		Celula celulaInicial = guideCell;
+		
+	//Tenta mover a guideCell nas 4 direcoes
+		int i = 0;
+		while(i < 4)
+		{
+			if(moveGuideVisitedCells(direction + i))
+				break;
+			else
+				i++;
+		}
+	//Se nao conseguir mover em nenhuma das direcoes
+		if(i == 4)
+			return false;
+	
+	//Apaga a parede no Maze, abrindo um caminho
+		abreCaminhoCelulas(celulaInicial, guideCell);
+		
+	//Coloca a ultima celula visitada na stack
+		lastCells.push(guideCell);
+		
+		return true;
+	}
+	
+	public boolean moveGuideVisitedCells(int direction)
+	{
+		switch(direction)
+		{
+		case 0: //Norte
+			if(guideCell.y-1 < 0 || visitedCells[guideCell.x][guideCell.y-1] == '+')
+				return false;
+			else
+			{
+				guideCell.y -= 1;
+				return true;
+			}
+		case 1: //Este
+			if(guideCell.x +1 > (maze.getTamx()-1)/2 || visitedCells[guideCell.x+1][guideCell.y] == '+')
+				return false;
+			else
+			{
+				guideCell.x += 1;
+				return true;
+			}
+		case 2: //Sul
+			if(guideCell.y + 1 > (maze.getTamy()-1)/2 || visitedCells[guideCell.x][guideCell.y+1] == '+')
+				return false;
+			else
+			{
+				guideCell.y += 1;
+				return true;
+			}
+		case 3: //Oeste
+			if(guideCell.x-1 < 0 || visitedCells[guideCell.x-1][guideCell.y] == '+')
+				return false;
+			else
+			{
+				guideCell.x -= 1;
+				return true;
+			}
+		default:
+			return false; //DEVIAMOS INCLUIR UMA EXCECAO
+		}
+	}
+	
+	public void escreveGuideVisitedCells()
+	{
+		visitedCells[guideCell.x][guideCell.y] = '+';
+		return;
+	}
+	
+	public void abreCaminhoCelulas(Celula cell1, Celula cell2)
+	{
+		//Descobre o x e o y da parede que se quer apagar
+		int xmedioMaze = (converter_VisToMaze(cell1.x)+ converter_VisToMaze(cell2.x))/2;
+		int ymedioMaze = (converter_VisToMaze(cell1.y)+ converter_VisToMaze(cell2.y))/2;
+		
+		maze.setChar(' ', xmedioMaze, ymedioMaze);	//Apaga a parede entre as duas celulas
+		
+		return;
+	}
+	
+	public boolean abreCaminhoAteParar()
+	{
+		while(moveGuideCell())
+		{
+		}
+		
+	}
+	
+	public boolean temNaoVisitadaAdjacente(Celula cell)
+	{
+		int yNorte = cell.y - 1;
+		int ySul = cell.y + 1;
+		int xEste = cell.x + 1;
+		int xOeste = cell.x - 1;
+		if(yNorte > converter_MazeToVis(maze.getTamy()))
+			yNorte -= 1;
+		//igual para as outras
+		
+	//Fazer a verificacao para cada uma das casas
+		if(visitedCells[cell.x][cell.y] == '.')
+	}
+	
 }
