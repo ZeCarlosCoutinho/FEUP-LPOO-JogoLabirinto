@@ -1,8 +1,8 @@
 package logic;
 
-public class Dragao extends SerAnimado{
+public class Dragao extends SerAnimado {
 	private boolean sleeping;
-	
+
 	public boolean isSleeping() {
 		return sleeping;
 	}
@@ -11,16 +11,14 @@ public class Dragao extends SerAnimado{
 		this.sleeping = sleeping;
 	}
 
-	
-	public Dragao(){
+	public Dragao() {
 		posX = 1;
-		posY = 3;	
+		posY = 3;
 		alive = true;
 		sleeping = false;
 	}
-	
-	public Dragao(int x, int y)
-	{
+
+	public Dragao(int x, int y) {
 		posX = x;
 		posY = y;
 		alive = true;

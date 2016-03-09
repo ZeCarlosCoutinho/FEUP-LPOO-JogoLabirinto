@@ -1,9 +1,9 @@
 package logic;
 
-public class Heroi extends SerAnimado{
+public class Heroi extends SerAnimado {
 	public static final String SerAnimado = null;
 	private boolean armado;
-	
+
 	public boolean isArmado() {
 		return armado;
 	}
@@ -11,21 +11,19 @@ public class Heroi extends SerAnimado{
 	public void setArmado(boolean armado) {
 		this.armado = armado;
 	}
-	
-	public Heroi()
-	{
+
+	public Heroi() {
 		posX = 1;
 		posY = 1;
 		armado = false;
 		alive = true;
 	}
-	
-	public Heroi(int x, int y)
-	{
+
+	public Heroi(int x, int y) {
 		posX = x;
 		posY = y;
 		armado = false;
 		alive = true;
-		
+
 	}
 }

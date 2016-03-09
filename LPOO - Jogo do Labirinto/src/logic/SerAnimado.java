@@ -1,8 +1,8 @@
 package logic;
 
-
-public class SerAnimado extends Elemento{
+public class SerAnimado extends Elemento {
 	protected boolean alive;
+
 	public boolean isAlive() {
 		return alive;
 	}
@@ -10,28 +10,26 @@ public class SerAnimado extends Elemento{
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
-	
-	public void move(int direcao)
-	{
-		switch(direcao)
-		{
-		case 0: //Norte
+
+	public void move(int direcao) {
+		switch (direcao) {
+		case 0: // Norte
 			posY -= 1;
 			break;
-		case 1: //Este
+		case 1: // Este
 			posX += 1;
 			break;
-		case 2: //Sul 
+		case 2: // Sul
 			posY += 1;
 			break;
-		case 3: //Oeste
+		case 3: // Oeste
 			posX -= 1;
 			break;
 		default:
 			break;
 		}
-		
+
 		return;
 	}
-	
+
 }

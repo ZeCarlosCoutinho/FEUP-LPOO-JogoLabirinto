@@ -2,7 +2,7 @@ package logic;
 
 public class Elemento {
 	protected int posX, posY;
-	
+
 	public int getPosX() {
 		return posX;
 	}
@@ -19,15 +19,14 @@ public class Elemento {
 		this.posY = posy;
 	}
 
-	public boolean isSobreposto(Elemento elem)
-	{
-		if(posX == elem.getPosX() && posY == elem.getPosY() && elem != this)
+	public boolean isSobreposto(Elemento elem) {
+		if (posX == elem.getPosX() && posY == elem.getPosY() && elem != this)
 			return true;
 		else
 			return false;
 	}
-	public Elemento()
-	{
+
+	public Elemento() {
 		posX = 0;
 		posY = 0;
 	}
