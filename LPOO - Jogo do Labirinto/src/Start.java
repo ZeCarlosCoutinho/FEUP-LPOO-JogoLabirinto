@@ -6,9 +6,9 @@ public class Start {
 		Jogo jogar = new Jogo();
 		CommandLine cmd = new CommandLine(jogar);
 
-		jogar.setGame_mode(cmd.pede_modo_jogo());
+		jogar.setGameMode(cmd.pede_modo_jogo());
 
-		while (!(jogar.isGame_over())) // Enquanto não for game_over
+		while (!(jogar.isGameOver())) // Enquanto não for game_over
 		{
 			cmd.display(jogar.getTab().getBoard());
 

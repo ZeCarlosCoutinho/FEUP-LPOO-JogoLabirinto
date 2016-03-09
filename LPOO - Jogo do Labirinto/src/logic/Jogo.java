@@ -5,9 +5,9 @@ import java.util.Random; //Mover o Dragão random
 public class Jogo {
 
 	private Labirinto lab;
-	private boolean game_over;
+	private boolean gameOver;
 	private boolean win;
-	private int game_mode; // 0 - dragão parado; 1 - dragão move-se; 2- dragão
+	private int gameMode; // 0 - dragão parado; 1 - dragão move-se; 2- dragão
 							// adormece
 	private Random generator;
 
@@ -27,28 +27,28 @@ public class Jogo {
 		this.lab = tab;
 	}
 
-	public boolean isGame_over() {
-		return game_over;
+	public boolean isGameOver() {
+		return gameOver;
 	}
 
-	public void setGame_over(boolean game_over) {
-		this.game_over = game_over;
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
 	}
 
-	public int getGame_mode() {
-		return game_mode;
+	public int getGameMode() {
+		return gameMode;
 	}
 
-	public void setGame_mode(int game_mode) {
-		if (Math.abs(game_mode) <= 2)
-			this.game_mode = game_mode;
+	public void setGameMode(int gameMode) {
+		if (Math.abs(gameMode) <= 2)
+			this.gameMode = gameMode;
 		else
-			this.game_mode = 0;
+			this.gameMode = 0;
 	}
 
 	public Jogo() {
 		lab = new Labirinto();
-		game_over = false;
+		gameOver = false;
 		win = false;
 		generator = new Random();
 	}
@@ -56,31 +56,31 @@ public class Jogo {
 	public void turno(char direcao)// direção é fornecida pela interface com o
 									// jogador
 	{
-		int direcao_int = direcao_chartoint(direcao); // Converte direção para
+		int direcaoInt = direcaoCharToInt(direcao); // Converte direção para
 														// um int
 
 		// Move o Heroi
-		lab.moveSerAnimado(lab.getHero(), direcao_int);
+		lab.moveSerAnimado(lab.getHero(), direcaoInt);
 
 		if (lab.getExit().getPorcima() == lab.getHero()) // Se o herói estiver
 															// na saída depois
 															// de matar o dragao
 		{
-			setGame_over(true);
+			setGameOver(true);
 			setWin(true);
 			return;
 		}
 		if (!(lab.getHero().isAlive())) // Se o herói estiver morto
 		{
-			setGame_over(true);
+			setGameOver(true);
 			setWin(false);
 			return;
 		}
 
 		// Move o Dragão
-		if (game_mode == 1) // Modo jogo 1, simplesmente move o dragão
+		if (gameMode == 1) // Modo jogo 1, simplesmente move o dragão
 			lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4));
-		else if (game_mode == 2) {
+		else if (gameMode == 2) {
 			if (!modificarEstadoDragao(lab.getDragon())) // Modo jogo 2, move
 															// e pode mudá-lo de
 															// estado
@@ -94,13 +94,13 @@ public class Jogo {
 															// na saida depois
 															// de matar o dragao
 		{
-			setGame_over(true);
+			setGameOver(true);
 			setWin(true);
 			return;
 		}
 		if (!(lab.getHero().isAlive())) // Se o herói estiver morto
 		{
-			setGame_over(true);
+			setGameOver(true);
 			setWin(false);
 			return;
 		}
@@ -126,7 +126,7 @@ public class Jogo {
 			return false; // Não mudou o estado do dragão
 	}
 
-	public int direcao_chartoint(char direcao) {
+	public int direcaoCharToInt(char direcao) {
 		direcao = Character.toLowerCase(direcao);
 		switch (direcao) {
 		case 'w':
