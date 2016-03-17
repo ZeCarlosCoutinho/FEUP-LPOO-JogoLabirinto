@@ -252,6 +252,7 @@ public class MazeGenerator {
 	{
 		while(moveGuideCell())
 		{
+			
 		}
 		
 	}
