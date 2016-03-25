@@ -257,18 +257,40 @@ public class MazeGenerator {
 		
 	}
 	
+	/**
+	 * @brief Verifica se uma célula tem alguma célula não adjacente na grid
+	 * das visitedCells
+	 * @param cell
+	 * @return true - existe uma célula não visitada
+	 */
 	public boolean temNaoVisitadaAdjacente(Celula cell)
 	{
 		int yNorte = cell.y - 1;
 		int ySul = cell.y + 1;
 		int xEste = cell.x + 1;
 		int xOeste = cell.x - 1;
-		if(yNorte > converter_MazeToVis(maze.getTamy()))
-			yNorte -= 1;
-		//igual para as outras
+		if(yNorte > 0) //Se a célula a norte estiver in bounds
+		{
+			if(visitedCells[cell.x][yNorte] == '.')
+				return true;
+		}
+		if(ySul < converter_MazeToVis(maze.getTamy())) //Se a célula a sul estiver in bounds
+		{
+			if(visitedCells[cell.x][ySul] == '.')
+				return true;
+		}
+		if(xEste < converter_MazeToVis(maze.getTamx())) //Se a célula a este estiver in bounds
+		{
+			if(visitedCells[xEste][cell.y] == '.')
+				return true;
+		}
+		if(xOeste > 0)	//Se a célula a oeste estiver in bounds
+		{
+			if(visitedCells[xOeste][cell.y] == '.')
+				return true;		
+		}
 		
-	//Fazer a verificacao para cada uma das casas
-		if(visitedCells[cell.x][cell.y] == '.')
+		return false;
 	}
 	
 }
