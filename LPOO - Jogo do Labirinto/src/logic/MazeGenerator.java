@@ -248,13 +248,35 @@ public class MazeGenerator {
 		return;
 	}
 	
-	public boolean abreCaminhoAteParar()
+	/**
+	 * @brief Avança a célula de construção até parar
+	 * @return 
+	 */
+	public int abreCaminhoAteParar()
 	{
+		int num_cells = 0;
 		while(moveGuideCell())
 		{
-			
+			num_cells++;
 		}
 		
+		return num_cells;	
+	}
+	
+	/**
+	 * @brief Faz pop das células que foram percorridas, até encontrar uma
+	 * que possa ter um caminho alternativo
+	 * @return false - se já tiver voltado o máximo atrás
+	 */
+	public boolean voltaAtrasCaminho()
+	{
+		while(!temNaoVisitadaAdjacente(lastCells.peek()))
+		{
+			lastCells.pop();
+			if(lastCells.isEmpty()) //Quando percorrer todas as opções
+				return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -293,4 +315,11 @@ public class MazeGenerator {
 		return false;
 	}
 	
+	public void abreCaminho()
+	{
+		do
+		{
+			abreCaminhoAteParar();
+		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho até parar
+	}
 }
