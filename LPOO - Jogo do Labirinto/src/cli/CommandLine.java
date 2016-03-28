@@ -29,7 +29,7 @@ public class CommandLine {
 	}
 
 	public char pede_movimentacao() {
-		System.out.println("Para onde gostaria de mover o herói? (w,a,s,d) ");
+		//System.out.println("Para onde gostaria de mover o herói? (w,a,s,d) ");
 
 		return scan.next().charAt(0);
 	}
@@ -42,6 +42,10 @@ public class CommandLine {
 
 		return scan.nextInt();
 	}
+	
+	public void instrucoes(){
+		System.out.println("\nPara mover o herói utilize as teclas w, a, s, d.\nPara onde gostaria de mover o herói?");
+	}
 
 	public void heroi_matou_dragao() {
 		System.out.println("MATASTE O DRAGÃO!");
@@ -53,5 +57,19 @@ public class CommandLine {
 			System.out.println("GANHASTE!!!!");
 		else
 			System.out.println("PERDESTE.");
+	}
+	
+	public void clearConsole()
+	{
+	    try
+	    {
+	    	for(int clear = 0; clear < 50; clear++) {
+	    	    System.out.println("\b") ;
+	    	}
+	    }
+	    catch (final Exception e)
+	    {
+	        //  Handle any exceptions.
+	    }
 	}
 }

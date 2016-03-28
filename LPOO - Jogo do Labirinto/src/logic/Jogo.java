@@ -79,14 +79,21 @@ public class Jogo {
 
 		// Move o Dragão
 		if (gameMode == 1) // Modo jogo 1, simplesmente move o dragão
-			lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4));
+			// enquanto o dragao se move para uma parede, gera uma nova direçao
+			while (lab.getDragon().isAlive() && !lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4))){
+				
+			}
+			
 		else if (gameMode == 2) {
 			if (!modificarEstadoDragao(lab.getDragon())) // Modo jogo 2, move
 															// e pode mudá-lo de
 															// estado
 			{
 				if (!(lab.getDragon().isSleeping()))
-					lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4));
+					// enquanto o dragao se move para uma parede, gera uma nova direçao
+					while (lab.getDragon().isAlive() && !lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4))){
+						
+					}
 			}
 		}
 

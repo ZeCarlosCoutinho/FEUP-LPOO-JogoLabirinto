@@ -2,7 +2,7 @@ package logic;
 
 public class Labirinto {
 	private Heroi hero;
-	private Dragao dragon;
+	private Dragao[] dragons;
 	private Saida exit;
 	private Espada sword;
 	private Tabuleiro board;
@@ -21,14 +21,6 @@ public class Labirinto {
 
 	public void setHero(Heroi hero) {
 		this.hero = hero;
-	}
-
-	public Dragao getDragon() {
-		return dragon;
-	}
-
-	public void setDragon(Dragao dragon) {
-		this.dragon = dragon;
 	}
 
 	public Saida getExit() {
@@ -50,7 +42,11 @@ public class Labirinto {
 	// construtor
 	public Labirinto() {
 		hero = new Heroi();
-		dragon = new Dragao();
+		Dragao dragon = new Dragao();
+		Dragao dragon2 = new Dragao(1, 8);
+		dragons = new Dragao[2];
+		dragons[0] = dragon;
+		dragons[1] = dragon2;
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
@@ -64,7 +60,7 @@ public class Labirinto {
 	public void preenche_tab_default() {
 		board.preenche_tabuleiro();
 		preenche_heroi(hero);
-		preenche_dragao(dragon);
+		preenche_dragao(dragons);
 		preenche_saida(exit);
 		preenche_espada(sword);
 
@@ -101,9 +97,236 @@ public class Labirinto {
 		}
 	}
 
+	public void preenche_saida(Saida s) {
+		board.setChar('S', s.getPosX(), s.getPosY());
+		return;
+	}
+
+	public void preenche_heroi(Heroi h) {
+		if (h.isArmado())
+			board.setChar('A', h.getPosX(), h.getPosY());
+		else if (h.isAlive()) {
+			board.setChar('H', h.getPosX(), h.getPosY());
+		}
+
+	}
+
+	public void preenche_dragao(Dragao[] d) {
+		for (int i = 0; i < d.length; i++){
+			if (d[i].isAlive()) {
+				if (sword.getPorcima() == d[i]) {
+					if (d[i].isSleeping())
+						board.setChar('f', d[i].getPosX(), d[i].getPosY());
+					else
+						board.setChar('F', d[i].getPosX(), d[i].getPosY());
+				} else {
+					if (d[i].isSleeping())
+						board.setChar('d', d[i].getPosX(), d[i].getPosY());
+					else
+						board.setChar('D', d[i].getPosX(), d[i].getPosY());
+				}
+			}
+		}
+	}
+
+	public void preenche_espada(Espada e) {
+		if (!(e.isNaMao()) && e.getPorcima() == null) // Se o herói ainda não
+														// tiver apanhado, e nao
+														// tiver nada por cima
+			board.setChar('E', e.getPosX(), e.getPosY());
+	}
+
+	public void preenche_npc(Elemento elem) // função que escreve um Elemento no
+											// board
+	{
+		if (elem == hero) {
+			preenche_heroi(hero);
+			return;
+		} else if (elem instanceof Dragao) {
+			preenche_dragao(dragons); // DUVIDA: SE PASSARMOS elem COMO ARGUMENTO
+										// (e elem for um dragão)
+										// O PROGRAMA VAI USAR OS DADOS DE
+										// DRAGAO? OU VAI DESCARTA-LOS E ASSUMIR
+										// elem COM APENAS OS ATRIBUTOS DE
+										// elemento?
+			return;
+		} else if (elem == sword) {
+			preenche_espada(sword);
+			return;
+		} else if (elem == exit) {
+			preenche_saida(exit);
+			return;
+		} else
+			return;
+	}
+
+	public void preenche_all() {
+		preenche_saida(exit);
+		preenche_espada(sword);
+		preenche_heroi(hero);
+		preenche_dragao(dragons);
+		return;
+	}
+
+	public void apaga_all() {
+		apaga_npc(exit);
+		apaga_npc(sword);
+		apaga_npc(hero);
+		apaga_npc(dragon);
+		return;
+	}
+
+	public void apaga_npc(Elemento elem) {
+		board.setChar(' ', elem.getPosX(), elem.getPosY());
+		return;
+	}
+
+	public void clean_track(Elemento elem, int direcao) // limpa o rasto deixado
+														// pelo SerAnimado
+	{
+		switch (direcao) {
+		case 0:// Norte
+			board.setChar(' ', elem.getPosX(), elem.getPosY() + 1);// O rasto
+																	// ficou 1
+																	// casa
+																	// abaixo
+			break;
+		case 1:// Oeste
+			board.setChar(' ', elem.getPosX() - 1, elem.getPosY());// O rasto
+																	// ficou 1
+																	// casa à
+																	// esquerda
+			break;
+		case 2:// Sul
+			board.setChar(' ', elem.getPosX(), elem.getPosY() - 1);// O rasto
+																	// ficou 1
+																	// casa
+																	// acima
+			break;
+		case 3:// Este
+			board.setChar(' ', elem.getPosX() + 1, elem.getPosY());// O rasto
+																	// ficou 1
+																	// casa à
+																	// direita
+			break;
+		default:
+			break;
+		}
+	}
+
+	public boolean verificaPresencaDragao(Elemento elem) // Verifica se está um
+															// dragão na casa
+															// adjacente a ELEM
+	{
+		if (verifica_adjacencia(elem, dragon)) // Se eles estiverem adjacentes
+			return true;
+		else
+			return false;
+	}
+
+	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2) {
+		if (Math.abs(elem1.getPosX() - elem2.getPosX()) == 1 && elem1.getPosY() == elem2.getPosY()) {
+			// Estão adjacentes
+			return true;
+		} else if (Math.abs(elem1.getPosY() - elem2.getPosY()) == 1 && elem1.getPosX() == elem2.getPosX())
+			return true;
+		else
+			return false;
+	}
+
+	public SerAnimado verificaSobreposicao(SerInanimado elem) {
+		if (elem.isSobreposto(hero) && hero.isAlive())
+			return hero;
+		else if (elem.isSobreposto(dragon) && dragon.isAlive())
+			return dragon;
+		else
+			return null;
+	}
+
+	public void checkList() /*
+							 * Função que verifica tudo o que é necessário antes
+							 * do turno começaar, fazendo as alterações
+							 * necessárias
+							 */
+	{
+		sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está algo
+														// por cima da espada
+		if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a espada
+			hero.setArmado(true);
+		if (verificaPresencaDragao(hero)
+				&& !(dragon.isSleeping())) /*
+											 * Verifica se o heroi é morto pelo
+											 * dragão, ou vice versa, caso
+											 * estejam à distância de combate
+											 */
+		{
+			if (hero.isArmado())
+				dragon.setAlive(false);
+			else
+				hero.setAlive(false);
+		}
+
+		// AINDA NÃO SEI SE VALE A PENA INCLUIR A VERIFICAÇÃO SE ESTÁ NA SAÍDA
+		// OU NÃO
+		return;
+	}
+
+	public boolean moveSerAnimado(SerAnimado npc, int direcao) {
+		if (!(npc.isAlive())) // Se tiver morto não se mexe
+			return false;
+
+		npc.move(direcao); // altera a posição do npc
+		if (move_para_casa(posCharacter(npc), npc)) // Se o npc se puder mover
+		{
+			clean_track(npc, direcao); // limpa o rasto
+			preenche_espada(sword);
+			preenche_npc(npc);
+			return true;
+
+		} else {
+			switch (direcao) // Desfaz o movimento do Elemento
+			{
+			case 0: // Sul
+				direcao = 2;
+				break;
+			case 1: // Oeste
+				direcao = 3;
+				break;
+			case 2: // Norte
+				direcao = 0;
+				break;
+			case 3: // Este
+				direcao = 1;
+				break;
+			default:
+				break;
+			}
+
+			npc.move(direcao);
+		}
+		return false;
+	}
+
 	public boolean move_para_casa(char casa, SerAnimado npc) {
 		switch (casa) {
 		case 'X': // Andar para uma parede
+			if (verificaPresencaDragao(hero)) // Batalha entre Herói e Dragão
+			{
+				if (hero.isArmado()) {
+					dragon.setAlive(false);
+					apaga_npc(dragon);
+					checkList();
+					return true;
+				} else {
+					if (dragon.isSleeping()) // Se o dragão estiver a dormir,
+												// ele não mata o jogador
+						return true;
+					else {
+						hero.setAlive(false);
+						return true;
+					}
+				}
+			}
 			return false;
 		case 'D': // Andar para o dragão (não faz muito sentido)
 			if (npc == hero) // Herói
@@ -150,7 +373,7 @@ public class Labirinto {
 				} else {
 					if (dragon.isSleeping()) // Se o dragão estiver a dormir,
 												// ele não mata o jogador
-						return false;
+						return true;
 					else {
 						hero.setAlive(false);
 						return true;
@@ -237,200 +460,5 @@ public class Labirinto {
 			return false;
 
 		}
-	}
-
-	public void preenche_saida(Saida s) {
-		board.setChar('S', s.getPosX(), s.getPosY());
-		return;
-	}
-
-	public void preenche_heroi(Heroi h) {
-		if (h.isArmado())
-			board.setChar('A', h.getPosX(), h.getPosY());
-		else
-			board.setChar('H', h.getPosX(), h.getPosY());
-	}
-
-	public void preenche_dragao(Dragao d) {
-		if (d.isAlive()) {
-			if (sword.getPorcima() == d) {
-				if (d.isSleeping())
-					board.setChar('f', d.getPosX(), d.getPosY());
-				else
-					board.setChar('F', d.getPosX(), d.getPosY());
-			} else {
-				if (d.isSleeping())
-					board.setChar('d', d.getPosX(), d.getPosY());
-				else
-					board.setChar('D', d.getPosX(), d.getPosY());
-			}
-		}
-	}
-
-	public void preenche_espada(Espada e) {
-		if (!(e.isNaMao()) && e.getPorcima() == null) // Se o herói ainda não
-														// tiver apanhado, e nao
-														// tiver nada por cima
-			board.setChar('E', e.getPosX(), e.getPosY());
-	}
-
-	public void preenche_npc(Elemento elem) // função que escreve um Elemento no
-											// board
-	{
-		if (elem == hero) {
-			preenche_heroi(hero);
-			return;
-		} else if (elem == dragon) {
-			preenche_dragao(dragon); // DUVIDA: SE PASSARMOS elem COMO ARGUMENTO
-										// (e elem for um dragão)
-										// O PROGRAMA VAI USAR OS DADOS DE
-										// DRAGAO? OU VAI DESCARTA-LOS E ASSUMIR
-										// elem COM APENAS OS ATRIBUTOS DE
-										// elemento?
-			return;
-		} else if (elem == sword) {
-			preenche_espada(sword);
-			return;
-		} else if (elem == exit) {
-			preenche_saida(exit);
-			return;
-		} else
-			return;
-	}
-
-	public void preenche_all() {
-		preenche_saida(exit);
-		preenche_espada(sword);
-		preenche_heroi(hero);
-		preenche_dragao(dragon);
-		return;
-	}
-
-	public void apaga_all() {
-		apaga_npc(exit);
-		apaga_npc(sword);
-		apaga_npc(hero);
-		apaga_npc(dragon);
-		return;
-	}
-
-	public void apaga_npc(Elemento elem) {
-		board.setChar(' ', elem.getPosX(), elem.getPosY());
-		return;
-	}
-
-	public void clean_track(Elemento elem, int direcao) // limpa o rasto deixado
-														// pelo SerAnimado
-	{
-		switch (direcao) {
-		case 0:// Norte
-			board.setChar(' ', elem.getPosX(), elem.getPosY() + 1);// O rasto
-																	// ficou 1
-																	// casa
-																	// abaixo
-			break;
-		case 1:// Oeste
-			board.setChar(' ', elem.getPosX() - 1, elem.getPosY());// O rasto
-																	// ficou 1
-																	// casa à
-																	// esquerda
-			break;
-		case 2:// Sul
-			board.setChar(' ', elem.getPosX(), elem.getPosY() - 1);// O rasto
-																	// ficou 1
-																	// casa
-																	// acima
-			break;
-		case 3:// Este
-			board.setChar(' ', elem.getPosX() + 1, elem.getPosY());// O rasto
-																	// ficou 1
-																	// casa à
-																	// direita
-			break;
-		default:
-			break;
-		}
-	}
-
-	public boolean verificaPresencaDragao(Elemento elem) // Verifica se está um
-															// dragão na casa
-															// adjacente a ELEM
-	{
-		if (verifica_adjacencia(elem, dragon)) // Se eles estiverem adjacentes
-			return true;
-		else
-			return false;
-	}
-
-	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2) {
-		if (Math.abs(elem1.getPosX() - elem2.getPosX()) == 1 && elem1.getPosY() == elem2.getPosY()) {
-			// Estão adjacentes
-			return true;
-		} else if (Math.abs(elem1.getPosY() - elem2.getPosY()) == 1 && elem1.getPosX() == elem2.getPosX())
-			return true;
-		else
-			return false;
-	}
-
-	public SerAnimado verificaSobreposicao(SerInanimado elem) {
-		if (elem.isSobreposto(hero) && hero.isAlive())
-			return hero;
-		else if (elem.isSobreposto(dragon) && dragon.isAlive())
-			return dragon;
-		else
-			return null;
-	}
-
-	public void checkList() /*Função que verifica tudo o que é necessário antes do turno começaar, fazendo as
-							 alterações necessárias*/
-	{
-		sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está algo por cima da espada
-		if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a espada
-			hero.setArmado(true);
-		if (verificaPresencaDragao(hero) && !(dragon.isSleeping())) /*Verifica se o heroi é morto pelo dragão, ou 
-																	vice versa, caso estejam à distância de combate*/
-		{
-			if (hero.isArmado())
-				dragon.setAlive(false);
-			else
-				hero.setAlive(false);
-		}
-
-		// AINDA NÃO SEI SE VALE A PENA INCLUIR A VERIFICAÇÃO SE ESTÁ NA SAÍDA
-		// OU NÃO
-		return;
-	}
-
-	public void moveSerAnimado(SerAnimado npc, int direcao) {
-		if (!(npc.isAlive())) // Se tiver morto não se mexe
-			return;
-		npc.move(direcao); // altera a posição do npc
-		if (move_para_casa(posCharacter(npc), npc)) // Se o npc se puder mover
-		{
-			clean_track(npc, direcao); // limpa o rasto
-			preenche_espada(sword);
-			preenche_npc(npc);
-		} else {
-			switch (direcao) // Desfaz o movimento do Elemento
-			{
-			case 0: // Sul
-				direcao = 2;
-				break;
-			case 1: // Oeste
-				direcao = 3;
-				break;
-			case 2: // Norte
-				direcao = 0;
-				break;
-			case 3: // Este
-				direcao = 1;
-				break;
-			default:
-				break;
-			}
-
-			npc.move(direcao);
-		}
-		return;
 	}
 }

@@ -2,6 +2,7 @@ package logic;
 
 public class SerAnimado extends Elemento {
 	protected boolean alive;
+	protected boolean userWarned;
 
 	public boolean isAlive() {
 		return alive;
@@ -9,6 +10,14 @@ public class SerAnimado extends Elemento {
 
 	public void setAlive(boolean alive) {
 		this.alive = alive;
+	}
+
+	public boolean isUserWarned() {
+		return userWarned;
+	}
+
+	public void setUserWarned(boolean userWarned) {
+		this.userWarned = userWarned;
 	}
 
 	public void move(int direcao) {
