@@ -112,7 +112,7 @@ public class Labirinto {
 	}
 
 	public void preenche_dragao(Dragao[] d) {
-		for (int i = 0; i < d.length; i++){
+		for (int i = 0; i < d.length; i++) {
 			if (d[i].isAlive()) {
 				if (sword.getPorcima() == d[i]) {
 					if (d[i].isSleeping())
@@ -143,7 +143,8 @@ public class Labirinto {
 			preenche_heroi(hero);
 			return;
 		} else if (elem instanceof Dragao) {
-			preenche_dragao(dragons); // DUVIDA: SE PASSARMOS elem COMO ARGUMENTO
+			preenche_dragao(dragons); // DUVIDA: SE PASSARMOS elem COMO
+										// ARGUMENTO
 										// (e elem for um dragão)
 										// O PROGRAMA VAI USAR OS DADOS DE
 										// DRAGAO? OU VAI DESCARTA-LOS E ASSUMIR
@@ -172,7 +173,8 @@ public class Labirinto {
 		apaga_npc(exit);
 		apaga_npc(sword);
 		apaga_npc(hero);
-		apaga_npc(dragon);
+		for (int i = 0; i < dragons.length; i++)
+			apaga_npc(dragons[i]);
 		return;
 	}
 
@@ -218,10 +220,12 @@ public class Labirinto {
 															// dragão na casa
 															// adjacente a ELEM
 	{
-		if (verifica_adjacencia(elem, dragon)) // Se eles estiverem adjacentes
-			return true;
-		else
-			return false;
+		for (int i = 0; i < dragons.length; i++) {
+			if (verifica_adjacencia(elem, dragons[i])) // Se eles estiverem
+														// adjacentes
+				return true;
+		}
+		return false;
 	}
 
 	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2) {
@@ -235,12 +239,13 @@ public class Labirinto {
 	}
 
 	public SerAnimado verificaSobreposicao(SerInanimado elem) {
-		if (elem.isSobreposto(hero) && hero.isAlive())
-			return hero;
-		else if (elem.isSobreposto(dragon) && dragon.isAlive())
-			return dragon;
-		else
-			return null;
+		for (int i = 0; i < dragons.length; i++) {
+			if (elem.isSobreposto(hero) && hero.isAlive())
+				return hero;
+			else if (elem.isSobreposto(dragons[i]) && dragons[i].isAlive())
+				return dragons[i];
+		}
+		return null;
 	}
 
 	public void checkList() /*
