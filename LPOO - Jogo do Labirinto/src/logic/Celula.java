@@ -8,4 +8,8 @@ public class Celula {
 		this.x = x;
 		this.y = y;
 	}
+
+	public Celula() {
+		
+	}
 }

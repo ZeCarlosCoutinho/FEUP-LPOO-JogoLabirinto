@@ -7,9 +7,9 @@ import logic.*;
 
 public class TestarLabirintoDragaoAdicional {
 
-	@Test(timeout = 1000)
+	/*@Test(timeout = 1000)
 	public void testGoodMoveDragon() {
-		/*
+		
 		 * Labirinto lab = new Labirinto(); int oldX =
 		 * lab.getDragon().getPosX(); int oldY = lab.getDragon().getPosY();
 		 * Random generator = new Random();
@@ -19,7 +19,7 @@ public class TestarLabirintoDragaoAdicional {
 		 * lab.getDragon().getPosX() >= oldX-1); assertTrue("Error on y move!",
 		 * lab.getDragon().getPosY() <= oldY+1 && lab.getDragon().getPosY() >=
 		 * oldY-1);
-		 */
+		 
 
 		Labirinto lab = new Labirinto();
 		Dragao dragon = new Dragao(5, 5);
@@ -138,7 +138,7 @@ public class TestarLabirintoDragaoAdicional {
 		assertEquals(0, game.direcaoCharToInt('w'));
 		assertEquals(3, game.direcaoCharToInt('a'));
 		assertEquals(2, game.direcaoCharToInt('s'));	
-	}
+	}*/
 }
 
 

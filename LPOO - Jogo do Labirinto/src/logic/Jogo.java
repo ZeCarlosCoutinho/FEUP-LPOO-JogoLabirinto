@@ -57,7 +57,7 @@ public class Jogo {
 									// jogador
 	{
 		int direcaoInt = direcaoCharToInt(direcao); // Converte direção para
-														// um int
+													// um int
 
 		// Move o Heroi
 		lab.moveSerAnimado(lab.getHero(), direcaoInt);
@@ -77,49 +77,60 @@ public class Jogo {
 			return;
 		}
 
-		// Move o Dragão
-		if (gameMode == 1) // Modo jogo 1, simplesmente move o dragão
-			// enquanto o dragao se move para uma parede, gera uma nova direçao
-			while (lab.getDragon().isAlive() && !lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4))){
-				
-			}
-			
-		else if (gameMode == 2) {
-			if (!modificarEstadoDragao(lab.getDragon())) // Modo jogo 2, move
-															// e pode mudá-lo de
-															// estado
+for (int i = 0; i < lab.getDragons().length; i++) {
+			// Move o Dragão
+			if (gameMode == 1) // Modo jogo 1, simplesmente move o dragão
 			{
-				if (!(lab.getDragon().isSleeping()))
-					// enquanto o dragao se move para uma parede, gera uma nova direçao
-					while (lab.getDragon().isAlive() && !lab.moveSerAnimado(lab.getDragon(), generator.nextInt(4))){
-						
-					}
+				// enquanto o dragao se move para uma parede, gera uma nova
+				// direçao
+				while (lab.getDragons()[i].isAlive()
+						&& !lab.moveSerAnimado(lab.getDragons()[i], generator.nextInt(5))) {
+
+				}
 			}
-		}
 
-		if (lab.getExit().getPorcima() == lab.getHero()) // Se o herói estiver
-															// na saida depois
-															// de matar o dragao
-		{
-			setGameOver(true);
-			setWin(true);
-			return;
-		}
-		if (!(lab.getHero().isAlive())) // Se o herói estiver morto
-		{
-			setGameOver(true);
-			setWin(false);
-			return;
-		}
+			else if (gameMode == 2) {
+				if (!modificarEstadoDragao(lab.getDragons()[i])) // Modo jogo 2,
+																	// move
+																	// e pode
+																	// mudá-lo
+																	// de
+																	// estado
+				{
+					if (!(lab.getDragons()[i].isSleeping()))
+						// enquanto o dragao se move para uma parede, gera uma
+						// nova direçao
+						while (lab.getDragons()[i].isAlive()
+								&& !lab.moveSerAnimado(lab.getDragons()[i], generator.nextInt(4))) {
 
-		lab.apaga_all();
-		lab.preenche_all();
-		return;
+						}
+				}
+			}
+
+			if (lab.getExit().getPorcima() == lab.getHero()) // Se o herói
+																// estiver
+																// na saida
+																// depois
+																// de matar o
+																// dragao
+			{
+				setGameOver(true);
+				setWin(true);
+			}
+			if (!(lab.getHero().isAlive())) // Se o herói estiver morto
+			{
+				setGameOver(true);
+				setWin(false);
+			}
+
+			lab.apaga_all();
+			lab.preenche_all();
+		}
 	}
 
 	public boolean modificarEstadoDragao(Dragao dragon) // modifica
-															// aleatoriamente o
-															// estado do dragão
+														// aleatoriamente o
+														// estado do dragão
 	{
 		if (generator.nextBoolean()) // Se decidir modificar
 		{

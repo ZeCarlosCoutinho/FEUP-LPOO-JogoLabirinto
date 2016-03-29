@@ -42,7 +42,7 @@ public class Tabuleiro {
 
 	public char getChar(int x, int y) // Devolve a char da posição (x,y)
 	{
-		if (x < 0 || x > tamx || y < 0 || y > tamy) // Out of bounds
+		if (x < 0 || x >= tamx || y < 0 || y >= tamy) // Out of bounds
 			return 'N';
 		else
 			return board[x][y];

@@ -1,14 +1,15 @@
-package maze.test;
+package Labirinto.teste;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.Random;
 
-import maze.logic.IMazeBuilder; //O que é o IMazeBuilder?
-import maze.logic.MazeBuilder;
+//import maze.logic.IMazeBuilder; //O que ï¿½ o IMazeBuilder?
+//import maze.logic.MazeBuilder;
 
 public class TestMazeBuilder {
+	/*
 	// Auxiliary class
 	public static class Point {		
 		private int x, y;
@@ -152,5 +153,5 @@ public class TestMazeBuilder {
 			s.append("\n");
 		}
 		return s.toString();
-	}
+	}*/
 }

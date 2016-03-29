@@ -2,6 +2,24 @@ package logic;
 
 public class Dragao extends SerAnimado {
 	private boolean sleeping;
+	private static int nDragoes;
+	private static int nDragoesVivos;
+
+	public static int getnDragoes() {
+		return nDragoes;
+	}
+
+	public static void setnDragoes(int nDragoes) {
+		Dragao.nDragoes = nDragoes;
+	}
+
+	public static int getnDragoesVivos() {
+		return nDragoesVivos;
+	}
+
+	public static void setnDragoesVivos(int nDragoesVivos) {
+		Dragao.nDragoesVivos = nDragoesVivos;
+	}
 
 	public boolean isSleeping() {
 		return sleeping;
@@ -16,6 +34,8 @@ public class Dragao extends SerAnimado {
 		posY = 3;
 		alive = true;
 		sleeping = false;
+		nDragoes++;
+		nDragoesVivos++;
 	}
 
 	public Dragao(int x, int y) {
@@ -23,5 +43,7 @@ public class Dragao extends SerAnimado {
 		posY = y;
 		alive = true;
 		sleeping = false;
+		nDragoes++;
+		nDragoesVivos++;
 	}
 }

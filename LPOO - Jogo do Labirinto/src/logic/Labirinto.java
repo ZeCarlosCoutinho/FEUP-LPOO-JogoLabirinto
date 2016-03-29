@@ -7,6 +7,10 @@ public class Labirinto {
 	private Espada sword;
 	private Tabuleiro board;
 
+	public Dragao[] getDragons() {
+		return dragons;
+	}
+
 	public Tabuleiro getBoard() {
 		return board;
 	}
@@ -41,12 +45,14 @@ public class Labirinto {
 
 	// construtor
 	public Labirinto() {
-		hero = new Heroi();
-		Dragao dragon = new Dragao();
-		Dragao dragon2 = new Dragao(1, 8);
-		dragons = new Dragao[2];
-		dragons[0] = dragon;
-		dragons[1] = dragon2;
+		hero = new Heroi(1, 7);
+		
+		dragons = new Dragao[4];
+		dragons[0] =  new Dragao(8, 1);
+		dragons[1] =  new Dragao(8, 2);
+		dragons[2] =  new Dragao(1, 2);
+		dragons[3] =  new Dragao(5, 2);
+		
 		exit = new Saida();
 		sword = new Espada();
 		board = new Tabuleiro(10, 10);
@@ -67,14 +73,14 @@ public class Labirinto {
 		return;
 	}
 
-	public char retorna_casa(int x, int y) {
+	public char retornaCasa(int x, int y) {
 		return board.getChar(x, y);
 	}
 
-	public char posCharacter(Elemento elem) // Retorna o char na posição do
+	public char retornaCasa(Elemento elem) // Retorna o char na posição do
 											// Elemento
 	{
-		return retorna_casa(elem.getPosX(), elem.getPosY());
+		return retornaCasa(elem.getPosX(), elem.getPosY());
 	}
 
 	public char posCharacter(Elemento elem, int direcao) // Retorna o char na
@@ -85,15 +91,15 @@ public class Labirinto {
 	{
 		switch (direcao) {
 		case 0:
-			return retorna_casa(elem.getPosX(), elem.getPosY() - 1);
+			return retornaCasa(elem.getPosX(), elem.getPosY() - 1);
 		case 1:
-			return retorna_casa(elem.getPosX() + 1, elem.getPosY());
+			return retornaCasa(elem.getPosX() + 1, elem.getPosY());
 		case 2:
-			return retorna_casa(elem.getPosX(), elem.getPosY() + 1);
+			return retornaCasa(elem.getPosX(), elem.getPosY() + 1);
 		case 3:
-			return retorna_casa(elem.getPosX() - 1, elem.getPosY());
+			return retornaCasa(elem.getPosX() - 1, elem.getPosY());
 		default:
-			return retorna_casa(elem.getPosX(), elem.getPosY());
+			return retornaCasa(elem.getPosX(), elem.getPosY());
 		}
 	}
 
@@ -216,16 +222,16 @@ public class Labirinto {
 		}
 	}
 
-	public boolean verificaPresencaDragao(Elemento elem) // Verifica se está um
-															// dragão na casa
-															// adjacente a ELEM
+	public int verificaPresencaDragao(Elemento elem) // Verifica se está um
+														// dragão na casa
+														// adjacente a ELEM
 	{
 		for (int i = 0; i < dragons.length; i++) {
-			if (verifica_adjacencia(elem, dragons[i])) // Se eles estiverem
+			if (dragons[i].isAlive() && verifica_adjacencia(elem, dragons[i])) // Se eles estiverem
 														// adjacentes
-				return true;
+				return i;
 		}
-		return false;
+		return -1;
 	}
 
 	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2) {
@@ -248,194 +254,115 @@ public class Labirinto {
 		return null;
 	}
 
-	public void checkList() /*
-							 * Função que verifica tudo o que é necessário antes
-							 * do turno começaar, fazendo as alterações
-							 * necessárias
-							 */
-	{
-		sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está algo
-														// por cima da espada
-		if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a espada
-			hero.setArmado(true);
-		if (verificaPresencaDragao(hero)
-				&& !(dragon.isSleeping())) /*
-											 * Verifica se o heroi é morto pelo
-											 * dragão, ou vice versa, caso
-											 * estejam à distância de combate
-											 */
-		{
-			if (hero.isArmado())
-				dragon.setAlive(false);
-			else
-				hero.setAlive(false);
+	public void checkList() { /*
+								 * Função que verifica tudo o que é necessário
+								 * antes do turno começaar, fazendo as
+								 * alterações necessárias
+								 */
+		for (int i = 0; i < dragons.length; i++) {
+			sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está
+															// algo
+			// por cima da espada
+			if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a
+											// espada
+				hero.setArmado(true);
 		}
 
-		// AINDA NÃO SEI SE VALE A PENA INCLUIR A VERIFICAÇÃO SE ESTÁ NA SAÍDA
-		// OU NÃO
 		return;
+	}
+
+	public Celula getNewPosition(SerAnimado npc, int direcao) {
+		Celula c = new Celula();
+
+		switch (direcao) {
+		case 0: // Norte
+			c.y = npc.getPosY() - 1;
+			c.x = npc.getPosX();
+			break;
+		case 1: // Este
+			c.y = npc.getPosY();
+			c.x = npc.getPosX() + 1;
+			break;
+		case 2: // Sul
+			c.y = npc.getPosY() + 1;
+			c.x = npc.getPosX();
+			break;
+		case 3: // Oeste
+			c.y = npc.getPosY();
+			c.x = npc.getPosX() - 1;
+			break;
+		}
+		return c;
+	}
+
+	public boolean verificaPosicao(SerAnimado npc, int direcao) {
+
+		Celula c = getNewPosition(npc, direcao);
+		char casa = retornaCasa(c.x, c.y);
+
+		switch (casa) {
+		case 'X': // Andar para uma parede
+			return false;
+		case 'S':
+			if (npc instanceof Heroi && Dragao.getnDragoesVivos() > 0)
+				return false;
+			else if (npc instanceof Dragao)
+				return false;
+		}
+
+		return true;
 	}
 
 	public boolean moveSerAnimado(SerAnimado npc, int direcao) {
 		if (!(npc.isAlive())) // Se tiver morto não se mexe
 			return false;
 
-		npc.move(direcao); // altera a posição do npc
-		if (move_para_casa(posCharacter(npc), npc)) // Se o npc se puder mover
+		if (!verificaPosicao(npc, direcao))
+			return false;
+
+		moveParaCasa(npc, direcao);
+		clean_track(npc, direcao); // limpa o rasto
+		preenche_espada(sword);
+		preenche_npc(npc);
+
+		int indice = verificaPresencaDragao(hero);
+		if (indice != -1) // Batalha entre Herói e dragao
 		{
-			clean_track(npc, direcao); // limpa o rasto
-			preenche_espada(sword);
-			preenche_npc(npc);
-			return true;
-
-		} else {
-			switch (direcao) // Desfaz o movimento do Elemento
-			{
-			case 0: // Sul
-				direcao = 2;
-				break;
-			case 1: // Oeste
-				direcao = 3;
-				break;
-			case 2: // Norte
-				direcao = 0;
-				break;
-			case 3: // Este
-				direcao = 1;
-				break;
-			default:
-				break;
-			}
-
-			npc.move(direcao);
+			if (hero.isArmado()) {
+				dragons[indice].setAlive(false);
+				Dragao.setnDragoesVivos(Dragao.getnDragoesVivos()-1);
+				apaga_npc(dragons[indice]);
+				checkList();
+			} else if (!dragons[indice].isSleeping())
+				hero.setAlive(false);
 		}
-		return false;
+		return true;
 	}
 
-	public boolean move_para_casa(char casa, SerAnimado npc) {
-		switch (casa) {
-		case 'X': // Andar para uma parede
-			if (verificaPresencaDragao(hero)) // Batalha entre Herói e Dragão
-			{
-				if (hero.isArmado()) {
-					dragon.setAlive(false);
-					apaga_npc(dragon);
-					checkList();
-					return true;
-				} else {
-					if (dragon.isSleeping()) // Se o dragão estiver a dormir,
-												// ele não mata o jogador
-						return true;
-					else {
-						hero.setAlive(false);
-						return true;
-					}
-				}
-			}
-			return false;
-		case 'D': // Andar para o dragão (não faz muito sentido)
-			if (npc == hero) // Herói
-			{
-				if (hero.isArmado()) {
-					dragon.setAlive(false);
-					apaga_npc(dragon);
-					checkList();
-					return true;
-				} else {
-					hero.setAlive(false);
-					return true;
-				}
-			} else if (npc == dragon)// NPC é o Dragao
-			{
-				return false;
-			} else
-				return false;
-		case 'd':
-			if (npc == hero) {
-				if (hero.isArmado()) {
-					dragon.setAlive(false);
-					apaga_npc(dragon);
-					checkList();
-					return true;
-				} else
-					return false;
+	public boolean moveParaCasa(SerAnimado npc, int direcao) {
 
-			} else if (npc == dragon)
-				return false;
-			else
-				return false;
+		npc.move(direcao);
+		char casa = retornaCasa(npc.getPosX(), npc.getPosY());
+
+		switch (casa) {
 		case ' ': // Andar para um espaço em branco
 			checkList();
 			preenche_espada(sword); // Volta a imprimir a espada (so imprime se
 									// o player não a tiver apanhado)
-			if (verificaPresencaDragao(hero)) // Batalha entre Herói e Dragão
-			{
-				if (hero.isArmado()) {
-					dragon.setAlive(false);
-					apaga_npc(dragon);
-					checkList();
-					return true;
-				} else {
-					if (dragon.isSleeping()) // Se o dragão estiver a dormir,
-												// ele não mata o jogador
-						return true;
-					else {
-						hero.setAlive(false);
-						return true;
-					}
-				}
-			}
 			return true;
 		case 'E': // Andar para a espada
 			if (npc == hero) {
 				hero.setArmado(true);
 				sword.setNaMao(true);
 				sword.setPorcima(hero);
-				if (verificaPresencaDragao(hero)) // Batalha entre Herói e
-													// Dragão
-				{
-					if (hero.isArmado()) {
-						dragon.setAlive(false);
-						apaga_npc(dragon);
-						checkList();
-						return true;
-					} else {
-						if (dragon.isSleeping()) // Se o dragão estiver a
-													// dormir, ele não mata o
-													// jogador
-							return false;
-						else {
-							hero.setAlive(false);
-							return true;
-						}
-					}
-				}
+
 				return true;
-			} else if (npc == dragon) {
-				sword.setPorcima(dragon);
-				if (verificaPresencaDragao(hero)) // Batalha entre Herói e
-													// Dragão
-				{
-					if (hero.isArmado()) {
-						dragon.setAlive(false);
-						apaga_npc(dragon);
-						checkList();
-						return true;
-					} else {
-						if (dragon.isSleeping()) // Se o dragão estiver a
-													// dormir, ele não mata o
-													// jogador
-							return false;
-						else {
-							hero.setAlive(false);
-							return true;
-						}
-					}
-				}
+			} else if (npc instanceof Dragao) {
+				sword.setPorcima(npc);
 				return true;
 			}
 		case 'S': // Andar para a saída
-			if (!(dragon.isAlive())) {
+			if (Dragao.getnDragoesVivos() == 0) {
 				exit.setChegou_heroi(true);
 				exit.setPorcima(hero);
 				checkList();
@@ -446,24 +373,20 @@ public class Labirinto {
 			if (npc == hero) {
 				hero.setAlive(false);
 				return true;
-			} else if (npc == dragon) {
-				preenche_dragao(dragon);
+			} else if (npc instanceof Dragao) {
+				preenche_dragao(dragons);
 				return false;
 			} else
 				return false;
 		case 'f':
-			// Sim, eu sei que bastava ter um return false em vez disto tudo
-			// No entanto, se for preciso meter alguma feature nova, é mais
-			// fácil se estiver assim
 			if (npc == hero)
 				return false;
-			else if (npc == dragon)
+			else if (npc instanceof Dragao)
 				return false;
 			else
 				return false;
-		default:
-			return false;
-
 		}
+
+		return false;
 	}
 }

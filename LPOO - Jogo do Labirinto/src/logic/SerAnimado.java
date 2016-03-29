@@ -34,6 +34,8 @@ public class SerAnimado extends Elemento {
 		case 3: // Oeste
 			posX -= 1;
 			break;
+		case 4: // Manter
+			break;
 		default:
 			break;
 		}

@@ -61,44 +61,47 @@ public class TestarLabirintoDragaoEstatico {
 		 * lab.move_SerAnimado(lab.getHero(), 0);
 		 * lab.move_SerAnimado(lab.getHero(), 0);
 		 */
-		assertEquals(false, lab.getDragon().isAlive());
+		for (int i = 0; i < lab.getDragons().length; i++)
+			assertEquals(false, lab.getDragons()[i].isAlive());
 	}
 
 	@Test
 	public void test2f() {
 		Labirinto lab = new Labirinto();
-		Heroi hero = new Heroi(8, 5);
-		hero.setArmado(true);
-		lab.getDragon().setAlive(false);
-		lab.setHero(hero);
+		for (int i = 0; i < lab.getDragons().length; i++) {
+			Heroi hero = new Heroi(8, 5);
+			hero.setArmado(true);
+			lab.getDragons()[i].setAlive(false);
+			lab.setHero(hero);
 
-		lab.moveSerAnimado(lab.getHero(), 1);
-		assertEquals(true, lab.getHero().isArmado());
-		/*
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 */
-		assertEquals(false, lab.getDragon().isAlive());
-		/*
-		 * lab.move_SerAnimado(lab.getHero(), 2);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 2);
-		 * lab.move_SerAnimado(lab.getHero(), 2);
-		 * lab.move_SerAnimado(lab.getHero(), 2);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 0);
-		 * lab.move_SerAnimado(lab.getHero(), 1);
-		 */
-		assertEquals(true, lab.getExit().isChegou_heroi());
+			lab.moveSerAnimado(lab.getHero(), 1);
+			assertEquals(true, lab.getHero().isArmado());
+			/*
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 */
+			assertEquals(false, lab.getDragons()[i].isAlive());
+			/*
+			 * lab.move_SerAnimado(lab.getHero(), 2);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 2);
+			 * lab.move_SerAnimado(lab.getHero(), 2);
+			 * lab.move_SerAnimado(lab.getHero(), 2);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 0);
+			 * lab.move_SerAnimado(lab.getHero(), 1);
+			 */
+			assertEquals(true, lab.getExit().isChegou_heroi());
+		}
 	}
 
 	@Test

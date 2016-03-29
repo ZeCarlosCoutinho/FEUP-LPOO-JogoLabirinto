@@ -22,9 +22,12 @@ public class Start {
 
 			jogar.turno(cmd.pede_movimentacao());
 
-			if (!(jogar.getTab().getDragon().isAlive()) && !(jogar.getTab().getDragon().isUserWarned())){
-				jogar.getTab().getDragon().setUserWarned(true);
+			for(int i = 0; i < jogar.getTab().getDragons().length; i++)
+			if (!(jogar.getTab().getDragons()[i].isAlive()) && !(jogar.getTab().getDragons()[i].isUserWarned())){
+				jogar.getTab().getDragons()[i].setUserWarned(true);
+				cmd.clearConsole();
 				cmd.heroi_matou_dragao();
+				firstTime = true;
 			}
 				
 		}
