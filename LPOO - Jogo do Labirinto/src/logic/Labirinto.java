@@ -11,6 +11,10 @@ public class Labirinto {
 		return dragons;
 	}
 
+	public void setDragons(Dragao[] dragons) {
+		this.dragons = dragons;
+	}
+
 	public Tabuleiro getBoard() {
 		return board;
 	}
