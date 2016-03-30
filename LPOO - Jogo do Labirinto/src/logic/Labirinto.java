@@ -51,7 +51,7 @@ public class Labirinto {
 		dragons[0] =  new Dragao(8, 1);
 		dragons[1] =  new Dragao(8, 2);
 		dragons[2] =  new Dragao(1, 2);
-		dragons[3] =  new Dragao(5, 2);
+		dragons[3] =  new Dragao(5, 1);
 		
 		exit = new Saida();
 		sword = new Espada();
