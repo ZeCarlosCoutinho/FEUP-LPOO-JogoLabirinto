@@ -26,7 +26,8 @@ public class MazeGenerator {
 		
 		//Coloca a celula guide numa casa aleatoria
 		this.guideCell = iniciar_guideCell();
-		
+		escreveGuideVisitedCells();
+
 		this.exit = iniciar_saida(guideCell);
 		
 		this.lastCells = new Stack<Celula>();
@@ -40,7 +41,32 @@ public class MazeGenerator {
 
 	public char[][] buildMaze(int size)
 	{
+		this.generator = new Random();
+
+		this.maze = new Tabuleiro(size);
+		this.maze.make_quadriculado();
+
+		this.visitedCells = new char[(size-1)/2][(size-1)/2];
+		for(int i = 0; i < (size-1)/2; i++)
+		{
+			for(int j = 0; j < (size-1)/2; j++)
+				this.visitedCells[i][j] = '.';
+		}
+
+		//Coloca a celula guide numa casa aleatoria
+		this.guideCell = iniciar_guideCell();
+		escreveGuideVisitedCells();
+
+		this.exit = iniciar_saida(guideCell);
+
+		this.lastCells = new Stack<Celula>();
+		this.lastCells.push(guideCell);
 		
+		this.abreCaminho();
+		
+		//TODO
+		//Função que coloca o heroi, o dragao, e a espadas
+		return this.maze.getBoard();
 	}
 	
 	public Celula iniciar_guideCell() //Cria uma guideCell para colocar em visitedCells
@@ -204,36 +230,60 @@ public class MazeGenerator {
 		switch(direction)
 		{
 		case 0: //Norte
-			if(guideCell.y-1 < 0 || visitedCells[guideCell.x][guideCell.y-1] == '+')
+			if(guideCell.y-1 < 0) //Out of bound = nao move a guide cell na VisitedCells
 				return false;
 			else
 			{
-				guideCell.y -= 1;
-				return true;
+				if(visitedCells[guideCell.x][guideCell.y-1] == '+') //Celula ja visitada = nao move a guide cell
+					return false;
+				else
+				{
+					guideCell.y -= 1;
+					escreveGuideVisitedCells();
+					return true;
+				}
 			}
 		case 1: //Este
-			if(guideCell.x +1 > (maze.getTamx()-1)/2 || visitedCells[guideCell.x+1][guideCell.y] == '+')
+			if(guideCell.x +1 > (maze.getTamx()-1)/2)
 				return false;
 			else
 			{
-				guideCell.x += 1;
-				return true;
+				if(visitedCells[guideCell.x+1][guideCell.y] == '+')
+					return false;
+				else
+				{
+					guideCell.x += 1;
+					escreveGuideVisitedCells();
+					return true;
+				}
 			}
 		case 2: //Sul
-			if(guideCell.y + 1 > (maze.getTamy()-1)/2 || visitedCells[guideCell.x][guideCell.y+1] == '+')
+			if(guideCell.y + 1 > (maze.getTamy()-1)/2)
 				return false;
 			else
 			{
-				guideCell.y += 1;
-				return true;
+				if(visitedCells[guideCell.x][guideCell.y+1] == '+')
+					return false;
+				else
+				{
+					guideCell.y += 1;
+					escreveGuideVisitedCells();
+					return true;
+				}
 			}
 		case 3: //Oeste
-			if(guideCell.x-1 < 0 || visitedCells[guideCell.x-1][guideCell.y] == '+')
+			if(guideCell.x-1 < 0)
 				return false;
 			else
 			{
-				guideCell.x -= 1;
-				return true;
+				if(visitedCells[guideCell.x-1][guideCell.y] == '+')
+					return false;
+				else
+				{
+					guideCell.x -= 1;
+					escreveGuideVisitedCells();
+					return true;
+				}
 			}
 		default:
 			return false; //DEVIAMOS INCLUIR UMA EXCECAO
