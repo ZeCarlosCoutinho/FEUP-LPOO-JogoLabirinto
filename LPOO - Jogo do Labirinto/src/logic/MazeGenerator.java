@@ -34,6 +34,10 @@ public class MazeGenerator {
 		
 	}
 	
+	public MazeGenerator() {
+		
+	}
+
 	public Celula iniciar_guideCell() //Cria uma guideCell para colocar em visitedCells
 	{
 		Celula cell = new Celula(0,0);
@@ -249,7 +253,7 @@ public class MazeGenerator {
 	}
 	
 	/**
-	 * @brief Avança a célula de construção até parar
+	 * @brief Avanï¿½a a cï¿½lula de construï¿½ï¿½o atï¿½ parar
 	 * @return 
 	 */
 	public int abreCaminhoAteParar()
@@ -264,26 +268,26 @@ public class MazeGenerator {
 	}
 	
 	/**
-	 * @brief Faz pop das células que foram percorridas, até encontrar uma
+	 * @brief Faz pop das cï¿½lulas que foram percorridas, atï¿½ encontrar uma
 	 * que possa ter um caminho alternativo
-	 * @return false - se já tiver voltado o máximo atrás
+	 * @return false - se jï¿½ tiver voltado o mï¿½ximo atrï¿½s
 	 */
 	public boolean voltaAtrasCaminho()
 	{
 		while(!temNaoVisitadaAdjacente(lastCells.peek()))
 		{
 			lastCells.pop();
-			if(lastCells.isEmpty()) //Quando percorrer todas as opções
+			if(lastCells.isEmpty()) //Quando percorrer todas as opï¿½ï¿½es
 				return false;
 		}
 		return true;
 	}
 	
 	/**
-	 * @brief Verifica se uma célula tem alguma célula não adjacente na grid
+	 * @brief Verifica se uma cï¿½lula tem alguma cï¿½lula nï¿½o adjacente na grid
 	 * das visitedCells
 	 * @param cell
-	 * @return true - existe uma célula não visitada
+	 * @return true - existe uma cï¿½lula nï¿½o visitada
 	 */
 	public boolean temNaoVisitadaAdjacente(Celula cell)
 	{
@@ -291,22 +295,22 @@ public class MazeGenerator {
 		int ySul = cell.y + 1;
 		int xEste = cell.x + 1;
 		int xOeste = cell.x - 1;
-		if(yNorte > 0) //Se a célula a norte estiver in bounds
+		if(yNorte > 0) //Se a cï¿½lula a norte estiver in bounds
 		{
 			if(visitedCells[cell.x][yNorte] == '.')
 				return true;
 		}
-		if(ySul < converter_MazeToVis(maze.getTamy())) //Se a célula a sul estiver in bounds
+		if(ySul < converter_MazeToVis(maze.getTamy())) //Se a cï¿½lula a sul estiver in bounds
 		{
 			if(visitedCells[cell.x][ySul] == '.')
 				return true;
 		}
-		if(xEste < converter_MazeToVis(maze.getTamx())) //Se a célula a este estiver in bounds
+		if(xEste < converter_MazeToVis(maze.getTamx())) //Se a cï¿½lula a este estiver in bounds
 		{
 			if(visitedCells[xEste][cell.y] == '.')
 				return true;
 		}
-		if(xOeste > 0)	//Se a célula a oeste estiver in bounds
+		if(xOeste > 0)	//Se a cï¿½lula a oeste estiver in bounds
 		{
 			if(visitedCells[xOeste][cell.y] == '.')
 				return true;		
@@ -320,6 +324,6 @@ public class MazeGenerator {
 		do
 		{
 			abreCaminhoAteParar();
-		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho até parar
+		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho atï¿½ parar
 	}
 }
