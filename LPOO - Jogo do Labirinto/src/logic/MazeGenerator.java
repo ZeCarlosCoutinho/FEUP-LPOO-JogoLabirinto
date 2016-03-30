@@ -38,6 +38,11 @@ public class MazeGenerator {
 		
 	}
 
+	public char[][] buildMaze(int size)
+	{
+		
+	}
+	
 	public Celula iniciar_guideCell() //Cria uma guideCell para colocar em visitedCells
 	{
 		Celula cell = new Celula(0,0);
