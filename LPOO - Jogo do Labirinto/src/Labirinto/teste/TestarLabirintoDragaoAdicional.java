@@ -7,7 +7,7 @@ import logic.*;
 
 public class TestarLabirintoDragaoAdicional {
 
-	/*@Test(timeout = 1000)
+	@Test(timeout = 1000)
 	public void testGoodMoveDragon() {
 		
 		 * Labirinto lab = new Labirinto(); int oldX =
@@ -138,7 +138,7 @@ public class TestarLabirintoDragaoAdicional {
 		assertEquals(0, game.direcaoCharToInt('w'));
 		assertEquals(3, game.direcaoCharToInt('a'));
 		assertEquals(2, game.direcaoCharToInt('s'));	
-	}*/
+	}
 }
 
 
