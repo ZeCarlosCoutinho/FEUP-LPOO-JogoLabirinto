@@ -150,7 +150,7 @@ public class Tabuleiro {
 		make_linha('X', 0, 0, false, tamx);
 		make_linha('X', 1, 0, true, tamx -1);
 		make_linha('X', 1, tamy-1, true, tamx -1);
-		make_linha('X', tamx-1, tamy-1, false, tamx -2);
+		make_linha('X', tamx-1, 1, false, tamx -2);
 		
 		//quadriculas
 		for(int i = 2; i <= tamx-2; i = i +2)

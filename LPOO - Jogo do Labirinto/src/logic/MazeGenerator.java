@@ -48,6 +48,7 @@ public class MazeGenerator {
 		this.guideCell = iniciar_guideCell();
 		escreveGuideVisitedCells();
 
+		this.exit = new Saida();
 		this.exit = iniciar_saida(guideCell);
 
 		this.lastCells = new Stack<Celula>();
@@ -55,6 +56,7 @@ public class MazeGenerator {
 		
 		this.abreCaminho();
 		
+		this.maze.setChar('S', exit.posX, exit.posY);
 		//TODO
 		//Função que coloca o heroi, o dragao, e a espadas
 		return this.maze.getBoard();

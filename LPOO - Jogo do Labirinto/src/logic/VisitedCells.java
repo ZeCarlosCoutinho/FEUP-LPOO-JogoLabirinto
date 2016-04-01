@@ -21,7 +21,7 @@ public class VisitedCells {
 	
 	public boolean setCell(int x, int y)
 	{
-		if(x < 0 || x > tam || y < 0 || y > tam)
+		if(x < 0 || x >= tam || y < 0 || y >= tam)
 			return false;
 		else
 		{
@@ -32,7 +32,7 @@ public class VisitedCells {
 	
 	public boolean resetCell(int x, int y)
 	{
-		if(x < 0 || x > tam || y < 0 || y > tam)
+		if(x < 0 || x >= tam || y < 0 || y >= tam)
 			return false;
 		else
 		{
@@ -43,7 +43,7 @@ public class VisitedCells {
 	
 	public char getCell(int x, int y) throws Exception
 	{
-		if(x < 0 || x > tam || y < 0 || y > tam)
+		if(x < 0 || x >= tam || y < 0 || y >= tam)
 			throw new IllegalArgumentException();
 		else
 			return grid[x][y];
@@ -52,6 +52,10 @@ public class VisitedCells {
 	{
 		this.tam = tam;
 		this.grid = new char[tam][tam];
-		Arrays.fill(this.grid, '.');
+		for(int i = 0; i < tam; i++)
+		{
+			for(int j = 0; j < tam; j++)
+				this.grid[i][j] = '.';
+		}
 	}
 }
