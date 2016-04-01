@@ -5,7 +5,7 @@ import java.util.*;
 public class MazeGenerator {
 	private Tabuleiro maze;
 	private Saida exit;
-	private char[][] visitedCells;
+	private VisitedCells visitedCells;
 	private Celula guideCell;
 	private Stack<Celula> lastCells;
 	private Random generator;
@@ -17,12 +17,7 @@ public class MazeGenerator {
 		this.maze = new Tabuleiro(size);
 		this.maze.make_quadriculado();
 		
-		this.visitedCells = new char[(size-1)/2][(size-1)/2];
-		for(int i = 0; i < (size-1)/2; i++)
-		{
-			for(int j = 0; j < (size-1)/2; j++)
-				this.visitedCells[i][j] = '.';
-		}
+		this.visitedCells = new VisitedCells((size-1)/2);
 		
 		//Coloca a celula guide numa casa aleatoria
 		this.guideCell = iniciar_guideCell();
@@ -46,12 +41,8 @@ public class MazeGenerator {
 		this.maze = new Tabuleiro(size);
 		this.maze.make_quadriculado();
 
-		this.visitedCells = new char[(size-1)/2][(size-1)/2];
-		for(int i = 0; i < (size-1)/2; i++)
-		{
-			for(int j = 0; j < (size-1)/2; j++)
-				this.visitedCells[i][j] = '.';
-		}
+		this.visitedCells = new VisitedCells((size-1)/2);
+	
 
 		//Coloca a celula guide numa casa aleatoria
 		this.guideCell = iniciar_guideCell();
@@ -234,13 +225,19 @@ public class MazeGenerator {
 				return false;
 			else
 			{
-				if(visitedCells[guideCell.x][guideCell.y-1] == '+') //Celula ja visitada = nao move a guide cell
+				try {
+					if(visitedCells.getCell(guideCell.x, guideCell.y-1) == '+') //Celula ja visitada = nao move a guide cell
+						return false;
+					else
+					{
+						guideCell.y -= 1;
+						escreveGuideVisitedCells();
+						return true;
+					}
+				} catch (Exception e) {
+					System.out.println("OUT OF BOUNDS");
+					e.printStackTrace();
 					return false;
-				else
-				{
-					guideCell.y -= 1;
-					escreveGuideVisitedCells();
-					return true;
 				}
 			}
 		case 1: //Este
@@ -248,13 +245,19 @@ public class MazeGenerator {
 				return false;
 			else
 			{
-				if(visitedCells[guideCell.x+1][guideCell.y] == '+')
+				try {
+					if(visitedCells.getCell(guideCell.x+1, guideCell.y) == '+')
+						return false;
+					else
+					{
+						guideCell.x += 1;
+						escreveGuideVisitedCells();
+						return true;
+					}
+				} catch (Exception e) {
+					System.out.println("OUT OF BOUNDS");
+					e.printStackTrace();
 					return false;
-				else
-				{
-					guideCell.x += 1;
-					escreveGuideVisitedCells();
-					return true;
 				}
 			}
 		case 2: //Sul
@@ -262,13 +265,19 @@ public class MazeGenerator {
 				return false;
 			else
 			{
-				if(visitedCells[guideCell.x][guideCell.y+1] == '+')
+				try {
+					if(visitedCells.getCell(guideCell.x, guideCell.y+1) == '+')
+						return false;
+					else
+					{
+						guideCell.y += 1;
+						escreveGuideVisitedCells();
+						return true;
+					}
+				} catch (Exception e) {
+					System.out.println("OUT OF BOUNDS");
+					e.printStackTrace();
 					return false;
-				else
-				{
-					guideCell.y += 1;
-					escreveGuideVisitedCells();
-					return true;
 				}
 			}
 		case 3: //Oeste
@@ -276,13 +285,19 @@ public class MazeGenerator {
 				return false;
 			else
 			{
-				if(visitedCells[guideCell.x-1][guideCell.y] == '+')
+				try {
+					if(visitedCells.getCell(guideCell.x-1, guideCell.y) == '+')
+						return false;
+					else
+					{
+						guideCell.x -= 1;
+						escreveGuideVisitedCells();
+						return true;
+					}
+				} catch (Exception e) {
+					System.out.println("OUT OF BOUNDS");
+					e.printStackTrace();
 					return false;
-				else
-				{
-					guideCell.x -= 1;
-					escreveGuideVisitedCells();
-					return true;
 				}
 			}
 		default:
@@ -292,7 +307,7 @@ public class MazeGenerator {
 	
 	public void escreveGuideVisitedCells()
 	{
-		visitedCells[guideCell.x][guideCell.y] = '+';
+		visitedCells.setCell(guideCell.x, guideCell.y); //Coloca um + em VisitedCells na pos da guidecell
 		return;
 	}
 	
@@ -352,23 +367,47 @@ public class MazeGenerator {
 		int xOeste = cell.x - 1;
 		if(yNorte > 0) //Se a c�lula a norte estiver in bounds
 		{
-			if(visitedCells[cell.x][yNorte] == '.')
-				return true;
+			try {
+				if(visitedCells.getCell(cell.x,yNorte) == '.')
+					return true;
+			} catch (Exception e) {
+				System.out.println("OUT OF BOUNDS");
+				e.printStackTrace();
+				return false;
+			}
 		}
 		if(ySul < converter_MazeToVis(maze.getTamy())) //Se a c�lula a sul estiver in bounds
 		{
-			if(visitedCells[cell.x][ySul] == '.')
-				return true;
+			try {
+				if(visitedCells.getCell(cell.x,ySul) == '.')
+					return true;
+			} catch (Exception e) {
+				System.out.println("OUT OF BOUNDS");
+				e.printStackTrace();
+				return false;
+			}
 		}
 		if(xEste < converter_MazeToVis(maze.getTamx())) //Se a c�lula a este estiver in bounds
 		{
-			if(visitedCells[xEste][cell.y] == '.')
-				return true;
+			try {
+				if(visitedCells.getCell(xEste,cell.y) == '.')
+					return true;
+			} catch (Exception e) {
+				System.out.println("OUT OF BOUNDS");
+				e.printStackTrace();
+				return false;
+			}
 		}
 		if(xOeste > 0)	//Se a c�lula a oeste estiver in bounds
 		{
-			if(visitedCells[xOeste][cell.y] == '.')
-				return true;		
+			try {
+				if(visitedCells.getCell(xOeste,cell.y) == '.')
+					return true;
+			} catch (Exception e) {
+				System.out.println("OUT OF BOUNDS");
+				e.printStackTrace();
+				return false;
+			}		
 		}
 		
 		return false;
