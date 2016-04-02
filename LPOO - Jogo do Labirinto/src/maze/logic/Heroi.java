@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class Heroi extends SerAnimado {
 	public static final String SerAnimado = null;

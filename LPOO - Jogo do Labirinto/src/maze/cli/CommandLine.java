@@ -1,9 +1,9 @@
-package cli;
+package maze.cli;
 
 import java.util.Scanner;
 
-import logic.Jogo;
-import logic.Tabuleiro;
+import maze.logic.Jogo;
+import maze.logic.Tabuleiro;
 
 public class CommandLine {
 	Scanner scan = new Scanner(System.in);

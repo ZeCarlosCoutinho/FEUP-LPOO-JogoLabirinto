@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class Celula {
 	public int x, y;

@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class VisitedCells {
 	private char[][] grid;

@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class Dragao extends SerAnimado {
 	private boolean sleeping;

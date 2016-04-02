@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class SerInanimado extends Elemento {
 	protected SerAnimado porCima;

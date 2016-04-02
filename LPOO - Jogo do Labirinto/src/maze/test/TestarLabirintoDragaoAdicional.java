@@ -1,9 +1,10 @@
-package Labirinto.teste;
+package maze.test;
 
 import static org.junit.Assert.*;
 import java.util.Random;
 import org.junit.Test;
-import logic.*;
+
+import maze.logic.*;
 
 public class TestarLabirintoDragaoAdicional {
 

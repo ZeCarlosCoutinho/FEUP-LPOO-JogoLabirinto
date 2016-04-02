@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 import java.util.Random; //Mover o Dragão random
 

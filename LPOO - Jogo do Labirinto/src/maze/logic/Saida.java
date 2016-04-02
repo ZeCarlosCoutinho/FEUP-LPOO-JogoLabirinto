@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class Saida extends SerInanimado {
 	private boolean chegou_heroi;

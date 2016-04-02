@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 
 public class Espada extends SerInanimado {
 	private boolean naMao;

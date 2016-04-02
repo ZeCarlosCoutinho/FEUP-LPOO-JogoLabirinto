@@ -1,4 +1,4 @@
-package logic;
+package maze.logic;
 import java.util.*;
 
 //Algoritmo da autoria de Henrique Ferrolho
@@ -86,7 +86,7 @@ public class MazeGenerator {
 		}
 		
 		//TODO
-		//este método tem de retornar um LABIRINTO, pois temos de retornar nao so o
+		//este mï¿½todo tem de retornar um LABIRINTO, pois temos de retornar nao so o
 		//tabuleiro, mas tambem os elementos que vao ser colocados nele
 		
 		return this.maze.getBoard();
@@ -282,7 +282,7 @@ public class MazeGenerator {
 	
 	public boolean coloca_Dragao(Celula cell)
 	{
-		//Se o dragao nao estiver em cima de um espaço
+		//Se o dragao nao estiver em cima de um espaï¿½o
 		if(maze.getChar(cell) != ' ')
 			return false;
 		

@@ -1,14 +1,13 @@
-package Labirinto.teste;
+package maze.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import cli.CommandLine;
+import maze.cli.CommandLine;
+import maze.logic.MazeGenerator;
 
 import java.util.Arrays;
 import java.util.Random;
-
-import logic.MazeGenerator;
 
 public class TestarMazeGenerator {
 	// Auxiliary class

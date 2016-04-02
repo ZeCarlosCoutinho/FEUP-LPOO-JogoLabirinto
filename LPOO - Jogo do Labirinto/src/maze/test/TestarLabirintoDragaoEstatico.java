@@ -1,8 +1,9 @@
-package Labirinto.teste;
+package maze.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import logic.*;
+
+import maze.logic.*;
 
 public class TestarLabirintoDragaoEstatico {
 
