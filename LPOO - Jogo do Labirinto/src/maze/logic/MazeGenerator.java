@@ -16,6 +16,7 @@ public class MazeGenerator {
 	public Tabuleiro getMaze() {
 		return maze;
 	}
+	
 	public MazeGenerator(int size)
 	{
 		this.generator = new Random();
@@ -568,7 +569,7 @@ public class MazeGenerator {
 		do
 		{
 			abreCaminhoAteParar();
-		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho at� parar
+		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho até parar
 		
 		return;
 	}

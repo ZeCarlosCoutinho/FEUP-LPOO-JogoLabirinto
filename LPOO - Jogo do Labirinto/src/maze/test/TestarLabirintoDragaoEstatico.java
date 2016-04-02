@@ -14,6 +14,7 @@ public class TestarLabirintoDragaoEstatico {
 
 		lab.moveSerAnimado(lab.getHero(), 1);
 		assertEquals(2, lab.getHero().getPosX());
+		System.out.println(lab.getHero().getPosX());
 		assertEquals(1, lab.getHero().getPosY());
 	}
 

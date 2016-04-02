@@ -8,7 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import maze.logic.Tabuleiro;
+import maze.logic.*;
 
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
@@ -21,10 +21,10 @@ import java.awt.event.ActionEvent;
 
 public class ApplicationWindow {
 
-	private JFrame frame;
-	private JTextField textField;
+	private JFrame frmJogoDoLabirinto;
+	private JTextField tamanhoTab;
 	private JLabel lblNmeroDeDrages;
-	private JTextField textField_1;
+	private JTextField nrDragoes;
 	private JLabel lblTipoDeDrages;
 
 	/**
@@ -35,7 +35,7 @@ public class ApplicationWindow {
 			public void run() {
 				try {
 					ApplicationWindow window = new ApplicationWindow();
-					window.frame.setVisible(true);
+					window.frmJogoDoLabirinto.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,40 +54,41 @@ public class ApplicationWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 480, 361);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmJogoDoLabirinto = new JFrame();
+		frmJogoDoLabirinto.setTitle("Jogo do labirinto");
+		frmJogoDoLabirinto.setBounds(100, 100, 480, 361);
+		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmJogoDoLabirinto.getContentPane().setLayout(null);
 		
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimensão do labirinto");
 		lblDimensoDoLabirinto.setBounds(18, 24, 145, 14);
-		frame.getContentPane().add(lblDimensoDoLabirinto);
+		frmJogoDoLabirinto.getContentPane().add(lblDimensoDoLabirinto);
 		
-		textField = new JTextField();
-		textField.setText("11");
-		textField.setBounds(164, 18, 65, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		tamanhoTab = new JTextField();
+		tamanhoTab.setText("11");
+		tamanhoTab.setBounds(164, 18, 65, 26);
+		frmJogoDoLabirinto.getContentPane().add(tamanhoTab);
+		tamanhoTab.setColumns(10);
 		
 		lblNmeroDeDrages = new JLabel("Número de dragões");
 		lblNmeroDeDrages.setBounds(18, 48, 145, 14);
-		frame.getContentPane().add(lblNmeroDeDrages);
+		frmJogoDoLabirinto.getContentPane().add(lblNmeroDeDrages);
 		
-		textField_1 = new JTextField();
-		textField_1.setText("1");
-		textField_1.setColumns(10);
-		textField_1.setBounds(164, 42, 65, 26);
-		frame.getContentPane().add(textField_1);
+		nrDragoes = new JTextField();
+		nrDragoes.setText("1");
+		nrDragoes.setColumns(10);
+		nrDragoes.setBounds(164, 42, 65, 26);
+		frmJogoDoLabirinto.getContentPane().add(nrDragoes);
 		
 		lblTipoDeDrages = new JLabel("Tipo de dragões");
 		lblTipoDeDrages.setBounds(18, 74, 145, 14);
-		frame.getContentPane().add(lblTipoDeDrages);
+		frmJogoDoLabirinto.getContentPane().add(lblTipoDeDrages);
 		
 		JComboBox modosJogo = new JComboBox();
 		modosJogo.setModel(new DefaultComboBoxModel(new String[] {"Estáticos", "Móveis", "Móveis/Dorminhocos"}));
 		modosJogo.setSelectedIndex(0);
 		modosJogo.setBounds(163, 69, 111, 27);
-		frame.getContentPane().add(modosJogo);
+		frmJogoDoLabirinto.getContentPane().add(modosJogo);
 		
 		JButton btnNewButton = new JButton("Gerar novo labirinto");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -96,7 +97,7 @@ public class ApplicationWindow {
 			}
 		});
 		btnNewButton.setBounds(306, 18, 156, 35);
-		frame.getContentPane().add(btnNewButton);
+		frmJogoDoLabirinto.getContentPane().add(btnNewButton);
 		
 		JButton btnTerminarPrograma = new JButton("Terminar programa");
 		btnTerminarPrograma.addActionListener(new ActionListener() {
@@ -105,11 +106,11 @@ public class ApplicationWindow {
 			}
 		});
 		btnTerminarPrograma.setBounds(306, 61, 156, 35);
-		frame.getContentPane().add(btnTerminarPrograma);
+		frmJogoDoLabirinto.getContentPane().add(btnTerminarPrograma);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(16, 109, 247, 185);
-		frame.getContentPane().add(textArea);
+		frmJogoDoLabirinto.getContentPane().add(textArea);
 		
 		JButton btnCima = new JButton("Cima");
 		btnCima.addActionListener(new ActionListener() {
@@ -117,15 +118,15 @@ public class ApplicationWindow {
 			}
 		});
 		btnCima.setBounds(339, 141, 76, 35);
-		frame.getContentPane().add(btnCima);
+		frmJogoDoLabirinto.getContentPane().add(btnCima);
 		
 		JButton btnBaixo = new JButton("Baixo");
 		btnBaixo.setBounds(339, 218, 76, 35);
-		frame.getContentPane().add(btnBaixo);
+		frmJogoDoLabirinto.getContentPane().add(btnBaixo);
 		
 		JButton btnEsquerda = new JButton("Esquerda");
 		btnEsquerda.setBounds(286, 180, 86, 35);
-		frame.getContentPane().add(btnEsquerda);
+		frmJogoDoLabirinto.getContentPane().add(btnEsquerda);
 		
 		JButton btnDireita = new JButton("Direita");
 		btnDireita.addActionListener(new ActionListener() {
@@ -133,10 +134,10 @@ public class ApplicationWindow {
 			}
 		});
 		btnDireita.setBounds(376, 180, 86, 35);
-		frame.getContentPane().add(btnDireita);
+		frmJogoDoLabirinto.getContentPane().add(btnDireita);
 		
 		JLabel lblNewLabel = new JLabel("Pode gerar novo labirinto!");
-		lblNewLabel.setBounds(26, 306, 239, 16);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(18, 306, 239, 16);
+		frmJogoDoLabirinto.getContentPane().add(lblNewLabel);
 	}
 }

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestarLabirintoDragaoAdicional.class, TestarLabirintoDragaoEstatico.class })
+@SuiteClasses({ TestarLabirintoDragaoAdicional.class, TestarLabirintoDragaoEstatico.class, TestarMazeGenerator.class})
 public class AllTests {
 
 }
