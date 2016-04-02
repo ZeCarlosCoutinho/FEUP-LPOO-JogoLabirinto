@@ -1,5 +1,7 @@
 package maze.logic;
 
+import java.util.Arrays;
+
 public class VisitedCells {
 	private char[][] grid;
 	private int tam;
