@@ -8,6 +8,7 @@ public class Start {
 
 		boolean firstTime = true;
 		jogar.setGameMode(cmd.pede_modo_jogo());
+		jogar.criaLabirintoAleatorio(cmd.pede_maze_aleatorio());
 		
 		cmd.instrucoes();
 

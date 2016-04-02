@@ -6,6 +6,15 @@ public class Labirinto {
 	private Saida exit;
 	private Espada sword;
 	private Tabuleiro board;
+	private int numDragoes;
+
+	public int getNumDragoes() {
+		return numDragoes;
+	}
+
+	public void setNumDragoes(int numDragoes) {
+		this.numDragoes = numDragoes;
+	}
 
 	public Dragao[] getDragons() {
 		return dragons;
@@ -50,8 +59,26 @@ public class Labirinto {
 	// construtor
 	public Labirinto() {
 		hero = new Heroi(1, 7);
+		numDragoes = 4;
+		dragons = new Dragao[numDragoes];
+		dragons[0] =  new Dragao(8, 1);
+		dragons[1] =  new Dragao(8, 2);
+		dragons[2] =  new Dragao(1, 2);
+		dragons[3] =  new Dragao(5, 1);
 		
-		dragons = new Dragao[4];
+		exit = new Saida();
+		sword = new Espada();
+		board = new Tabuleiro(10, 10);
+
+		checkList(); // Faz uma série de verificações
+
+		preenche_tab_default();
+	}
+	
+	public Labirinto(int numDragoes) {
+		hero = new Heroi(1, 7);
+		this.numDragoes = numDragoes;
+		dragons = new Dragao[numDragoes];
 		dragons[0] =  new Dragao(8, 1);
 		dragons[1] =  new Dragao(8, 2);
 		dragons[2] =  new Dragao(1, 2);
@@ -335,6 +362,7 @@ public class Labirinto {
 			if (hero.isArmado()) {
 				dragons[indice].setAlive(false);
 				Dragao.setnDragoesVivos(Dragao.getnDragoesVivos()-1);
+				System.out.print(Dragao.getnDragoesVivos());
 				apaga_npc(dragons[indice]);
 				checkList();
 			} else if (!dragons[indice].isSleeping())

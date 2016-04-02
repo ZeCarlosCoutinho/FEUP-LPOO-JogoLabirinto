@@ -13,6 +13,30 @@ public class MazeGenerator {
 	private Stack<Celula> lastCells;
 	private Random generator;
 	
+	public Saida getExit() {
+		return exit;
+	}
+	public Heroi getHero() {
+		return hero;
+	}
+	public Espada getSword() {
+		return sword;
+	}
+	public Dragao[] getDragons() {
+		return dragons;
+	}
+	public VisitedCells getVisitedCells() {
+		return visitedCells;
+	}
+	public Celula getGuideCell() {
+		return guideCell;
+	}
+	public Stack<Celula> getLastCells() {
+		return lastCells;
+	}
+	public Random getGenerator() {
+		return generator;
+	}
 	public Tabuleiro getMaze() {
 		return maze;
 	}
@@ -240,17 +264,21 @@ public class MazeGenerator {
 		return sword;
 	}
 	
-	public Dragao iniciar_dragao()
+	public Dragao iniciar_dragao() throws Exception
 	{
 		Celula posicao = new Celula();
-		
+		int tentativas = 0;
 		do
 		{
 			posicao.x = generator.nextInt(maze.getTamx());
 			posicao.y = generator.nextInt(maze.getTamy());
+			
+			tentativas++;
 		}
-		while(!coloca_Dragao(posicao));
+		while(!coloca_Dragao(posicao) && tentativas < 100);
 		
+		if(tentativas == 100)
+			throw new Exception();
 		//So cria o dragao quando tem a certeza que o pode colocar na posicao da Celula
 		Dragao dragon = new Dragao(posicao);
 		return dragon;
@@ -261,7 +289,15 @@ public class MazeGenerator {
 		//Criar um dragao por posicao do array
 		for(int i = 0; i < dragons.length ; i++)
 		{
-			dragons[i] = iniciar_dragao();
+			try {
+				dragons[i] = iniciar_dragao();
+			} catch (Exception e) {
+				//TODO
+				//pedir um numero diferente de dragoes
+				//ou crashar o programa
+				e.printStackTrace();
+				break;
+			}
 		}
 		
 		return;

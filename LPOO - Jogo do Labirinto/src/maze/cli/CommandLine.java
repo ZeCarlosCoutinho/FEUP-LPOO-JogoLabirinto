@@ -40,7 +40,34 @@ public class CommandLine {
 		System.out.println("Modo 1 - Dragão que se move");
 		System.out.println("Modo 2 - Dragão Dorminhoco");
 
-		return scan.nextInt();
+		int modo = scan.nextInt();
+		if(modo < 0 || modo > 2)
+		{
+			clearConsole();
+			return pede_modo_jogo();
+		}
+		return modo;
+	}
+	
+	public int pede_maze_aleatorio()
+	{
+		System.out.println("Qual o tamanho do labirinto?");
+		
+		int tamanho = scan.nextInt();
+		
+		if(tamanho < 7)
+		{
+			clearConsole();
+			System.out.println("Tamanho invalido. Tente novamente");
+			return pede_maze_aleatorio();
+		}
+		if(tamanho > 100)
+		{
+			clearConsole();
+			System.out.println("Tamanho demasiado grande. Tente novamente");
+			return pede_maze_aleatorio();
+		}
+		return tamanho;
 	}
 	
 	public void instrucoes(){
