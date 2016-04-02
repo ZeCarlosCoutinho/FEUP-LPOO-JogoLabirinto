@@ -52,7 +52,7 @@ public class MazeGenerator {
 		this.exit = iniciar_saida(guideCell);
 
 		this.lastCells = new Stack<Celula>();
-		this.lastCells.push(guideCell);
+		this.lastCells.push(new Celula(guideCell));
 		
 		this.abreCaminho();
 		
@@ -69,18 +69,18 @@ public class MazeGenerator {
 		switch(tipo_iniciar)
 		{
 		case 0: //Junto a Coluna da esquerda
-			cell.y = generator.nextInt((maze.getTamy()+1)/2);
+			cell.y = generator.nextInt(visitedCells.getTam());
 			break;
 		case 1: //Junto a Linha de cima
-			cell.x = generator.nextInt((maze.getTamy()+1)/2);
+			cell.x = generator.nextInt(visitedCells.getTam());
 			break;
 		case 2: //Junto a Linha de baixo
-			cell.x = generator.nextInt((maze.getTamy()+1)/2);
-			cell.y = (maze.getTamy()+1)/2 -1;
+			cell.x = generator.nextInt(visitedCells.getTam());
+			cell.y = visitedCells.getTam() -1;
 			break;
 		case 3: //Junto a Coluna da direita
-			cell.x = (maze.getTamy()+1)/2 -1;
-			cell.y = generator.nextInt((maze.getTamy()+1)/2);
+			cell.x = visitedCells.getTam() -1;
+			cell.y = generator.nextInt(visitedCells.getTam());
 			break;
 		default:
 			break;
@@ -107,7 +107,7 @@ public class MazeGenerator {
 				}
 				return s;
 			}
-			else if(cell.y == converter_MazeToVis(maze.getTamy())) //Tambem encostado a Linha Baixo
+			else if(cell.y == visitedCells.getTam()-1) //Tambem encostado a Linha Baixo
 			{
 				if(generator.nextBoolean())
 				{
@@ -126,7 +126,7 @@ public class MazeGenerator {
 			}
 		}
 		//ENCOSTADO COLUNA DIREITA
-		else if(cell.x == converter_MazeToVis(maze.getTamx()))
+		else if(cell.x == visitedCells.getTam()-1)
 		{
 			if(cell.y == 0) //Tambem encostado a Linha Cima
 			{
@@ -140,7 +140,7 @@ public class MazeGenerator {
 				}
 				return s;
 			}
-			else if(cell.y == converter_MazeToVis(maze.getTamy())) //Tambem encostado a Linha Baixo
+			else if(cell.y == visitedCells.getTam()-1) //Tambem encostado a Linha Baixo
 			{
 				if(generator.nextBoolean())
 				{
@@ -165,7 +165,7 @@ public class MazeGenerator {
 			return s;
 		}
 		//ENCOSTADO LINHA BAIXO
-		else if(cell.y == converter_MazeToVis(maze.getTamy()))
+		else if(cell.y == visitedCells.getTam()-1)
 		{
 			s = new Saida(converter_VisToMaze(cell.x), maze.getTamy()-1);
 			return s;
@@ -194,13 +194,13 @@ public class MazeGenerator {
 		int direction = generator.nextInt(4);
 		
 	//Cria copia da guideCell
-		Celula celulaInicial = guideCell;
+		Celula celulaInicial = new Celula(guideCell);
 		
 	//Tenta mover a guideCell nas 4 direcoes
 		int i = 0;
 		while(i < 4)
 		{
-			if(moveGuideVisitedCells(direction + i))
+			if(moveGuideVisitedCells((direction + i)%4))
 				break;
 			else
 				i++;
@@ -213,7 +213,7 @@ public class MazeGenerator {
 		abreCaminhoCelulas(celulaInicial, guideCell);
 		
 	//Coloca a ultima celula visitada na stack
-		lastCells.push(guideCell);
+		lastCells.push(new Celula(guideCell));
 		
 		return true;
 	}
@@ -243,7 +243,7 @@ public class MazeGenerator {
 				}
 			}
 		case 1: //Este
-			if(guideCell.x +1 > (maze.getTamx()-1)/2)
+			if(guideCell.x +1 >= visitedCells.getTam())
 				return false;
 			else
 			{
@@ -263,7 +263,7 @@ public class MazeGenerator {
 				}
 			}
 		case 2: //Sul
-			if(guideCell.y + 1 > (maze.getTamy()-1)/2)
+			if(guideCell.y + 1 >= visitedCells.getTam())
 				return false;
 			else
 			{
@@ -367,44 +367,60 @@ public class MazeGenerator {
 		int ySul = cell.y + 1;
 		int xEste = cell.x + 1;
 		int xOeste = cell.x - 1;
-		if(yNorte > 0) //Se a c�lula a norte estiver in bounds
+		if(yNorte >= 0) //Se a c�lula a norte estiver in bounds
 		{
 			try {
 				if(visitedCells.getCell(cell.x,yNorte) == '.')
+				{
+					guideCell.x = cell.x;
+					guideCell.y = cell.y;
 					return true;
+				}
 			} catch (Exception e) {
 				System.out.println("OUT OF BOUNDS");
 				e.printStackTrace();
 				return false;
 			}
 		}
-		if(ySul < converter_MazeToVis(maze.getTamy())) //Se a c�lula a sul estiver in bounds
+		if(ySul < visitedCells.getTam()) //Se a c�lula a sul estiver in bounds
 		{
 			try {
 				if(visitedCells.getCell(cell.x,ySul) == '.')
+				{
+					guideCell.x = cell.x;
+					guideCell.y = cell.y;
 					return true;
+				}
 			} catch (Exception e) {
 				System.out.println("OUT OF BOUNDS");
 				e.printStackTrace();
 				return false;
 			}
 		}
-		if(xEste < converter_MazeToVis(maze.getTamx())) //Se a c�lula a este estiver in bounds
+		if(xEste < visitedCells.getTam()) //Se a c�lula a este estiver in bounds
 		{
 			try {
 				if(visitedCells.getCell(xEste,cell.y) == '.')
+				{
+					guideCell.x = cell.x;
+					guideCell.y = cell.y;
 					return true;
+				}
 			} catch (Exception e) {
 				System.out.println("OUT OF BOUNDS");
 				e.printStackTrace();
 				return false;
 			}
 		}
-		if(xOeste > 0)	//Se a c�lula a oeste estiver in bounds
+		if(xOeste >= 0)	//Se a c�lula a oeste estiver in bounds
 		{
 			try {
 				if(visitedCells.getCell(xOeste,cell.y) == '.')
+				{
+					guideCell.x = cell.x;
+					guideCell.y = cell.y;
 					return true;
+				}
 			} catch (Exception e) {
 				System.out.println("OUT OF BOUNDS");
 				e.printStackTrace();
@@ -421,5 +437,7 @@ public class MazeGenerator {
 		{
 			abreCaminhoAteParar();
 		}while(voltaAtrasCaminho()); //enquanto puder voltar atras no caminho, abre caminho at� parar
+		
+		return;
 	}
 }

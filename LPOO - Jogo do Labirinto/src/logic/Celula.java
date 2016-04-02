@@ -9,6 +9,11 @@ public class Celula {
 		this.y = y;
 	}
 
+	public Celula(Celula c)
+	{
+		this.x = c.x;
+		this.y = c.y;
+	}
 	public Celula() {
 		
 	}
