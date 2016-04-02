@@ -2,6 +2,9 @@ package Labirinto.teste;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import cli.CommandLine;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -106,7 +109,7 @@ public class TestarMazeGenerator {
 	
 	@Test
 	public void testRandomMazeGenerator() throws IllegalArgumentException {
-		int numMazes = 1000; // number of mazes to generate and test
+		int numMazes = 50; // number of mazes to generate and test
 		int maxMazeSize = 101; // can change to any odd number >= 5
 		int minMazeSize = 5;
 		
@@ -130,6 +133,8 @@ public class TestarMazeGenerator {
 		for (int i = 0; i < numMazes; i++) {
 			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
 			char[][]m = builder.buildMaze(size);
+			CommandLine CL = new CommandLine();
+			CL.display(builder.getMaze());
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
 			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
 			assertTrue("Invalid spaces in maze:\n" + m, ! hasSquare(m, badSpaces));

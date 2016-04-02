@@ -5,11 +5,17 @@ import java.util.*;
 public class MazeGenerator {
 	private Tabuleiro maze;
 	private Saida exit;
+	private Heroi hero;
+	private Espada sword;
+	private Dragao[] dragons;
 	private VisitedCells visitedCells;
 	private Celula guideCell;
 	private Stack<Celula> lastCells;
 	private Random generator;
 	
+	public Tabuleiro getMaze() {
+		return maze;
+	}
 	public MazeGenerator(int size)
 	{
 		this.generator = new Random();
@@ -34,6 +40,11 @@ public class MazeGenerator {
 		
 	}
 
+	/**
+	 * @brief ORDEM DE COLOCACAO: 1 - SAIDA, 2 - HEROI, 3 - ESPADA, 4 - DRAGOES
+	 * @param size
+	 * @return
+	 */
 	public char[][] buildMaze(int size)
 	{
 		this.generator = new Random();
@@ -48,17 +59,36 @@ public class MazeGenerator {
 		this.guideCell = iniciar_guideCell();
 		escreveGuideVisitedCells();
 
+		//Inicia os elementos que vao aparecer no tabuleiro
+		this.hero = new Heroi();
+		this.sword = new Espada();
+		this.dragons = new Dragao[4];
 		this.exit = new Saida();
 		this.exit = iniciar_saida(guideCell);
+		this.hero = iniciar_heroi();
+		this.sword = iniciar_espada();
+		iniciar_dragoes();
 
+		//Inicia a stack de celulas, de modo a o gerador saber a ordem das casas em que passou
 		this.lastCells = new Stack<Celula>();
 		this.lastCells.push(new Celula(guideCell));
 		
+		//Cria os caminhos do labirinto
 		this.abreCaminho();
 		
+		//Imprime os elementos no tabuleiro
 		this.maze.setChar('S', exit.posX, exit.posY);
+		this.maze.setChar('H', hero.posX, hero.posY);
+		this.maze.setChar('E', sword.posX, sword.posY);
+		for(int i = 0; i < dragons.length; i++)
+		{
+			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
+		}
+		
 		//TODO
-		//FunÃ§Ã£o que coloca o heroi, o dragao, e a espadas
+		//este método tem de retornar um LABIRINTO, pois temos de retornar nao so o
+		//tabuleiro, mas tambem os elementos que vao ser colocados nele
+		
 		return this.maze.getBoard();
 	}
 	
@@ -161,7 +191,7 @@ public class MazeGenerator {
 		//ENCOSTADO LINHA CIMA
 		else if(cell.y == 0)
 		{
-			s = new Saida(converter_VisToMaze(cell.x), 1);
+			s = new Saida(converter_VisToMaze(cell.x), 0);
 			return s;
 		}
 		//ENCOSTADO LINHA BAIXO
@@ -176,6 +206,108 @@ public class MazeGenerator {
 			s = new Saida(1, 0); //CODIGO PROVISORIO
 			return s;
 		}
+	}
+	
+	public Heroi iniciar_heroi()
+	{
+		//Cria uma celula
+		Celula posicao = new Celula();
+
+		//Coloca o heroi numa casa aleatoria
+		do
+		{
+			posicao.x = generator.nextInt(maze.getTamx());
+			posicao.y = generator.nextInt(maze.getTamy());
+		}
+		while(maze.getChar(posicao) != ' '); //Enquanto o heroi nao tiver num espaco
+
+		Heroi hero = new Heroi(posicao);
+		return hero;
+	}
+	
+	public Espada iniciar_espada()
+	{
+		Celula posicao = new Celula();
+		
+		do
+		{
+			posicao.x = generator.nextInt(maze.getTamx());
+			posicao.y = generator.nextInt(maze.getTamy());
+		}
+		while(!coloca_Espada(posicao));
+		
+		Espada sword = new Espada(posicao);
+		return sword;
+	}
+	
+	public Dragao iniciar_dragao()
+	{
+		Celula posicao = new Celula();
+		
+		do
+		{
+			posicao.x = generator.nextInt(maze.getTamx());
+			posicao.y = generator.nextInt(maze.getTamy());
+		}
+		while(!coloca_Dragao(posicao));
+		
+		//So cria o dragao quando tem a certeza que o pode colocar na posicao da Celula
+		Dragao dragon = new Dragao(posicao);
+		return dragon;
+	}
+	
+	public void iniciar_dragoes()
+	{
+		//Criar um dragao por posicao do array
+		for(int i = 0; i < dragons.length ; i++)
+		{
+			dragons[i] = iniciar_dragao();
+		}
+		
+		return;
+	}
+
+	public boolean coloca_Espada(Celula cell)
+	{
+		//Se a espada nao estiver em cima de um espaco
+		if(maze.getChar(cell) != ' ')
+			return false;
+		
+		//Se a espada estiver em cima do heroi
+		if(cell.equals(hero))
+			return false;
+		
+		return true;
+	}
+	
+	public boolean coloca_Dragao(Celula cell)
+	{
+		//Se o dragao nao estiver em cima de um espaço
+		if(maze.getChar(cell) != ' ')
+			return false;
+		
+		//Se o dragao estiver em cima do heroi, ou nas casas adjacentes
+		if(cell.equals(hero))
+			return false;
+		
+		if(Math.abs(cell.x - hero.getPosX()) == 1 && cell.y == hero.getPosY()) //Mesmo y; x adjacentes
+			return false;
+		
+		if(cell.x == hero.getPosX() && Math.abs(cell.y - hero.getPosY()) == 1) //Mesmo x; y adjacentes
+			return false;
+		
+		//Se o dragao estiver em cima da espada
+		if(cell.equals(sword))
+			return false;
+		
+		//Se o dragao estiver em cima de outros dragoes
+		for(int i = 0; i < this.dragons.length; i++)
+		{
+			if(cell.equals(dragons[i]))
+				return false;
+		}
+		
+		return true;
 	}
 	
 	public int converter_VisToMaze(int num)

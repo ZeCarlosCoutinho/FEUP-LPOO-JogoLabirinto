@@ -46,4 +46,13 @@ public class Dragao extends SerAnimado {
 		nDragoes++;
 		nDragoesVivos++;
 	}
+	
+	public Dragao(Celula cell) {
+		posX = cell.x;
+		posY = cell.y;
+		alive = true;
+		sleeping = false;
+		nDragoes++;
+		nDragoesVivos++;
+	}
 }

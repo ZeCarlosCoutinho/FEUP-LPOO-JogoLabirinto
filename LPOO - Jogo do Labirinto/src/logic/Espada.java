@@ -24,4 +24,11 @@ public class Espada extends SerInanimado {
 		naMao = false;
 		porCima = null;
 	}
+	
+	public Espada(Celula cell) {
+		posX = cell.x;
+		posY = cell.y;
+		naMao = false;
+		porCima = null;
+	}
 }

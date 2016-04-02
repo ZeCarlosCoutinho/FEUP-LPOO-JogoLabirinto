@@ -26,4 +26,12 @@ public class Heroi extends SerAnimado {
 		alive = true;
 
 	}
+	
+	public Heroi(Celula cell) {
+		posX = cell.x;
+		posY = cell.y;
+		armado = false;
+		alive = true;
+
+	}
 }

@@ -47,6 +47,14 @@ public class Tabuleiro {
 		else
 			return board[x][y];
 	}
+	
+	public char getChar(Celula cell) // Devolve a char da posição (x,y)
+	{
+		if (cell.x < 0 || cell.x >= tamx || cell.y < 0 || cell.y >= tamy) // Out of bounds
+			return 'N';
+		else
+			return board[cell.x][cell.y];
+	}
 
 	public void setChar(char c, int x, int y) // Coloca a char na posição (x,y)
 	{
