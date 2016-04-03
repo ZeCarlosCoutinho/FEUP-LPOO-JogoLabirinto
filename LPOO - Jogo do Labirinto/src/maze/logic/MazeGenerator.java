@@ -1,6 +1,8 @@
 package maze.logic;
 import java.util.*;
 
+import exceptions.TooManyDragonsException;
+
 //Algoritmo da autoria de Henrique Ferrolho
 public class MazeGenerator {
 	private Tabuleiro maze;
@@ -13,6 +15,30 @@ public class MazeGenerator {
 	private Stack<Celula> lastCells;
 	private Random generator;
 	
+	public Saida getExit() {
+		return exit;
+	}
+	public Heroi getHero() {
+		return hero;
+	}
+	public Espada getSword() {
+		return sword;
+	}
+	public Dragao[] getDragons() {
+		return dragons;
+	}
+	public VisitedCells getVisitedCells() {
+		return visitedCells;
+	}
+	public Celula getGuideCell() {
+		return guideCell;
+	}
+	public Stack<Celula> getLastCells() {
+		return lastCells;
+	}
+	public Random getGenerator() {
+		return generator;
+	}
 	public Tabuleiro getMaze() {
 		return maze;
 	}
@@ -45,8 +71,9 @@ public class MazeGenerator {
 	 * @brief ORDEM DE COLOCACAO: 1 - SAIDA, 2 - HEROI, 3 - ESPADA, 4 - DRAGOES
 	 * @param size
 	 * @return
+	 * @throws Exception 
 	 */
-	public char[][] buildMaze(int size)
+	public char[][] buildMaze(int size) throws TooManyDragonsException
 	{
 		this.generator = new Random();
 
@@ -86,9 +113,48 @@ public class MazeGenerator {
 			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
 		}
 		
-		//TODO
-		//este m�todo tem de retornar um LABIRINTO, pois temos de retornar nao so o
-		//tabuleiro, mas tambem os elementos que vao ser colocados nele
+		return this.maze.getBoard();
+	}
+	
+	public char[][] buildMaze(int size, int numDragoes) throws TooManyDragonsException
+	{
+		this.generator = new Random();
+
+		this.maze = new Tabuleiro(size);
+		this.maze.make_quadriculado();
+
+		this.visitedCells = new VisitedCells((size-1)/2);
+	
+
+		//Coloca a celula guide numa casa aleatoria
+		this.guideCell = iniciar_guideCell();
+		escreveGuideVisitedCells();
+
+		//Inicia os elementos que vao aparecer no tabuleiro
+		this.hero = new Heroi();
+		this.sword = new Espada();
+		this.dragons = new Dragao[numDragoes];
+		this.exit = new Saida();
+		this.exit = iniciar_saida(guideCell);
+		this.hero = iniciar_heroi();
+		this.sword = iniciar_espada();
+		iniciar_dragoes();
+
+		//Inicia a stack de celulas, de modo a o gerador saber a ordem das casas em que passou
+		this.lastCells = new Stack<Celula>();
+		this.lastCells.push(new Celula(guideCell));
+		
+		//Cria os caminhos do labirinto
+		this.abreCaminho();
+		
+		//Imprime os elementos no tabuleiro
+		this.maze.setChar('S', exit.posX, exit.posY);
+		this.maze.setChar('H', hero.posX, hero.posY);
+		this.maze.setChar('E', sword.posX, sword.posY);
+		for(int i = 0; i < dragons.length; i++)
+		{
+			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
+		}
 		
 		return this.maze.getBoard();
 	}
@@ -241,28 +307,32 @@ public class MazeGenerator {
 		return sword;
 	}
 	
-	public Dragao iniciar_dragao()
+	public Dragao iniciar_dragao() throws TooManyDragonsException
 	{
 		Celula posicao = new Celula();
-		
+		int tentativas = 0;
 		do
 		{
 			posicao.x = generator.nextInt(maze.getTamx());
 			posicao.y = generator.nextInt(maze.getTamy());
+			
+			tentativas++;
 		}
-		while(!coloca_Dragao(posicao));
+		while(!coloca_Dragao(posicao) && tentativas < 100);
 		
+		if(tentativas == 100)
+			throw new TooManyDragonsException();
 		//So cria o dragao quando tem a certeza que o pode colocar na posicao da Celula
 		Dragao dragon = new Dragao(posicao);
 		return dragon;
 	}
 	
-	public void iniciar_dragoes()
+	public void iniciar_dragoes() throws TooManyDragonsException
 	{
 		//Criar um dragao por posicao do array
 		for(int i = 0; i < dragons.length ; i++)
 		{
-			dragons[i] = iniciar_dragao();
+				dragons[i] = iniciar_dragao();
 		}
 		
 		return;

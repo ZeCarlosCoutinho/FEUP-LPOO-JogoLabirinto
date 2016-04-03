@@ -1,14 +1,17 @@
 package maze.logic;
+	
+import java.util.Random; //Mover o DragÃ£o random
 
-import java.util.Random; //Mover o Dragão random
+import exceptions.TooManyDragonsException;
 
 public class Jogo {
 
 	private Labirinto lab;
 	private boolean gameOver;
 	private boolean win;
-	private int gameMode; // 0 - dragão parado; 1 - dragão move-se; 2- dragão
+	private int gameMode; // 0 - dragÃ£o parado; 1 - dragÃ£o move-se; 2- dragÃ£o
 							// adormece
+	private MazeGenerator mazeGenerator;
 	private Random generator;
 
 	public boolean isWin() {
@@ -50,27 +53,28 @@ public class Jogo {
 		lab = new Labirinto();
 		gameOver = false;
 		win = false;
+		mazeGenerator = new MazeGenerator();
 		generator = new Random();
 	}
 
-	public void turno(char direcao)// direção é fornecida pela interface com o
+	public void turno(char direcao)// direÃ§Ã£o Ã© fornecida pela interface com o
 									// jogador
 	{
-		int direcaoInt = direcaoCharToInt(direcao); // Converte direção para
+		int direcaoInt = direcaoCharToInt(direcao); // Converte direÃ§Ã£o para
 													// um int
 
 		// Move o Heroi
 		lab.moveSerAnimado(lab.getHero(), direcaoInt);
 
-		if (lab.getExit().getPorcima() == lab.getHero()) // Se o herói estiver
-															// na saída depois
+		if (lab.getExit().getPorcima() == lab.getHero()) // Se o herÃ³i estiver
+															// na saÃ­da depois
 															// de matar o dragao
 		{
 			setGameOver(true);
 			setWin(true);
 			return;
 		}
-		if (!(lab.getHero().isAlive())) // Se o herói estiver morto
+		if (!(lab.getHero().isAlive())) // Se o herÃ³i estiver morto
 		{
 			setGameOver(true);
 			setWin(false);
@@ -78,11 +82,11 @@ public class Jogo {
 		}
 
 for (int i = 0; i < lab.getDragons().length; i++) {
-			// Move o Dragão
-			if (gameMode == 1) // Modo jogo 1, simplesmente move o dragão
+			// Move o DragÃ£o
+			if (gameMode == 1) // Modo jogo 1, simplesmente move o dragÃ£o
 			{
 				// enquanto o dragao se move para uma parede, gera uma nova
-				// direçao
+				// direÃ§ao
 				while (lab.getDragons()[i].isAlive()
 						&& !lab.moveSerAnimado(lab.getDragons()[i], generator.nextInt(5))) {
 
@@ -93,13 +97,13 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 				if (!modificarEstadoDragao(lab.getDragons()[i])) // Modo jogo 2,
 																	// move
 																	// e pode
-																	// mudá-lo
+																	// mudÃ¡-lo
 																	// de
 																	// estado
 				{
 					if (!(lab.getDragons()[i].isSleeping()))
 						// enquanto o dragao se move para uma parede, gera uma
-						// nova direçao
+						// nova direÃ§ao
 						while (lab.getDragons()[i].isAlive()
 								&& !lab.moveSerAnimado(lab.getDragons()[i], generator.nextInt(4))) {
 
@@ -107,7 +111,7 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 				}
 			}
 
-			if (lab.getExit().getPorcima() == lab.getHero()) // Se o herói
+			if (lab.getExit().getPorcima() == lab.getHero()) // Se o herÃ³i
 																// estiver
 																// na saida
 																// depois
@@ -117,7 +121,7 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 				setGameOver(true);
 				setWin(true);
 			}
-			if (!(lab.getHero().isAlive())) // Se o herói estiver morto
+			if (!(lab.getHero().isAlive())) // Se o herÃ³i estiver morto
 			{
 				setGameOver(true);
 				setWin(false);
@@ -130,18 +134,18 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 
 	public boolean modificarEstadoDragao(Dragao dragon) // modifica
 														// aleatoriamente o
-														// estado do dragão
+														// estado do dragÃ£o
 	{
 		if (generator.nextBoolean()) // Se decidir modificar
 		{
 			if (dragon.isSleeping())
-				dragon.setSleeping(false); // Acorda o dragão
+				dragon.setSleeping(false); // Acorda o dragÃ£o
 			else
-				dragon.setSleeping(true); // Adormece o dragão
+				dragon.setSleeping(true); // Adormece o dragÃ£o
 
-			return true; // Mudou o estado do dragão
+			return true; // Mudou o estado do dragÃ£o
 		} else
-			return false; // Não mudou o estado do dragão
+			return false; // NÃ£o mudou o estado do dragÃ£o
 	}
 
 	public int direcaoCharToInt(char direcao) {
@@ -156,7 +160,22 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		case 'a':
 			return 3;
 		default:
-			return 4; // PODE SER NECESSÁRIO UM THROW
+			return 4; // PODE SER NECESSÃ�RIO UM THROW
 		}
+	}
+	
+	public void criaLabirintoAleatorio(int size, int numDragoes) throws TooManyDragonsException
+	{
+		this.mazeGenerator.buildMaze(size, numDragoes);
+		Labirinto labirinto = new Labirinto(numDragoes);
+		labirinto.setHero(this.mazeGenerator.getHero());
+		labirinto.setDragons(this.mazeGenerator.getDragons());
+		labirinto.setExit(this.mazeGenerator.getExit());
+		labirinto.setSword(this.mazeGenerator.getSword());
+		labirinto.setBoard(this.mazeGenerator.getMaze());
+		Dragao.setnDragoes(labirinto.getNumDragoes());
+		Dragao.setnDragoesVivos(labirinto.getNumDragoes());
+		
+		this.lab = labirinto;
 	}
 }

@@ -40,9 +40,50 @@ public class CommandLine {
 		System.out.println("Modo 1 - Dragão que se move");
 		System.out.println("Modo 2 - Dragão Dorminhoco");
 
-		return scan.nextInt();
+		int modo = scan.nextInt();
+		if(modo < 0 || modo > 2)
+		{
+			clearConsole();
+			return pede_modo_jogo();
+		}
+		return modo;
 	}
 	
+	public int pede_maze_aleatorio()
+	{
+		System.out.println("Qual o tamanho do labirinto?");
+		
+		int tamanho = scan.nextInt();
+		
+		if(tamanho < 7)
+		{
+			clearConsole();
+			System.out.println("Tamanho invalido. Tente novamente");
+			return pede_maze_aleatorio();
+		}
+		if(tamanho > 100)
+		{
+			clearConsole();
+			System.out.println("Tamanho demasiado grande. Tente novamente");
+			return pede_maze_aleatorio();
+		}
+		return tamanho;
+	}
+	
+	public int pede_num_dragoes()
+	{
+		System.out.println("Qual o numero de dragoes?");
+		int numero = scan.nextInt();
+		
+		if(numero < 1)
+		{
+			clearConsole();
+			System.out.println("Numero de dragoes invalido. Tente novamente");
+			return pede_num_dragoes();
+		}
+		
+		return numero;
+	}
 	public void instrucoes(){
 		System.out.println("\nPara mover o herói utilize as teclas w, a, s, d.\nPara onde gostaria de mover o herói?");
 	}

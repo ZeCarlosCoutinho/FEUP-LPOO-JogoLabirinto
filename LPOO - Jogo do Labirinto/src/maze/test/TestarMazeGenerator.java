@@ -3,6 +3,7 @@ package maze.test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import exceptions.TooManyDragonsException;
 import maze.cli.CommandLine;
 import maze.logic.MazeGenerator;
 
@@ -107,7 +108,7 @@ public class TestarMazeGenerator {
 	}
 	
 	@Test
-	public void testRandomMazeGenerator() throws IllegalArgumentException {
+	public void testRandomMazeGenerator() throws IllegalArgumentException, TooManyDragonsException {
 		int numMazes = 50; // number of mazes to generate and test
 		int maxMazeSize = 101; // can change to any odd number >= 5
 		int minMazeSize = 5;
