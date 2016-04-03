@@ -5,24 +5,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import exceptions.TooManyDragonsException;
-import maze.cli.CommandLine;
 import maze.logic.*;
-
 import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
+
 
 public class ApplicationWindow {
 
@@ -33,7 +28,7 @@ public class ApplicationWindow {
 	private JLabel lblTipoDeDrages;
 	private JButton btnStartGame;
 	private JLabel info;
-	private JTextArea textArea;
+	//private JTextArea textArea;
 	private JButton btnCima;
 	private JButton btnBaixo;
 	private JButton btnEsquerda;
@@ -48,7 +43,7 @@ public class ApplicationWindow {
 
 	public void click(char direction){
 		jogar.turno(direction);
-		textArea.setText(jogar.getLab().getBoard().toString());
+		
 		if(jogar.isWin()){
 			info.setText("PARABÉNS! Fim do jogo. Pode gerar novo labirinto.");
 			btnCima.setEnabled(false);
@@ -67,7 +62,7 @@ public class ApplicationWindow {
 			btnGerarLabirinto.setEnabled(true);
 			btnStartGame.setEnabled(true);
 		}
-		
+		panel.repaint();
 	}
 	
 	/**
@@ -217,6 +212,20 @@ public class ApplicationWindow {
 					JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Dimensão inválida!");
 					return;
 				}
+				
+				panel = new GPanel();
+				panel.setBounds(34, 117, 631, 593);
+				frmJogoDoLabirinto.getContentPane().add(panel);
+				panel.addMouseListener(new MouseAdapter(){
+					@Override
+					public void mouseClicked(MouseEvent e){
+						super.mouseClicked(e);
+						panel.requestFocus();
+					}
+				});
+				panel.setVisible(true);
+				panel.requestFocus();
+				panel.repaint();
 
 				int gameMode = modosJogo.getSelectedIndex();
 				jogar.setGameMode(gameMode);
@@ -229,15 +238,53 @@ public class ApplicationWindow {
 					return;
 				}
 				
-				panel = new GPanel();
-				panel.repaint();
-				panel.setBounds(34, 117, 631, 593);
-				frmJogoDoLabirinto.getContentPane().add(panel);
-				panel.setVisible(true);
-
+				panel.setLabirinto(jogar.getLab());
 				//textArea.setText(jogar.getLab().getBoard().toString());
 				btnStartGame.setEnabled(true);
+				
+				panel.addKeyListener(new KeyListener() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						
+						switch(e.getKeyCode()){
+						case KeyEvent.VK_LEFT: 
+							click(LEFT);
+							panel.repaint();
+							break;
+							
+						case KeyEvent.VK_RIGHT: 
+							click(RIGHT);
+							panel.repaint();
+							break;
+
+						case KeyEvent.VK_UP: 
+							click(UP);
+							panel.repaint();
+							break;
+
+						case KeyEvent.VK_DOWN: 
+							click(DOWN);
+							panel.repaint();
+							break;
+						default:
+							break;
+						}	
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+						
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+						
+					}
+					
+				});
 			}
+			
+			
 		});
 		btnGerarLabirinto.setBounds(717, 18, 156, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnGerarLabirinto);
@@ -252,6 +299,7 @@ public class ApplicationWindow {
 				btnGerarLabirinto.setEnabled(false);
 				info.setText("Pode mover o herói... ");
 				btnStartGame.setEnabled(false);
+				panel.requestFocusInWindow();
 			}
 		});
 		btnStartGame.setEnabled(false);
@@ -260,7 +308,8 @@ public class ApplicationWindow {
 
 
 		info = new JLabel("Pode gerar novo labirinto!");
-		info.setBounds(34, 722, 489, 14);
+		info.setBounds(37, 722, 489, 14);
 		frmJogoDoLabirinto.getContentPane().add(info);
 	}
+
 }
