@@ -10,7 +10,7 @@ public class Start {
 		boolean firstTime = true;
 		jogar.setGameMode(cmd.pede_modo_jogo());
 		try {
-			jogar.criaLabirintoAleatorio(cmd.pede_maze_aleatorio(), cmd.pede_num_dragoes());
+			jogar.criaLabirintoAleatorio(cmd.pedeMazeAleatorio(), cmd.pedeNumDragoes());
 		} catch (TooManyDragonsException e) {
 			//Tem demasiados dragoes, e termina o programa
 			cmd.demasiadosDragoesException();

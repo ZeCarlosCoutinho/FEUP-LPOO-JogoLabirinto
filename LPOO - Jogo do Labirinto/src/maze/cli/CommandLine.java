@@ -49,7 +49,7 @@ public class CommandLine {
 		return modo;
 	}
 	
-	public int pede_maze_aleatorio()
+	public int pedeMazeAleatorio()
 	{
 		System.out.println("Qual o tamanho do labirinto?");
 		
@@ -58,19 +58,19 @@ public class CommandLine {
 		if(tamanho < 7)
 		{
 			clearConsole();
-			System.out.println("Tamanho invalido. Tente novamente");
-			return pede_maze_aleatorio();
+			System.out.println("Tamanho inválido. Tente novamente.");
+			return pedeMazeAleatorio();
 		}
 		if(tamanho > 100)
 		{
 			clearConsole();
-			System.out.println("Tamanho demasiado grande. Tente novamente");
-			return pede_maze_aleatorio();
+			System.out.println("Tamanho demasiado grande. Tente novamente.");
+			return pedeMazeAleatorio();
 		}
 		return tamanho;
 	}
 	
-	public int pede_num_dragoes()
+	public int pedeNumDragoes()
 	{
 		System.out.println("Qual o numero de dragoes?");
 		int numero = scan.nextInt();
@@ -79,7 +79,7 @@ public class CommandLine {
 		{
 			clearConsole();
 			System.out.println("Numero de dragoes invalido. Tente novamente");
-			return pede_num_dragoes();
+			return pedeNumDragoes();
 		}
 		
 		return numero;

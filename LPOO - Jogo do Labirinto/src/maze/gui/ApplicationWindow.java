@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import exceptions.TooManyDragonsException;
+import maze.cli.CommandLine;
 import maze.logic.*;
 
 import javax.swing.JComboBox;
@@ -144,7 +146,24 @@ public class ApplicationWindow {
 		JButton btnGerarLabirinto = new JButton("Gerar novo labirinto");
 		btnGerarLabirinto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int nDragoes = Integer.parseInt(nrDragoes.getText());
+				int dimensao = Integer.parseInt(tamanhoTab.getText());
+				Jogo jogar = new Jogo();
+				CommandLine cmd = new CommandLine();
+				Tabuleiro tab = new Tabuleiro(dimensao);
 				
+				try {
+					jogar.criaLabirintoAleatorio(dimensao, nDragoes);
+				} catch (TooManyDragonsException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		
+				textArea.setText(cmd.display(tab));
+				btnCima.setEnabled(true);
+				btnBaixo.setEnabled(true);
+				btnDireita.setEnabled(true);
+				btnEsquerda.setEnabled(true);
 			}
 		});
 		btnGerarLabirinto.setBounds(306, 18, 156, 35);
