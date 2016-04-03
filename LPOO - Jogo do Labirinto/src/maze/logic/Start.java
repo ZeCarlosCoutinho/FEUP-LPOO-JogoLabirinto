@@ -13,9 +13,7 @@ public class Start {
 			jogar.criaLabirintoAleatorio(cmd.pede_maze_aleatorio(), cmd.pede_num_dragoes());
 		} catch (TooManyDragonsException e) {
 			//Tem demasiados dragoes, e termina o programa
-			System.out.println("Demasiados dragoes");
-			System.out.println("TERMINANDO O PROGRAMA...");
-
+			cmd.demasiadosDragoesException();
 			return;
 		}
 		

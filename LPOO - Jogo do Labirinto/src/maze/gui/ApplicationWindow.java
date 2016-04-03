@@ -110,17 +110,21 @@ public class ApplicationWindow {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnCima.setBounds(339, 141, 76, 35);
+		btnCima.setBounds(339, 166, 76, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnCima);
 		
 		JButton btnBaixo = new JButton("Baixo");
+		btnBaixo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBaixo.setEnabled(false);
-		btnBaixo.setBounds(339, 218, 76, 35);
+		btnBaixo.setBounds(339, 238, 76, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnBaixo);
 		
 		JButton btnEsquerda = new JButton("Esquerda");
 		btnEsquerda.setEnabled(false);
-		btnEsquerda.setBounds(286, 180, 86, 35);
+		btnEsquerda.setBounds(289, 202, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnEsquerda);
 		
 		JButton btnDireita = new JButton("Direita");
@@ -129,20 +133,22 @@ public class ApplicationWindow {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnDireita.setBounds(376, 180, 86, 35);
+		btnDireita.setBounds(376, 202, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnDireita);
 		
-		JButton btnNewButton = new JButton("Gerar novo labirinto");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnStartGame = new JButton("Come\u00E7ar Jogo");
+		btnStartGame.setEnabled(false);
+		btnStartGame.setBounds(306, 107, 156, 35);
+		frmJogoDoLabirinto.getContentPane().add(btnStartGame);
+		
+		JButton btnGerarLabirinto = new JButton("Gerar novo labirinto");
+		btnGerarLabirinto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnDireita.setEnabled(true);
-				btnEsquerda.setEnabled(true);
-				btnCima.setEnabled(true);
-				btnBaixo.setEnabled(true);
+				
 			}
 		});
-		btnNewButton.setBounds(306, 18, 156, 35);
-		frmJogoDoLabirinto.getContentPane().add(btnNewButton);
+		btnGerarLabirinto.setBounds(306, 18, 156, 35);
+		frmJogoDoLabirinto.getContentPane().add(btnGerarLabirinto);
 		
 		JLabel lblNewLabel = new JLabel("Pode gerar novo labirinto!");
 		lblNewLabel.setBounds(18, 306, 239, 16);

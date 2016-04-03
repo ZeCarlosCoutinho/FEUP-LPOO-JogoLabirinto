@@ -113,4 +113,11 @@ public class CommandLine {
 	        //  Handle any exceptions.
 	    }
 	}
+	
+	public void demasiadosDragoesException()
+	{
+		System.out.println("Demasiados dragoes");
+		System.out.println("TERMINANDO O PROGRAMA...");
+		return;
+	}
 }
