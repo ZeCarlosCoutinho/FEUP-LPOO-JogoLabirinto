@@ -148,9 +148,10 @@ public class ApplicationWindow {
 			public void actionPerformed(ActionEvent e) {
 				int nDragoes = Integer.parseInt(nrDragoes.getText());
 				int dimensao = Integer.parseInt(tamanhoTab.getText());
+				int gameMode = modosJogo.getSelectedIndex();
 				Jogo jogar = new Jogo();
 				CommandLine cmd = new CommandLine();
-				Tabuleiro tab = new Tabuleiro(dimensao);
+				jogar.setGameMode(gameMode);
 				
 				try {
 					jogar.criaLabirintoAleatorio(dimensao, nDragoes);
@@ -159,7 +160,7 @@ public class ApplicationWindow {
 					e1.printStackTrace();
 				}
 		
-				textArea.setText(cmd.display(tab));
+				textArea.setText(jogar.getTab().getBoard().toString());
 				btnCima.setEnabled(true);
 				btnBaixo.setEnabled(true);
 				btnDireita.setEnabled(true);

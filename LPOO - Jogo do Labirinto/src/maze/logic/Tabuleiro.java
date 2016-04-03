@@ -180,4 +180,20 @@ public class Tabuleiro {
 
 		return;
 	}
+	
+	public String toString()
+	{
+		String tabuleiroString = "";
+		
+		for(int j = 0; j < tamy; j++)
+		{
+			for(int i = 0; i < tamx; i++)
+			{
+				tabuleiroString += board[i][j] + " ";
+			}
+			tabuleiroString += "\n";
+		}
+		
+		return tabuleiroString;
+	}
 }
