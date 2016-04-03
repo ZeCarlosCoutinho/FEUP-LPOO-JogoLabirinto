@@ -109,9 +109,48 @@ public class MazeGenerator {
 			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
 		}
 		
-		//TODO
-		//este m�todo tem de retornar um LABIRINTO, pois temos de retornar nao so o
-		//tabuleiro, mas tambem os elementos que vao ser colocados nele
+		return this.maze.getBoard();
+	}
+	
+	public char[][] buildMaze(int size, int numDragoes)
+	{
+		this.generator = new Random();
+
+		this.maze = new Tabuleiro(size);
+		this.maze.make_quadriculado();
+
+		this.visitedCells = new VisitedCells((size-1)/2);
+	
+
+		//Coloca a celula guide numa casa aleatoria
+		this.guideCell = iniciar_guideCell();
+		escreveGuideVisitedCells();
+
+		//Inicia os elementos que vao aparecer no tabuleiro
+		this.hero = new Heroi();
+		this.sword = new Espada();
+		this.dragons = new Dragao[numDragoes];
+		this.exit = new Saida();
+		this.exit = iniciar_saida(guideCell);
+		this.hero = iniciar_heroi();
+		this.sword = iniciar_espada();
+		iniciar_dragoes();
+
+		//Inicia a stack de celulas, de modo a o gerador saber a ordem das casas em que passou
+		this.lastCells = new Stack<Celula>();
+		this.lastCells.push(new Celula(guideCell));
+		
+		//Cria os caminhos do labirinto
+		this.abreCaminho();
+		
+		//Imprime os elementos no tabuleiro
+		this.maze.setChar('S', exit.posX, exit.posY);
+		this.maze.setChar('H', hero.posX, hero.posY);
+		this.maze.setChar('E', sword.posX, sword.posY);
+		for(int i = 0; i < dragons.length; i++)
+		{
+			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
+		}
 		
 		return this.maze.getBoard();
 	}

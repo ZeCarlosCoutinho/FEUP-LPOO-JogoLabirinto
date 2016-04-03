@@ -20,6 +20,8 @@ public class Elemento {
 	}
 
 	public boolean isSobreposto(Elemento elem) {
+		if(elem == null)
+			return false;
 		if (posX == elem.getPosX() && posY == elem.getPosY() && elem != this)
 			return true;
 		else

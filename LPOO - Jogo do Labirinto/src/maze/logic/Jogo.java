@@ -162,10 +162,10 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		}
 	}
 	
-	public void criaLabirintoAleatorio(int size)
+	public void criaLabirintoAleatorio(int size, int numDragoes)
 	{
-		this.mazeGenerator.buildMaze(size);
-		Labirinto labirinto = new Labirinto();
+		this.mazeGenerator.buildMaze(size, numDragoes);
+		Labirinto labirinto = new Labirinto(numDragoes);
 		labirinto.setHero(this.mazeGenerator.getHero());
 		labirinto.setDragons(this.mazeGenerator.getDragons());
 		labirinto.setExit(this.mazeGenerator.getExit());

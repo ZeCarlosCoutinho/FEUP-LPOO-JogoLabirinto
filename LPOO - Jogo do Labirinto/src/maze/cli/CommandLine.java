@@ -70,6 +70,20 @@ public class CommandLine {
 		return tamanho;
 	}
 	
+	public int pede_num_dragoes()
+	{
+		System.out.println("Qual o numero de dragoes?");
+		int numero = scan.nextInt();
+		
+		if(numero < 1)
+		{
+			clearConsole();
+			System.out.println("Numero de dragoes invalido. Tente novamente");
+			return pede_num_dragoes();
+		}
+		
+		return numero;
+	}
 	public void instrucoes(){
 		System.out.println("\nPara mover o herói utilize as teclas w, a, s, d.\nPara onde gostaria de mover o herói?");
 	}

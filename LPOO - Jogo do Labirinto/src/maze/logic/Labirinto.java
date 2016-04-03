@@ -1,5 +1,7 @@
 package maze.logic;
 
+import java.util.Arrays;
+
 public class Labirinto {
 	private Heroi hero;
 	private Dragao[] dragons;
@@ -79,10 +81,7 @@ public class Labirinto {
 		hero = new Heroi(1, 7);
 		this.numDragoes = numDragoes;
 		dragons = new Dragao[numDragoes];
-		dragons[0] =  new Dragao(8, 1);
-		dragons[1] =  new Dragao(8, 2);
-		dragons[2] =  new Dragao(1, 2);
-		dragons[3] =  new Dragao(5, 1);
+		Arrays.fill(dragons, new Dragao());
 		
 		exit = new Saida();
 		sword = new Espada();
