@@ -90,14 +90,6 @@ public class ApplicationWindow {
 		modosJogo.setBounds(163, 69, 111, 27);
 		frmJogoDoLabirinto.getContentPane().add(modosJogo);
 		
-		JButton btnNewButton = new JButton("Gerar novo labirinto");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnNewButton.setBounds(306, 18, 156, 35);
-		frmJogoDoLabirinto.getContentPane().add(btnNewButton);
 		
 		JButton btnTerminarPrograma = new JButton("Terminar programa");
 		btnTerminarPrograma.addActionListener(new ActionListener() {
@@ -113,6 +105,7 @@ public class ApplicationWindow {
 		frmJogoDoLabirinto.getContentPane().add(textArea);
 		
 		JButton btnCima = new JButton("Cima");
+		btnCima.setEnabled(false);
 		btnCima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -121,20 +114,35 @@ public class ApplicationWindow {
 		frmJogoDoLabirinto.getContentPane().add(btnCima);
 		
 		JButton btnBaixo = new JButton("Baixo");
+		btnBaixo.setEnabled(false);
 		btnBaixo.setBounds(339, 218, 76, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnBaixo);
 		
 		JButton btnEsquerda = new JButton("Esquerda");
+		btnEsquerda.setEnabled(false);
 		btnEsquerda.setBounds(286, 180, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnEsquerda);
 		
 		JButton btnDireita = new JButton("Direita");
+		btnDireita.setEnabled(false);
 		btnDireita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnDireita.setBounds(376, 180, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnDireita);
+		
+		JButton btnNewButton = new JButton("Gerar novo labirinto");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDireita.setEnabled(true);
+				btnEsquerda.setEnabled(true);
+				btnCima.setEnabled(true);
+				btnBaixo.setEnabled(true);
+			}
+		});
+		btnNewButton.setBounds(306, 18, 156, 35);
+		frmJogoDoLabirinto.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Pode gerar novo labirinto!");
 		lblNewLabel.setBounds(18, 306, 239, 16);
