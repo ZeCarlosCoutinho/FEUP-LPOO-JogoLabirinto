@@ -1,4 +1,5 @@
 package maze.logic;
+import exceptions.TooManyDragonsException;
 import maze.cli.CommandLine;
 
 public class Start {
@@ -8,7 +9,15 @@ public class Start {
 
 		boolean firstTime = true;
 		jogar.setGameMode(cmd.pede_modo_jogo());
-		jogar.criaLabirintoAleatorio(cmd.pede_maze_aleatorio(), cmd.pede_num_dragoes());
+		try {
+			jogar.criaLabirintoAleatorio(cmd.pede_maze_aleatorio(), cmd.pede_num_dragoes());
+		} catch (TooManyDragonsException e) {
+			//Tem demasiados dragoes, e termina o programa
+			System.out.println("Demasiados dragoes");
+			System.out.println("TERMINANDO O PROGRAMA...");
+
+			return;
+		}
 		
 		cmd.instrucoes();
 

@@ -1,6 +1,8 @@
 package maze.logic;
 import java.util.*;
 
+import exceptions.TooManyDragonsException;
+
 //Algoritmo da autoria de Henrique Ferrolho
 public class MazeGenerator {
 	private Tabuleiro maze;
@@ -68,8 +70,9 @@ public class MazeGenerator {
 	 * @brief ORDEM DE COLOCACAO: 1 - SAIDA, 2 - HEROI, 3 - ESPADA, 4 - DRAGOES
 	 * @param size
 	 * @return
+	 * @throws Exception 
 	 */
-	public char[][] buildMaze(int size)
+	public char[][] buildMaze(int size) throws TooManyDragonsException
 	{
 		this.generator = new Random();
 
@@ -112,7 +115,7 @@ public class MazeGenerator {
 		return this.maze.getBoard();
 	}
 	
-	public char[][] buildMaze(int size, int numDragoes)
+	public char[][] buildMaze(int size, int numDragoes) throws TooManyDragonsException
 	{
 		this.generator = new Random();
 
@@ -303,7 +306,7 @@ public class MazeGenerator {
 		return sword;
 	}
 	
-	public Dragao iniciar_dragao() throws Exception
+	public Dragao iniciar_dragao() throws TooManyDragonsException
 	{
 		Celula posicao = new Celula();
 		int tentativas = 0;
@@ -317,26 +320,18 @@ public class MazeGenerator {
 		while(!coloca_Dragao(posicao) && tentativas < 100);
 		
 		if(tentativas == 100)
-			throw new Exception();
+			throw new TooManyDragonsException();
 		//So cria o dragao quando tem a certeza que o pode colocar na posicao da Celula
 		Dragao dragon = new Dragao(posicao);
 		return dragon;
 	}
 	
-	public void iniciar_dragoes()
+	public void iniciar_dragoes() throws TooManyDragonsException
 	{
 		//Criar um dragao por posicao do array
 		for(int i = 0; i < dragons.length ; i++)
 		{
-			try {
 				dragons[i] = iniciar_dragao();
-			} catch (Exception e) {
-				//TODO
-				//pedir um numero diferente de dragoes
-				//ou crashar o programa
-				e.printStackTrace();
-				break;
-			}
 		}
 		
 		return;

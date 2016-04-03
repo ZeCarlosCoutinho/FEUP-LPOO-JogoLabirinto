@@ -2,6 +2,8 @@ package maze.logic;
 	
 import java.util.Random; //Mover o DragÃ£o random
 
+import exceptions.TooManyDragonsException;
+
 public class Jogo {
 
 	private Labirinto lab;
@@ -162,7 +164,7 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		}
 	}
 	
-	public void criaLabirintoAleatorio(int size, int numDragoes)
+	public void criaLabirintoAleatorio(int size, int numDragoes) throws TooManyDragonsException
 	{
 		this.mazeGenerator.buildMaze(size, numDragoes);
 		Labirinto labirinto = new Labirinto(numDragoes);
