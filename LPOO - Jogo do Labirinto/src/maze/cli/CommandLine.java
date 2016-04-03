@@ -72,20 +72,20 @@ public class CommandLine {
 	
 	public int pedeNumDragoes()
 	{
-		System.out.println("Qual o numero de dragoes?");
+		System.out.println("Qual o número de dragões?");
 		int numero = scan.nextInt();
 		
 		if(numero < 1)
 		{
 			clearConsole();
-			System.out.println("Numero de dragoes invalido. Tente novamente");
+			System.out.println("Número de dragões inválido. Tente novamente");
 			return pedeNumDragoes();
 		}
 		
 		return numero;
 	}
 	public void instrucoes(){
-		System.out.println("\nPara mover o herói utilize as teclas w, a, s, d.\nPara onde gostaria de mover o herói?");
+		System.out.println("\nPara mover o herói utilize as teclas w, a, s, d.\nPode mover o herói?");
 	}
 
 	public void heroi_matou_dragao() {
@@ -116,7 +116,7 @@ public class CommandLine {
 	
 	public void demasiadosDragoesException()
 	{
-		System.out.println("Demasiados dragoes");
+		System.out.println("Demasiados dragões");
 		System.out.println("TERMINANDO O PROGRAMA...");
 		return;
 	}

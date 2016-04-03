@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -20,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ApplicationWindow {
 
@@ -28,7 +31,45 @@ public class ApplicationWindow {
 	private JLabel lblNmeroDeDrages;
 	private JTextField nrDragoes;
 	private JLabel lblTipoDeDrages;
+	private JButton btnStartGame;
+	private JLabel info;
+	private JTextArea textArea;
+	private JButton btnCima;
+	private JButton btnBaixo;
+	private JButton btnEsquerda;
+	private JButton btnDireita;
+	private JButton btnGerarLabirinto;
+	private GPanel panel;
 
+	Jogo jogar = new Jogo();
+	Labirinto lab = new Labirinto();
+
+	private char UP = 'w', RIGHT = 'd', LEFT = 'a', DOWN = 's';
+
+	public void click(char direction){
+		jogar.turno(direction);
+		textArea.setText(jogar.getLab().getBoard().toString());
+		if(jogar.isWin()){
+			info.setText("PARABÉNS! Fim do jogo. Pode gerar novo labirinto.");
+			btnCima.setEnabled(false);
+			btnBaixo.setEnabled(false);
+			btnDireita.setEnabled(false);
+			btnEsquerda.setEnabled(false);
+			btnGerarLabirinto.setEnabled(true);
+			btnStartGame.setEnabled(true);
+		}
+		else if(jogar.isGameOver()){
+			info.setText("Perdeste... Tenta outra vez! Pode gerar novo labirinto.");
+			btnCima.setEnabled(false);
+			btnBaixo.setEnabled(false);
+			btnDireita.setEnabled(false);
+			btnEsquerda.setEnabled(false);
+			btnGerarLabirinto.setEnabled(true);
+			btnStartGame.setEnabled(true);
+		}
+		
+	}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,120 +99,168 @@ public class ApplicationWindow {
 	private void initialize() {
 		frmJogoDoLabirinto = new JFrame();
 		frmJogoDoLabirinto.setTitle("Jogo do labirinto");
-		frmJogoDoLabirinto.setBounds(100, 100, 480, 361);
+		frmJogoDoLabirinto.setBounds(100, 100, 900, 800);
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
-		
+
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimensão do labirinto");
-		lblDimensoDoLabirinto.setBounds(18, 24, 145, 14);
+		lblDimensoDoLabirinto.setBounds(34, 24, 145, 14);
 		frmJogoDoLabirinto.getContentPane().add(lblDimensoDoLabirinto);
-		
+
 		tamanhoTab = new JTextField();
 		tamanhoTab.setText("11");
-		tamanhoTab.setBounds(164, 18, 65, 26);
+		tamanhoTab.setBounds(180, 18, 65, 26);
 		frmJogoDoLabirinto.getContentPane().add(tamanhoTab);
 		tamanhoTab.setColumns(10);
-		
+
 		lblNmeroDeDrages = new JLabel("Número de dragões");
-		lblNmeroDeDrages.setBounds(18, 48, 145, 14);
+		lblNmeroDeDrages.setBounds(34, 48, 145, 14);
 		frmJogoDoLabirinto.getContentPane().add(lblNmeroDeDrages);
-		
+
 		nrDragoes = new JTextField();
 		nrDragoes.setText("1");
 		nrDragoes.setColumns(10);
-		nrDragoes.setBounds(164, 42, 65, 26);
+		nrDragoes.setBounds(180, 42, 65, 26);
 		frmJogoDoLabirinto.getContentPane().add(nrDragoes);
-		
+
 		lblTipoDeDrages = new JLabel("Tipo de dragões");
-		lblTipoDeDrages.setBounds(18, 74, 145, 14);
+		lblTipoDeDrages.setBounds(34, 74, 145, 14);
 		frmJogoDoLabirinto.getContentPane().add(lblTipoDeDrages);
-		
+
 		JComboBox modosJogo = new JComboBox();
-		modosJogo.setModel(new DefaultComboBoxModel(new String[] {"Estáticos", "Móveis", "Móveis/Dorminhocos"}));
+		modosJogo.setModel(new DefaultComboBoxModel(new String[] { "Estáticos", "Aleatórios", "Aleatórios e a dormir" }));
 		modosJogo.setSelectedIndex(0);
-		modosJogo.setBounds(163, 69, 111, 27);
+		modosJogo.setBounds(179, 69, 107, 27);
 		frmJogoDoLabirinto.getContentPane().add(modosJogo);
-		
-		
+
 		JButton btnTerminarPrograma = new JButton("Terminar programa");
 		btnTerminarPrograma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnTerminarPrograma.setBounds(306, 61, 156, 35);
+		btnTerminarPrograma.setBounds(717, 61, 156, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnTerminarPrograma);
+
+		/*textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setFont(new Font("Courier New", Font.PLAIN, 13));
+		textArea.setBounds(34, 117, 631, 593);
+		textArea.setColumns(20);
+		frmJogoDoLabirinto.getContentPane().add(textArea);*/
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(16, 109, 247, 185);
-		frmJogoDoLabirinto.getContentPane().add(textArea);
-		
-		JButton btnCima = new JButton("Cima");
+		btnCima = new JButton("Cima");
 		btnCima.setEnabled(false);
 		btnCima.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				click(UP);
 			}
 		});
-		btnCima.setBounds(339, 166, 76, 35);
+		btnCima.setBounds(750, 347, 76, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnCima);
 		
-		JButton btnBaixo = new JButton("Baixo");
+		btnBaixo = new JButton("Baixo");
+		btnBaixo.setEnabled(false);
 		btnBaixo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				click(DOWN);
 			}
 		});
-		btnBaixo.setEnabled(false);
-		btnBaixo.setBounds(339, 238, 76, 35);
+		btnBaixo.setBounds(750, 419, 76, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnBaixo);
-		
-		JButton btnEsquerda = new JButton("Esquerda");
+
+		btnEsquerda = new JButton("Esquerda");
 		btnEsquerda.setEnabled(false);
-		btnEsquerda.setBounds(289, 202, 86, 35);
+		btnEsquerda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				click(LEFT);
+			}
+		});
+		btnEsquerda.setBounds(700, 383, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnEsquerda);
-		
-		JButton btnDireita = new JButton("Direita");
+
+		btnDireita = new JButton("Direita");
 		btnDireita.setEnabled(false);
 		btnDireita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				click(RIGHT);
 			}
 		});
-		btnDireita.setBounds(376, 202, 86, 35);
+		btnDireita.setBounds(787, 383, 86, 35);
 		frmJogoDoLabirinto.getContentPane().add(btnDireita);
-		
-		JButton btnStartGame = new JButton("Come\u00E7ar Jogo");
-		btnStartGame.setEnabled(false);
-		btnStartGame.setBounds(306, 107, 156, 35);
-		frmJogoDoLabirinto.getContentPane().add(btnStartGame);
-		
-		JButton btnGerarLabirinto = new JButton("Gerar novo labirinto");
+
+		btnGerarLabirinto = new JButton("Gerar novo labirinto");
 		btnGerarLabirinto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int nDragoes = Integer.parseInt(nrDragoes.getText());
-				int dimensao = Integer.parseInt(tamanhoTab.getText());
+
+				int nDragoes;
+				int dimensao;
+
+				try {
+					nDragoes = Integer.parseInt(nrDragoes.getText());
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Número de dragões inválido!");
+					return;
+				}
+
+				try {
+					dimensao = Integer.parseInt(tamanhoTab.getText());
+					if (dimensao > 39) {
+						JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Dimensão inválida!\nInserir dimensão menor que 40.");
+						return;
+					} else if (dimensao%2 == 0){
+						dimensao++;
+						JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Dimensão par!\nGerou labirinto com dimensão " + dimensao + ".");
+					}
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Dimensão inválida!");
+					return;
+				}
+
 				int gameMode = modosJogo.getSelectedIndex();
-				Jogo jogar = new Jogo();
-				CommandLine cmd = new CommandLine();
 				jogar.setGameMode(gameMode);
-				
+
 				try {
 					jogar.criaLabirintoAleatorio(dimensao, nDragoes);
 				} catch (TooManyDragonsException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(frmJogoDoLabirinto, "Número de dragões inválido!");
+					return;
 				}
+				
+				panel = new GPanel();
+				panel.repaint();
+				panel.setBounds(34, 117, 631, 593);
+				frmJogoDoLabirinto.getContentPane().add(panel);
+				panel.setVisible(true);
+
+				//textArea.setText(jogar.getLab().getBoard().toString());
+				btnStartGame.setEnabled(true);
+			}
+		});
+		btnGerarLabirinto.setBounds(717, 18, 156, 35);
+		frmJogoDoLabirinto.getContentPane().add(btnGerarLabirinto);
 		
-				textArea.setText(jogar.getTab().getBoard().toString());
+		btnStartGame = new JButton("Come\u00E7ar Jogo");
+		btnStartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				btnCima.setEnabled(true);
 				btnBaixo.setEnabled(true);
 				btnDireita.setEnabled(true);
 				btnEsquerda.setEnabled(true);
+				btnGerarLabirinto.setEnabled(false);
+				info.setText("Pode mover o herói... ");
+				btnStartGame.setEnabled(false);
 			}
 		});
-		btnGerarLabirinto.setBounds(306, 18, 156, 35);
-		frmJogoDoLabirinto.getContentPane().add(btnGerarLabirinto);
-		
-		JLabel lblNewLabel = new JLabel("Pode gerar novo labirinto!");
-		lblNewLabel.setBounds(18, 306, 239, 16);
-		frmJogoDoLabirinto.getContentPane().add(lblNewLabel);
+		btnStartGame.setEnabled(false);
+		btnStartGame.setBounds(717, 107, 156, 35);
+		frmJogoDoLabirinto.getContentPane().add(btnStartGame);
+
+
+		info = new JLabel("Pode gerar novo labirinto!");
+		info.setBounds(34, 722, 489, 14);
+		frmJogoDoLabirinto.getContentPane().add(info);
 	}
 }

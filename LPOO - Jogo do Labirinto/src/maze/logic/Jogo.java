@@ -22,12 +22,12 @@ public class Jogo {
 		this.win = win;
 	}
 
-	public Labirinto getTab() {
+	public Labirinto getLab() {
 		return lab;
 	}
 
-	public void setTab(Labirinto tab) {
-		this.lab = tab;
+	public void setLab(Labirinto lab) {
+		this.lab = lab;
 	}
 
 	public boolean isGameOver() {

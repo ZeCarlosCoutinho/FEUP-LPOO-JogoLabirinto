@@ -67,8 +67,8 @@ public class ApplicationWindow2 {
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
 		
-		JLabel lblTamanhoTabuleiro = new JLabel("Tamanho do Tabuleiro:");
-		lblTamanhoTabuleiro.setBounds(10, 66, 118, 14);
+		JLabel lblTamanhoTabuleiro = new JLabel("Tamanho do tabuleiro:");
+		lblTamanhoTabuleiro.setBounds(19, 66, 145, 14);
 		frmJogoDoLabirinto.getContentPane().add(lblTamanhoTabuleiro);
 		
 		txtEscolhaAsDefinies = new JTextField();
@@ -76,29 +76,21 @@ public class ApplicationWindow2 {
 		txtEscolhaAsDefinies.setFont(new Font("Diavlo Bold", Font.PLAIN, 16));
 		txtEscolhaAsDefinies.setEditable(false);
 		txtEscolhaAsDefinies.setText("Escolha as defini\u00E7\u00F5es de jogo:");
-		txtEscolhaAsDefinies.setBounds(10, 11, 229, 28);
+		txtEscolhaAsDefinies.setBounds(10, 11, 248, 28);
 		frmJogoDoLabirinto.getContentPane().add(txtEscolhaAsDefinies);
 		txtEscolhaAsDefinies.setColumns(10);
 		
 		JSpinner spinner = new JSpinner();
 		spinner.setModel(new SpinnerNumberModel(11, 7, 99, 2));
-		spinner.setBounds(123, 63, 39, 20);
+		spinner.setBounds(172, 63, 39, 20);
 		frmJogoDoLabirinto.getContentPane().add(spinner);
 		
-		JLabel lblNmeroDrages = new JLabel("N\u00FAmero Drag\u00F5es:");
-		lblNmeroDrages.setBounds(10, 105, 105, 14);
+		JLabel lblNmeroDrages = new JLabel("Número dragões:");
+		lblNmeroDrages.setBounds(19, 105, 118, 14);
 		frmJogoDoLabirinto.getContentPane().add(lblNmeroDrages);
 		
-		JSlider slider = new JSlider();
-		slider.setFont(new Font("Tahoma", Font.PLAIN, 8));
-		slider.setMajorTickSpacing(2);
-		slider.setPaintLabels(true);
-		slider.setToolTipText("");
-		slider.setMinorTickSpacing(1);
-		slider.setSnapToTicks(true);
-		slider.setPaintTicks(true);
-		slider.setMinimum(1);
-		slider.setBounds(10, 127, 428, 36);
-		frmJogoDoLabirinto.getContentPane().add(slider);
+		JLabel lblModoDeJogo = new JLabel("Modo de jogo:");
+		lblModoDeJogo.setBounds(19, 149, 118, 14);
+		frmJogoDoLabirinto.getContentPane().add(lblModoDeJogo);
 	}
 }

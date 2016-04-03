@@ -26,13 +26,13 @@ public class Start {
 			else
 				firstTime = false;
 			
-			cmd.display(jogar.getTab().getBoard());
+			cmd.display(jogar.getLab().getBoard());
 
 			jogar.turno(cmd.pede_movimentacao());
 
-			for(int i = 0; i < jogar.getTab().getDragons().length; i++)
-			if (!(jogar.getTab().getDragons()[i].isAlive()) && !(jogar.getTab().getDragons()[i].isUserWarned())){
-				jogar.getTab().getDragons()[i].setUserWarned(true);
+			for(int i = 0; i < jogar.getLab().getDragons().length; i++)
+			if (!(jogar.getLab().getDragons()[i].isAlive()) && !(jogar.getLab().getDragons()[i].isUserWarned())){
+				jogar.getLab().getDragons()[i].setUserWarned(true);
 				cmd.clearConsole();
 				cmd.heroi_matou_dragao();
 				firstTime = true;
@@ -40,7 +40,7 @@ public class Start {
 				
 		}
 
-		cmd.display(jogar.getTab().getBoard());
+		cmd.display(jogar.getLab().getBoard());
 
 		cmd.fim_jogo();
 

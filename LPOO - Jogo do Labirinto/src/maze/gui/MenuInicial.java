@@ -65,13 +65,6 @@ public class MenuInicial extends JPanel{
 		frmJogoDoLabirinto.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmJogoDoLabirinto.getContentPane().setLayout(null);
 		
-		JTextPane txtpnAsd = new JTextPane();
-		txtpnAsd.setBackground(Color.ORANGE);
-		txtpnAsd.setFont(new Font("Diavlo Black", Font.PLAIN, 30));
-		txtpnAsd.setText("Bem vindo ao Jogo do Labirinto");
-		txtpnAsd.setBounds(10, 11, 291, 77);
-		frmJogoDoLabirinto.getContentPane().add(txtpnAsd);
-		
 		JButton btnComear = new JButton("Come\u00E7ar");
 		btnComear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -80,8 +73,14 @@ public class MenuInicial extends JPanel{
 		btnComear.setBackground(Color.BLACK);
 		btnComear.setForeground(Color.RED);
 		btnComear.setFont(new Font("Diavlo Book", Font.PLAIN, 14));
-		btnComear.setBounds(93, 99, 128, 54);
+		btnComear.setBounds(107, 97, 128, 54);
 		frmJogoDoLabirinto.getContentPane().add(btnComear);
-		frmJogoDoLabirinto.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtpnAsd, btnComear}));
+		
+		JLabel lblBemvindoAoJogo = new JLabel("Bem-vindo ao Jogo do labirinto");
+		lblBemvindoAoJogo.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblBemvindoAoJogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBemvindoAoJogo.setBounds(17, 28, 305, 62);
+		frmJogoDoLabirinto.getContentPane().add(lblBemvindoAoJogo);
+		frmJogoDoLabirinto.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnComear}));
 	}
 }
