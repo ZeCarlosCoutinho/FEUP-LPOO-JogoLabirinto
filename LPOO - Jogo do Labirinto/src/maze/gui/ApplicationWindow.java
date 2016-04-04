@@ -38,11 +38,18 @@ public class ApplicationWindow {
 
 	Jogo jogar = new Jogo();
 	Labirinto lab = new Labirinto();
+	
 
 	private char UP = 'w', RIGHT = 'd', LEFT = 'a', DOWN = 's';
 
 	public void click(char direction){
 		jogar.turno(direction);
+		
+		if (lab.getDragons().length == lab.getNumDragoes()){
+			info.setText("Boa! Mataste um dragão.");
+			//lab.setNumDragoes(lab.getNumDragoes()-1);
+		} else 
+			info.setText("Continua a jogar.");
 		
 		if(jogar.isWin()){
 			info.setText("PARABÉNS! Fim do jogo. Pode gerar novo labirinto.");
@@ -300,7 +307,6 @@ public class ApplicationWindow {
 				btnGerarLabirinto.setEnabled(false);
 				info.setText("Pode mover o herói... ");
 				btnStartGame.setEnabled(false);
-				panel.requestFocusInWindow();
 			}
 		});
 		btnStartGame.setEnabled(false);
