@@ -422,7 +422,7 @@ public class Labirinto {
 	}
 
 	/**
-	 * @brief Retorna verdadeiro ou falso consoante a celula para que o ser animado se quiser mover
+	 * @brief Retorna verdadeiro ou falso consoante se o ser animado se pode mover para a celula indicada pela direcao
 	 * @param npc
 	 * @param direcao
 	 * @return boolean
@@ -441,6 +441,7 @@ public class Labirinto {
 			else if (npc instanceof Dragao)
 				return false;
 		}
+		
 
 		return true;
 	}

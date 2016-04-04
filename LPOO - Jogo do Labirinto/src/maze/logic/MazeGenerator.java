@@ -290,8 +290,7 @@ public class MazeGenerator {
 		}
 		else
 		{
-			//excepTion //VAMOS TER DE CRIAR EXCEPCAO, MAS NAO POR ENQUANTO
-			s = new Saida(1, 0); //CODIGO PROVISORIO
+			s = new Saida(1, 0); 
 			return s;
 		}
 	}
@@ -374,7 +373,7 @@ public class MazeGenerator {
 	
 	public boolean coloca_Dragao(Celula cell)
 	{
-		//Se o dragao nao estiver em cima de um espa�o
+		//Se o dragao nao estiver em cima de um espaço
 		if(maze.getChar(cell) != ' ')
 			return false;
 		
@@ -382,10 +381,10 @@ public class MazeGenerator {
 		if(cell.equals(hero))
 			return false;
 		
-		if(Math.abs(cell.x - hero.getPosX()) == 1 && cell.y == hero.getPosY()) //Mesmo y; x adjacentes
+		if(Math.abs(cell.x - hero.getPosX()) == 1 && cell.y == hero.getPosY()) //Mesmo y de heroi; x adjacentes
 			return false;
 		
-		if(cell.x == hero.getPosX() && Math.abs(cell.y - hero.getPosY()) == 1) //Mesmo x; y adjacentes
+		if(cell.x == hero.getPosX() && Math.abs(cell.y - hero.getPosY()) == 1) //Mesmo x de heroi; y adjacentes
 			return false;
 		
 		//Se o dragao estiver em cima da espada
