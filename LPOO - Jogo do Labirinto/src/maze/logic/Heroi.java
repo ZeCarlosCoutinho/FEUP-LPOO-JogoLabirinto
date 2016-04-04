@@ -6,8 +6,8 @@ public class Heroi extends SerAnimado {
 
 
 	/**
-	 * Retorna verdadeiro se o herói estiver armado
-	 * @return
+	 * @brief Retorna verdadeiro se o herói estiver armado
+	 * @return true se herói tem a arma; false se estiver desarmado
 	 */
 	public boolean isArmado() {
 		return armado;
@@ -15,7 +15,7 @@ public class Heroi extends SerAnimado {
 
 
 	/**
-	 * Altera estado do herói para armado (true) ou desarmado (false)
+	 * @brief Altera estado do herói para armado (true) ou desarmado (false)
 	 * @param armado
 	 */
 	public void setArmado(boolean armado) {
@@ -24,7 +24,7 @@ public class Heroi extends SerAnimado {
 
 
 	/**
-	 * Constrói herói na posição (1,1)
+	 * @brief Constrói herói na posição (1,1)
 	 */
 	public Heroi() {
 		posX = 1;
@@ -35,9 +35,9 @@ public class Heroi extends SerAnimado {
 
 
 	/**
-	 * Constrói herói na posição (x,y)
-	 * @param x
-	 * @param y
+	 * @brief Constrói herói na posição (x,y)
+	 * @param x abcissa da célula onde é construído o herói
+	 * @param y ordenada da célula onde é construído o herói
 	 */
 	public Heroi(int x, int y) {
 		posX = x;
@@ -49,8 +49,8 @@ public class Heroi extends SerAnimado {
 	
 
 	/**
-	 * Constrói herói na posição da célula que é passada como parâmetro
-	 * @param cell
+	 * @brief Constrói herói na posição da célula que é passada como parâmetro
+	 * @param cell célula onde é construído o herói
 	 */
 	public Heroi(Celula cell) {
 		posX = cell.x;

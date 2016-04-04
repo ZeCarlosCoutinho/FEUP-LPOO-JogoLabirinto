@@ -4,7 +4,7 @@ public class Celula {
 	public int x, y;
 	
 	/**
-	 * Constrói célula na posição (x, y)
+	 * @brief Constrói célula na posição (x, y)
 	 * @param x abcissa da célula
 	 * @param y ordenada da célula
 	 */
@@ -15,7 +15,7 @@ public class Celula {
 	}
 
 	/**
-	 * Constrói célula
+	 * @brief Constrói célula
 	 * @param c célula a copiar
 	 */
 	public Celula(Celula c)
@@ -25,7 +25,7 @@ public class Celula {
 	}
 	
 	/**
-	 * Constrói célula na posição (0,0)
+	 * @brief Constrói célula na posição (0,0)
 	 */
 	public Celula() {
 		this.x = 0;
@@ -33,7 +33,7 @@ public class Celula {
 	}
 	
 	/**
-	 * Verificar se determinada célula existe
+	 * @brief Verificar se determinada célula existe
 	 * @param elem objeto de comparação
 	 * @return true se já existir uma célula criada na posição do elemento que é passado como parametro
 	 */

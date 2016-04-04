@@ -4,8 +4,8 @@ public class Espada extends SerInanimado {
 	private boolean naMao;
 
 	/**
-	 * Retorna true se o heróiestiver armado
-	 * @return
+	 * @brief Retorna true se o herói estiver armado
+	 * @return true se espada está a ser utilizada
 	 */
 	public boolean isNaMao() {
 		return naMao;
@@ -13,7 +13,7 @@ public class Espada extends SerInanimado {
 
 
 	/**
-	 * Coloca espada a ser utilizada
+	 * @brief Coloca espada a ser utilizada
 	 * @param na_mao
 	 */
 	public void setNaMao(boolean na_mao) {
@@ -22,7 +22,7 @@ public class Espada extends SerInanimado {
 
 
 	/**
-	 * Constrói espada na posição (1, 8)
+	 * @brief Constrói espada na posição (1, 8)
 	 */
 	public Espada() {
 		posX = 1;
@@ -33,9 +33,9 @@ public class Espada extends SerInanimado {
 	
 
 	/**
-	 * Constrói espada na posição (x, y)
-	 * @param x
-	 * @param y
+	 * @brief Constrói espada na posição (x, y)
+	 * @param x abcissa da célula
+	 * @param y ordenada da célula
 	 */
 	public Espada(int x, int y) {
 		posX = x;
@@ -46,8 +46,8 @@ public class Espada extends SerInanimado {
 	
 
 	/**
-	 * Constrói espada na posição da célula
-	 * @param cell
+	 * @brief Constrói espada na posição da célula
+	 * @param cell célula onde vai construir a espada
 	 */
 	public Espada(Celula cell) {
 		posX = cell.x;

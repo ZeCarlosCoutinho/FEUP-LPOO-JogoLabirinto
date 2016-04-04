@@ -4,7 +4,7 @@ public class Elemento {
 	protected int posX, posY;
 
 	/**
-	 * Retorna posição x do elemento
+	 * @brief Retorna posição x do elemento
 	 * @return posição x do elemento
 	 */
 	public int getPosX() {
@@ -12,14 +12,14 @@ public class Elemento {
 	}
 
 	/**
-	 * Altera posição x do elemento para posx (passado como parâmetro)
+	 * @brief Altera posição x do elemento para posx (passado como parâmetro)
 	 */
 	public void setPosx(int posx) {
 		this.posX = posx;
 	}
 
 	/**
-	 * Retorna posição y do elemento
+	 * @brief Retorna posição y do elemento
 	 * @return posição y do elemento
 	 */
 	public int getPosY() {
@@ -27,15 +27,15 @@ public class Elemento {
 	}
 
 	/**
-	 * Altera posição y do elemento para posy (passado como parâmetro)
+	 * @brief Altera posição y do elemento para posy (passado como parâmetro)
 	 */
 	public void setPosy(int posy) {
 		this.posY = posy;
 	}
 
 	/**
-	 * Verifica se dois elementos estão sobrepostos
-	 * @return true 
+	 * @brief Verifica se dois elementos estão sobrepostos
+	 * @return true caso os elementos estejam na mesma célula
 	 */
 	public boolean isSobreposto(Elemento elem) {
 		if(elem == null)
@@ -47,8 +47,7 @@ public class Elemento {
 	}
 
 	/**
-	 * Constrói elemento na posição (x, y)
-	 * @return
+	 * @brief Constrói elemento na posição (x, y)
 	 */
 	public Elemento() {
 		posX = 0;

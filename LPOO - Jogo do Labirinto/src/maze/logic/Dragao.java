@@ -6,7 +6,7 @@ public class Dragao extends SerAnimado {
 	private static int nDragoesVivos;
 
 	/**
-	 * Retorna número de dragões
+	 * @brief Retorna número de dragões
 	 * @return número de dragões
 	 */
 	public static int getnDragoes() {
@@ -14,15 +14,15 @@ public class Dragao extends SerAnimado {
 	}
 
 	/**
-	 * Altera número de dragões
-	 * @param nDragoes
+	 * @brief Altera número de dragões
+	 * @param nDragoes 
 	 */
 	public static void setnDragoes(int nDragoes) {
 		Dragao.nDragoes = nDragoes;
 	}
 
 	/**
-	 * Retorna número de dragões vivos
+	 * @brief Retorna número de dragões vivos
 	 * @return número de dragões vivos
 	 */
 	public static int getnDragoesVivos() {
@@ -30,7 +30,7 @@ public class Dragao extends SerAnimado {
 	}
 
 	/**
-	 * Altera número de dragões vivos
+	 * @brief Altera número de dragões vivos
 	 * @param nDragoesVivos
 	 */
 	public static void setnDragoesVivos(int nDragoesVivos) {
@@ -38,7 +38,7 @@ public class Dragao extends SerAnimado {
 	}
 
 	/**
-	 * Verificação do estado do dragão
+	 * @brief Verificação do estado do dragão
 	 * @return true se o dragão estiver a dormir e false se estiver acordado
 	 */
 	public boolean isSleeping() {
@@ -46,15 +46,15 @@ public class Dragao extends SerAnimado {
 	}
 	
 	/**
-	 * Coloca o dragão a dormir (true) ou acorda-o (false)
-	 * @param sleeping
+	 * @brief Coloca o dragão a dormir (true) ou acorda-o (false)
+	 * @param sleeping 
 	 */
 	public void setSleeping(boolean sleeping) {
 		this.sleeping = sleeping;
 	}
 
 	/**
-	 * Constrói um dragão na posição (1,3)
+	 * @brief Constrói um dragão na posição (1,3)
 	 */
 	public Dragao() {
 		posX = 1;
@@ -66,9 +66,9 @@ public class Dragao extends SerAnimado {
 	}
 
 	/**
-	 * Constrói um dragão na posição (x, y)
-	 * @param x
-	 * @param y
+	 * @brief Constrói um dragão na posição (x, y)
+	 * @param x abcissa 
+	 * @param y ordenada
 	 */
 	public Dragao(int x, int y) {
 		posX = x;
@@ -80,7 +80,7 @@ public class Dragao extends SerAnimado {
 	}
 	
 	/**
-	 * Constrói um dragão na posição da célula que recebe
+	 * @brief Constrói um dragão na posição da célula que recebe
 	 * @param cell
 	 */
 	public Dragao(Celula cell) {
