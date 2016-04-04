@@ -5,28 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import exceptions.TooManyDragonsException;
-import maze.cli.CommandLine;
-import maze.logic.*;
-
-import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import javax.swing.JTextPane;
 import java.awt.Color;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 
 public class MenuInicial extends JPanel{
 
@@ -81,6 +65,5 @@ public class MenuInicial extends JPanel{
 		lblBemvindoAoJogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBemvindoAoJogo.setBounds(17, 28, 305, 62);
 		frmJogoDoLabirinto.getContentPane().add(lblBemvindoAoJogo);
-		frmJogoDoLabirinto.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnComear}));
 	}
 }

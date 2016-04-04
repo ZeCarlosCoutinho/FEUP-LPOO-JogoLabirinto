@@ -14,10 +14,20 @@ public class Jogo {
 	private MazeGenerator mazeGenerator;
 	private Random generator;
 
+
+	/**
+	 * Retorna verdadeiro se o 'user' ganhou
+	 * @return
+	 */
 	public boolean isWin() {
 		return win;
 	}
 
+
+	/**
+	 * Altera
+	 * @param win
+	 */
 	public void setWin(boolean win) {
 		this.win = win;
 	}
