@@ -60,7 +60,7 @@ public class Labirinto {
 
 	// construtor
 	public Labirinto() {
-		hero = new Heroi(1, 7);
+		hero = new Heroi(1, 1);
 		numDragoes = 4;
 		dragons = new Dragao[numDragoes];
 		dragons[0] =  new Dragao(8, 1);

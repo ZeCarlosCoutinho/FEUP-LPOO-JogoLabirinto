@@ -93,9 +93,6 @@ public class MazeGenerator {
 		this.dragons = new Dragao[4];
 		this.exit = new Saida();
 		this.exit = iniciar_saida(guideCell);
-		this.hero = iniciar_heroi();
-		this.sword = iniciar_espada();
-		iniciar_dragoes();
 
 		//Inicia a stack de celulas, de modo a o gerador saber a ordem das casas em que passou
 		this.lastCells = new Stack<Celula>();
@@ -104,13 +101,18 @@ public class MazeGenerator {
 		//Cria os caminhos do labirinto
 		this.abreCaminho();
 		
+		this.hero = iniciar_heroi();
+		this.sword = iniciar_espada();
+		iniciar_dragoes();
+		
 		//Imprime os elementos no tabuleiro
 		this.maze.setChar('S', exit.posX, exit.posY);
 		this.maze.setChar('H', hero.posX, hero.posY);
 		this.maze.setChar('E', sword.posX, sword.posY);
 		for(int i = 0; i < dragons.length; i++)
 		{
-			this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
+			if(dragons[i] != null)
+				this.maze.setChar('D', dragons[i].posX, dragons[i].posY);
 		}
 		
 		return this.maze.getBoard();
@@ -311,6 +313,7 @@ public class MazeGenerator {
 	{
 		Celula posicao = new Celula();
 		int tentativas = 0;
+		int tentativasMaximas = 300;
 		do
 		{
 			posicao.x = generator.nextInt(maze.getTamx());
@@ -318,10 +321,11 @@ public class MazeGenerator {
 			
 			tentativas++;
 		}
-		while(!coloca_Dragao(posicao) && tentativas < 100);
+		while(!coloca_Dragao(posicao) && tentativas < tentativasMaximas);
 		
-		if(tentativas == 100)
-			throw new TooManyDragonsException();
+		if(tentativas == tentativasMaximas)
+			//throw new TooManyDragonsException();
+			return null;
 		//So cria o dragao quando tem a certeza que o pode colocar na posicao da Celula
 		Dragao dragon = new Dragao(posicao);
 		return dragon;
@@ -348,6 +352,11 @@ public class MazeGenerator {
 		if(cell.equals(hero))
 			return false;
 		
+		//Se o dragao estiver em cima da espada
+		if(cell.equals(sword))
+			return false;
+		
+		
 		return true;
 	}
 	
@@ -369,6 +378,10 @@ public class MazeGenerator {
 		
 		//Se o dragao estiver em cima da espada
 		if(cell.equals(sword))
+			return false;
+		
+		//Se o dragao estiver em cima da saida
+		if(cell.equals(exit))
 			return false;
 		
 		//Se o dragao estiver em cima de outros dragoes
