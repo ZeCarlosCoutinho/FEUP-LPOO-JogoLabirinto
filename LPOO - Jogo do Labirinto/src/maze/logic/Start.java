@@ -3,6 +3,10 @@ import exceptions.TooManyDragonsException;
 import maze.cli.CommandLine;
 
 public class Start {
+	/**
+	 * @brief Funçao responsavel por pôr a interface logica a funcionar; Inicia o jogo.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Jogo jogar = new Jogo();
 		CommandLine cmd = new CommandLine(jogar);
