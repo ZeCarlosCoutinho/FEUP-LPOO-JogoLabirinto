@@ -48,22 +48,45 @@ public class MazeGenerator {
 		return dragons;
 	}
 	
+	/**
+	 * @return array2D das visitedCells
+	 */
 	public VisitedCells getVisitedCells() {
 		return visitedCells;
 	}
+	
+	/**
+	 * @return GuideCell (presente na visitedCells)
+	 */
 	public Celula getGuideCell() {
 		return guideCell;
 	}
+	
+	/** 
+	 * @return stack das celulas visitadas
+	 */
 	public Stack<Celula> getLastCells() {
 		return lastCells;
 	}
+	
+	/**
+	 * @return gerador random
+	 */
 	public Random getGenerator() {
 		return generator;
 	}
+	
+	/**
+	 * @return Tabuleiro que foi/ vai ser gerado aleatoriamentente
+	 */
 	public Tabuleiro getMaze() {
 		return maze;
 	}
 	
+	/**
+	 * @brief Construtor do MazeGenerator com o size definido por quem chama
+	 * @param size
+	 */
 	public MazeGenerator(int size)
 	{
 		this.generator = new Random();
@@ -84,14 +107,17 @@ public class MazeGenerator {
 		
 	}
 	
+	/**
+	 * @brief construtor default do mazeGenerator
+	 */
 	public MazeGenerator() {
 		
 	}
 
 	/**
-	 * @brief ORDEM DE COLOCACAO: 1 - SAIDA, 2 - HEROI, 3 - ESPADA, 4 - DRAGOES
+	 * @brief Constroi o novo Maze. ORDEM DE COLOCACAO: 1 - SAIDA, 2 - HEROI, 3 - ESPADA, 4 - DRAGOES
 	 * @param size
-	 * @return
+	 * @return grid do Maze
 	 * @throws Exception 
 	 */
 	public char[][] buildMaze(int size) throws TooManyDragonsException
@@ -139,6 +165,13 @@ public class MazeGenerator {
 		return this.maze.getBoard();
 	}
 	
+	/**
+	 * @brief Constroi um novo maze de tamanho size, e com numDragoes indicado
+	 * @param size
+	 * @param numDragoes
+	 * @return grid do Maze
+	 * @throws TooManyDragonsException
+	 */
 	public char[][] buildMaze(int size, int numDragoes) throws TooManyDragonsException
 	{
 		this.generator = new Random();
@@ -182,6 +215,10 @@ public class MazeGenerator {
 		return this.maze.getBoard();
 	}
 	
+	/**
+	 * @brief Decide aonde vai comecar a guide cell (junto a uma das paredes)
+	 * @return Celula com as coordenadas da guideCell
+	 */
 	public Celula iniciar_guideCell() //Cria uma guideCell para colocar em visitedCells
 	{
 		Celula cell = new Celula(0,0);
@@ -209,6 +246,11 @@ public class MazeGenerator {
 		return cell;
 	}
 	
+	/**
+	 * @brief Inicia a saida numa das paredes adjacentes a guideCell
+	 * @param cell
+	 * @return Saida
+	 */
 	public Saida iniciar_saida(Celula cell)
 	{
 		Saida s;
@@ -298,6 +340,10 @@ public class MazeGenerator {
 		}
 	}
 	
+	/**
+	 * @brief Coloca o heroi num espaço random
+	 * @return Heroi
+	 */
 	public Heroi iniciar_heroi()
 	{
 		//Cria uma celula
@@ -315,6 +361,10 @@ public class MazeGenerator {
 		return hero;
 	}
 	
+	/**
+	 * @brief Coloca a espada num espaco em que ainda nao esteja o heroi
+	 * @return Espada
+	 */
 	public Espada iniciar_espada()
 	{
 		Celula posicao = new Celula();
@@ -330,6 +380,11 @@ public class MazeGenerator {
 		return sword;
 	}
 	
+	/**
+	 * @brief Coloca um dragao numa posicao que nao mate o heroi nem que tenha a espada
+	 * @return Dragao colocado
+	 * @throws TooManyDragonsException
+	 */
 	public Dragao iniciar_dragao() throws TooManyDragonsException
 	{
 		Celula posicao = new Celula();
@@ -352,6 +407,10 @@ public class MazeGenerator {
 		return dragon;
 	}
 	
+	/**
+	 * @brief Coloca todos os dragoes em espacos livres
+	 * @throws TooManyDragonsException
+	 */
 	public void iniciar_dragoes() throws TooManyDragonsException
 	{
 		//Criar um dragao por posicao do array
@@ -363,6 +422,11 @@ public class MazeGenerator {
 		return;
 	}
 
+	/**
+	 * @brief Verifica se a espada pode ser colocada na cell indicada
+	 * @param cell
+	 * @return true se conseguiu colocar, false caso contrario
+	 */
 	public boolean coloca_Espada(Celula cell)
 	{
 		//Se a espada nao estiver em cima de um espaco
@@ -381,6 +445,11 @@ public class MazeGenerator {
 		return true;
 	}
 	
+	/**
+	 * @brief Verifica se consegue colocar um dragao na cell indicada
+	 * @param cell
+	 * @return true se conseguiu colocar, false caso contrario
+	 */
 	public boolean coloca_Dragao(Celula cell)
 	{
 		//Se o dragao nao estiver em cima de um espaï¿½o
@@ -415,16 +484,30 @@ public class MazeGenerator {
 		return true;
 	}
 	
+	/**
+	 * @brief converte coordenadas da visitedCells em coordenadas do Maze (amplifica)
+	 * @param num
+	 * @return Coordenada amplificada
+	 */
 	public int converter_VisToMaze(int num)
 	{
 		return (num*2)+1;
 	}
 	
+	/**
+	 * @brief converte coordenadas do Maze em coordenadas da visitedCells (reduz)
+	 * @param num
+	 * @return Coordenada reduzida
+	 */
 	public int converter_MazeToVis(int num)
 	{
 		return (num-1)/2;
 	}
 	
+	/**
+	 * @brief move a GuideCell em 1 casa de distancia, numa direcao aleatoria
+	 * @return true se conseguiu move-la, false caso contrario
+	 */
 	public boolean moveGuideCell()
 	{
 	//Gera uma direcao aleatoria
@@ -455,6 +538,12 @@ public class MazeGenerator {
 		return true;
 	}
 	
+	/**
+	 * @brief move a GuideCell dentro da visitedCells, sendo com esta função que se decide se
+	 * se vai conseguir mover ou se isso é impossivel.
+	 * @param direction
+	 * @return true se conseguir mover, false se ja nao houver casas para se mover
+	 */
 	public boolean moveGuideVisitedCells(int direction)
 	{
 		switch(direction)
@@ -544,12 +633,20 @@ public class MazeGenerator {
 		}
 	}
 	
+	/**
+	 * @brief Coloca um + em VisitedCells na posicao da guidecell
+	 */
 	public void escreveGuideVisitedCells()
 	{
 		visitedCells.setCell(guideCell.x, guideCell.y); //Coloca um + em VisitedCells na pos da guidecell
 		return;
 	}
 	
+	/**
+	 * @brief apaga um X entre cell1 e cell2 no Maze que esta a ser gerado
+	 * @param cell1
+	 * @param cell2
+	 */
 	public void abreCaminhoCelulas(Celula cell1, Celula cell2)
 	{
 		//Descobre o x e o y da parede que se quer apagar
@@ -668,6 +765,9 @@ public class MazeGenerator {
 		return false;
 	}
 	
+	/**
+	 * @brief chama o abreCaminhoAteParar muitas vezes, ate todo o Maze estar desenhado
+	 */
 	public void abreCaminho()
 	{
 		do

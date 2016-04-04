@@ -185,6 +185,14 @@ public class Tabuleiro {
 
 	}
 
+	/**
+	 * @brief Coloca uma linha de espaços no array 2D do tabuleiro
+	 * @param c
+	 * @param x
+	 * @param y
+	 * @param isHorizontal
+	 * @param length
+	 */
 	public void make_linha(char c, int x, int y, boolean isHorizontal, int length) {
 		if (x < 0 || y < 0 || x > tamx || y > tamy) 
 			return;
@@ -210,6 +218,10 @@ public class Tabuleiro {
 
 	}
 
+	/**
+	 * @brief Torna um array 2D num quadriculado, e, que as linhas são alternadamente
+	 * tudo cruzes, e cruzes alternadas com espaços
+	 */
 	public void make_quadriculado() {
 		fill_tabuleiro(' ');
 
@@ -231,6 +243,9 @@ public class Tabuleiro {
 		return;
 	}
 	
+	/**
+	 * @brief Overload do metodo toString para o Tabuleiro
+	 */
 	public String toString()
 	{
 		String tabuleiroString = "";

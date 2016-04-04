@@ -15,7 +15,7 @@ public class Jogo {
 	private Random generator;
 
 	/**
-	 * @brief Retorna verdadeiro se o 'user' ganhou
+	 * @brief Retorna verdadeiro se o '	user' ganhou
 	 * @return true se o herói estiver na saída depois de apanhar a espada e
 	 *         matar todos os dragões
 	 */
