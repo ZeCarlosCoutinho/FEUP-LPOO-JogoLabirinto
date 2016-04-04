@@ -1,5 +1,5 @@
 package maze.logic;
-	
+
 import java.util.Random; //Mover o DragÃ£o random
 
 import exceptions.TooManyDragonsException;
@@ -14,34 +14,69 @@ public class Jogo {
 	private MazeGenerator mazeGenerator;
 	private Random generator;
 
+	/**
+	 * @brief Retorna verdadeiro se o 'user' ganhou
+	 * @return true se o herói estiver na saída depois de apanhar a espada e
+	 *         matar todos os dragões
+	 */
 	public boolean isWin() {
 		return win;
 	}
 
+	/**
+	 * @brief Coloca o 'user' a ganhar o jogo
+	 * @param win
+	 */
 	public void setWin(boolean win) {
 		this.win = win;
 	}
 
+	/**
+	 * @brief Retorna labirinto
+	 * @return labirinto
+	 */
 	public Labirinto getLab() {
 		return lab;
 	}
 
+	/**
+	 * @brief Altera labirinto para o recebido como parametro
+	 * @param lab
+	 *            labirinto
+	 */
 	public void setLab(Labirinto lab) {
 		this.lab = lab;
 	}
 
+	/**
+	 * @brief Retorna verdadeiro se o 'user' perdeu
+	 * @return boolean gameOver
+	 */
 	public boolean isGameOver() {
 		return gameOver;
 	}
 
+	/**
+	 * @brief Coloca o 'user' a perder o jogo
+	 * @param gameOver
+	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 
+	/**
+	 * @brief Retorna modo de jogo
+	 * @return 0(estático), 1(aleatório), 2(aleatório ou a dormir)
+	 */
 	public int getGameMode() {
 		return gameMode;
 	}
 
+	/**
+	 * @brief Define modo de jogo
+	 * @param gameMode
+	 *            int
+	 */
 	public void setGameMode(int gameMode) {
 		if (Math.abs(gameMode) <= 2)
 			this.gameMode = gameMode;
@@ -49,6 +84,9 @@ public class Jogo {
 			this.gameMode = 0;
 	}
 
+	/**
+	 * @brief Constrói classe de jogo
+	 */
 	public Jogo() {
 		lab = new Labirinto();
 		gameOver = false;
@@ -57,7 +95,13 @@ public class Jogo {
 		generator = new Random();
 	}
 
-	public void turno(char direcao)// direÃ§Ã£o Ã© fornecida pela interface com o
+	/**
+	 * @brief Recebe direção fornecida pelo jogador e realiza uma jogada
+	 *        chamando todas as funções de verificação e movimentação
+	 * @param direcao
+	 */
+	public void turno(char direcao)// direÃ§Ã£o Ã© fornecida pela interface com
+									// o
 									// jogador
 	{
 		int direcaoInt = direcaoCharToInt(direcao); // Converte direÃ§Ã£o para
@@ -81,7 +125,7 @@ public class Jogo {
 			return;
 		}
 
-for (int i = 0; i < lab.getDragons().length; i++) {
+		for (int i = 0; i < lab.getDragons().length; i++) {
 			// Move o DragÃ£o
 			if (gameMode == 1) // Modo jogo 1, simplesmente move o dragÃ£o
 			{
@@ -132,6 +176,11 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		}
 	}
 
+	/**
+	 * @brief Altera o estado de um dragão, isto é, se está a dormir ou acordado
+	 * @param dragon
+	 * @return
+	 */
 	public boolean modificarEstadoDragao(Dragao dragon) // modifica
 														// aleatoriamente o
 														// estado do dragÃ£o
@@ -147,7 +196,12 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		} else
 			return false; // NÃ£o mudou o estado do dragÃ£o
 	}
-
+ 
+	/**
+	 * @brief Muda char da direcao para inteiro: w=0, d=1, s=2, a=3
+	 * @param direcao char
+	 * @return
+	 */
 	public int direcaoCharToInt(char direcao) {
 		direcao = Character.toLowerCase(direcao);
 		switch (direcao) {
@@ -163,9 +217,14 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 			return 4; // PODE SER NECESSÃ�RIO UM THROW
 		}
 	}
-	
-	public void criaLabirintoAleatorio(int size, int numDragoes) throws TooManyDragonsException
-	{
+
+	/**
+	 * @brief Cria labirinto com os elementos e as paredes em aleatório
+	 * @param size tamanho do tabuleiro, tamX=tamY (quadrado)
+	 * @param numDragoes
+	 * @throws TooManyDragonsException excecao para demasiados dragoes
+	 */
+	public void criaLabirintoAleatorio(int size, int numDragoes) throws TooManyDragonsException {
 		this.mazeGenerator.buildMaze(size, numDragoes);
 		Labirinto labirinto = new Labirinto(numDragoes);
 		labirinto.setHero(this.mazeGenerator.getHero());
@@ -175,7 +234,7 @@ for (int i = 0; i < lab.getDragons().length; i++) {
 		labirinto.setBoard(this.mazeGenerator.getMaze());
 		Dragao.setnDragoes(labirinto.getNumDragoes());
 		Dragao.setnDragoesVivos(labirinto.getNumDragoes());
-		
+
 		this.lab = labirinto;
 	}
 }

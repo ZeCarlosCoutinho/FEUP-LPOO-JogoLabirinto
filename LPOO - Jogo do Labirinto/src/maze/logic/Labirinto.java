@@ -10,55 +10,105 @@ public class Labirinto {
 	private Tabuleiro board;
 	private int numDragoes;
 
+	/**
+	 * @brief Retorna o numero de dragoes do respetivo labirinto
+	 * @return numero de dragoes
+	 */
 	public int getNumDragoes() {
 		return numDragoes;
 	}
 
+	/**
+	 * @brief Altera o número de dragoes do respetivo labirinto
+	 * @param numDragoes
+	 */
 	public void setNumDragoes(int numDragoes) {
 		this.numDragoes = numDragoes;
 	}
 
+	/**
+	 * @brief Retorna uma estrutura com todos os dragões do respetivo labirinto
+	 * @return array de dragões
+	 */
 	public Dragao[] getDragons() {
 		return dragons;
 	}
 
+	/**
+	 * @brief Altera dragoes do array
+	 * @param dragons
+	 */
 	public void setDragons(Dragao[] dragons) {
 		this.dragons = dragons;
 	}
 
+	/**
+	 * @brief Retorna o tabuleiro do respetivo labirinto
+	 * @return 
+	 */
 	public Tabuleiro getBoard() {
 		return board;
 	}
 
+	/**
+	 * @brief Altera o tabuleiro
+	 * @param board
+	 */
 	public void setBoard(Tabuleiro board) {
 		this.board = board;
 	}
 
+	/**
+	 * @brief Retorna o herói do respetivo labirinto
+	 * @return Heroi
+	 */
 	public Heroi getHero() {
 		return hero;
 	}
 
+	/**
+	 * @brief Altera heroi do respetivo labirinto
+	 * @param hero
+	 */
 	public void setHero(Heroi hero) {
 		this.hero = hero;
 	}
 
+	/**
+	 * @brief Retorna a saida do respetivo labirinto
+	 * @return
+	 */
 	public Saida getExit() {
 		return exit;
 	}
 
+	/**
+	 * @brief Altera a saida do labirinto
+	 * @param exit
+	 */
 	public void setExit(Saida exit) {
 		this.exit = exit;
 	}
 
+	/**
+	 * @brief Retorna espada do respetivo labirinto
+	 * @return
+	 */
 	public Espada getSword() {
 		return sword;
 	}
 
+	/**
+	 * @brief Altera espada do labirinto
+	 * @param sword
+	 */
 	public void setSword(Espada sword) {
 		this.sword = sword;
 	}
 
-	// construtor
+	/**
+	 * @brief Constrói labirinto com elementos e dimensão já definidos
+	 */
 	public Labirinto() {
 		hero = new Heroi(1, 1);
 		numDragoes = 4;
@@ -77,6 +127,9 @@ public class Labirinto {
 		preenche_tab_default();
 	}
 	
+	/**
+	 * @brief Constrói labirinto com elementos e dimensão já definidos mas recebe numero de dragoes a criar no array de dragoes 
+	 */
 	public Labirinto(int numDragoes) {
 		hero = new Heroi(1, 7);
 		this.numDragoes = numDragoes;
@@ -92,7 +145,9 @@ public class Labirinto {
 		preenche_tab_default();
 	}
 
-	// Coloca os seres no tabuleiro
+	/**
+	 * @brief Faz display do tabuleiro e dos elementos
+	 */
 	public void preenche_tab_default() {
 		board.preenche_tabuleiro();
 		preenche_heroi(hero);
@@ -103,21 +158,33 @@ public class Labirinto {
 		return;
 	}
 
+	/**
+	 * @brief Retorna o Elemento que está na casa (x, y)
+	 * @param x abcissa 
+	 * @param y ordenada
+	 * @return char elemento
+	 */
 	public char retornaCasa(int x, int y) {
 		return board.getChar(x, y);
 	}
 
-	public char retornaCasa(Elemento elem) // Retorna o char na posição do
-											// Elemento
+	/**
+	 * @brief Retorna o char que representa o elemento que está na casa (x, y)
+	 * @param elem
+	 * @return char elemento
+	 */
+	public char retornaCasa(Elemento elem) 
 	{
 		return retornaCasa(elem.getPosX(), elem.getPosY());
 	}
 
-	public char posCharacter(Elemento elem, int direcao) // Retorna o char na
-															// casa seguinte
-															// consoante a
-															// direção e posição
-															// do Elemento
+	/**
+	 * @brief Retorna o char do elemento que recebe na casa seguinte consoante a direcao que recebe, pode manter a posicao
+	 * @param elem
+	 * @param direcao
+	 * @return char elemento
+	 */
+	public char posCharacter(Elemento elem, int direcao) 
 	{
 		switch (direcao) {
 		case 0:
@@ -133,11 +200,19 @@ public class Labirinto {
 		}
 	}
 
+	/**
+	 * @brief Desenha saída no tabuleiro
+	 * @param s
+	 */
 	public void preenche_saida(Saida s) {
 		board.setChar('S', s.getPosX(), s.getPosY());
 		return;
 	}
 
+	/**
+	 * @brief Desenha heroi no tabuleiro
+	 * @param h
+	 */
 	public void preenche_heroi(Heroi h) {
 		if (h.isArmado())
 			board.setChar('A', h.getPosX(), h.getPosY());
@@ -147,6 +222,10 @@ public class Labirinto {
 
 	}
 
+	/**
+	 * @brief Desenha dragoes no tabuleiro
+	 * @param d
+	 */
 	public void preenche_dragao(Dragao[] d) {
 		for (int i = 0; i < d.length; i++) {
 			if (d[i].isAlive()) {
@@ -165,27 +244,26 @@ public class Labirinto {
 		}
 	}
 
+	/**
+	 * @brief Desenha espada se o heroi nao a tiver apanhado nem que um dragao esteja por cima, no tabuleiro
+	 * @param e
+	 */
 	public void preenche_espada(Espada e) {
-		if (!(e.isNaMao()) && e.getPorcima() == null) // Se o herói ainda não
-														// tiver apanhado, e nao
-														// tiver nada por cima
+		if (!(e.isNaMao()) && e.getPorcima() == null) 
 			board.setChar('E', e.getPosX(), e.getPosY());
 	}
 
-	public void preenche_npc(Elemento elem) // função que escreve um Elemento no
-											// board
+	/**
+	 * @brief Desenha o elemento que é passado como parametro no tabuleiro
+	 * @param elem
+	 */
+	public void preenche_npc(Elemento elem) 
 	{
 		if (elem == hero) {
 			preenche_heroi(hero);
 			return;
 		} else if (elem instanceof Dragao) {
-			preenche_dragao(dragons); // DUVIDA: SE PASSARMOS elem COMO
-										// ARGUMENTO
-										// (e elem for um dragão)
-										// O PROGRAMA VAI USAR OS DADOS DE
-										// DRAGAO? OU VAI DESCARTA-LOS E ASSUMIR
-										// elem COM APENAS OS ATRIBUTOS DE
-										// elemento?
+			preenche_dragao(dragons);
 			return;
 		} else if (elem == sword) {
 			preenche_espada(sword);
@@ -197,6 +275,9 @@ public class Labirinto {
 			return;
 	}
 
+	/**
+	 * @brief Desenha os elementos todos no tabuleiro
+	 */
 	public void preenche_all() {
 		preenche_saida(exit);
 		preenche_espada(sword);
@@ -205,6 +286,9 @@ public class Labirinto {
 		return;
 	}
 
+	/**
+	 * @brief Apaga todos os elementos do tabuleiro
+	 */
 	public void apaga_all() {
 		apaga_npc(exit);
 		apaga_npc(sword);
@@ -214,59 +298,61 @@ public class Labirinto {
 		return;
 	}
 
+	/**
+	 * @brief Apaga o elemento que é passado como parametro do tabuleiro
+	 * @param elem
+	 */
 	public void apaga_npc(Elemento elem) {
 		board.setChar(' ', elem.getPosX(), elem.getPosY());
 		return;
 	}
 
-	public void clean_track(Elemento elem, int direcao) // limpa o rasto deixado
-														// pelo SerAnimado
+	/**
+	 * @brief Apaga a posicao anterior do elemento que é passado como parametro 
+	 * @param elem
+	 * @param direcao 
+	 */
+	public void clean_track(Elemento elem, int direcao) 
 	{
 		switch (direcao) {
 		case 0:// Norte
-			board.setChar(' ', elem.getPosX(), elem.getPosY() + 1);// O rasto
-																	// ficou 1
-																	// casa
-																	// abaixo
+			board.setChar(' ', elem.getPosX(), elem.getPosY() + 1);
 			break;
 		case 1:// Oeste
-			board.setChar(' ', elem.getPosX() - 1, elem.getPosY());// O rasto
-																	// ficou 1
-																	// casa à
-																	// esquerda
+			board.setChar(' ', elem.getPosX() - 1, elem.getPosY());
 			break;
 		case 2:// Sul
-			board.setChar(' ', elem.getPosX(), elem.getPosY() - 1);// O rasto
-																	// ficou 1
-																	// casa
-																	// acima
+			board.setChar(' ', elem.getPosX(), elem.getPosY() - 1);
 			break;
 		case 3:// Este
-			board.setChar(' ', elem.getPosX() + 1, elem.getPosY());// O rasto
-																	// ficou 1
-																	// casa à
-																	// direita
+			board.setChar(' ', elem.getPosX() + 1, elem.getPosY());
 			break;
 		default:
 			break;
 		}
 	}
-
-	public int verificaPresencaDragao(Elemento elem) // Verifica se está um
-														// dragão na casa
-														// adjacente a ELEM
+	
+	/**
+	 * @brief Verifica se algum dos dragoes e o heroi estão em posicoes adjacentes, se se verificar retorna -1
+	 * @param elem
+	 */
+	public int verificaPresencaDragao(Elemento elem) 
 	{
 		for (int i = 0; i < dragons.length; i++) {
-			if (dragons[i].isAlive() && verifica_adjacencia(elem, dragons[i])) // Se eles estiverem
-														// adjacentes
+			if (dragons[i].isAlive() && verifica_adjacencia(elem, dragons[i])) 
 				return i;
 		}
 		return -1;
 	}
 
+	/**
+	 * @brief Verifica se o dragão e o heroi estão em posicoes adjacentes, se se verificar retorna true
+	 * @param elem1
+	 * @param elem2
+	 * @return boolean 
+	 */
 	public boolean verifica_adjacencia(Elemento elem1, Elemento elem2) {
 		if (Math.abs(elem1.getPosX() - elem2.getPosX()) == 1 && elem1.getPosY() == elem2.getPosY()) {
-			// Estão adjacentes
 			return true;
 		} else if (Math.abs(elem1.getPosY() - elem2.getPosY()) == 1 && elem1.getPosX() == elem2.getPosX())
 			return true;
@@ -274,6 +360,11 @@ public class Labirinto {
 			return false;
 	}
 
+	/**
+	 * @brief Verifica se a espada ou a saída (seres inanimados) estão sobrepostos com outro elemento
+	 * @param elem
+	 * @return
+	 */
 	public SerAnimado verificaSobreposicao(SerInanimado elem) {
 		for (int i = 0; i < dragons.length; i++) {
 			if (elem.isSobreposto(hero) && hero.isAlive())
@@ -284,14 +375,13 @@ public class Labirinto {
 		return null;
 	}
 
-	public void checkList() { /*
-								 * Função que verifica tudo o que é necessário
-								 * antes do turno começaar, fazendo as
-								 * alterações necessárias
-								 */
+	/**
+	 * @brief Verifica todas as condiçoes necessarias antes de pedir a proxima direçao ao 
+	 * utilizador e modifica, se necessário, estados dos elementos 
+	 */
+	public void checkList() {
 		for (int i = 0; i < dragons.length; i++) {
-			sword.setPorcima(verificaSobreposicao(sword)); // Verifica se está
-															// algo
+			sword.setPorcima(verificaSobreposicao(sword));
 			// por cima da espada
 			if (sword.getPorcima() == hero) // Verifica se o heroi apanhou a
 											// espada
@@ -301,6 +391,12 @@ public class Labirinto {
 		return;
 	}
 
+	/**
+	 * @brief Retorna a celula para que o ser animado se move consoante a diração que recebe como parametro
+	 * @param npc
+	 * @param direcao
+	 * @return celula
+	 */
 	public Celula getNewPosition(SerAnimado npc, int direcao) {
 		Celula c = new Celula();
 
@@ -325,13 +421,19 @@ public class Labirinto {
 		return c;
 	}
 
+	/**
+	 * @brief Retorna verdadeiro ou falso consoante a celula para que o ser animado se quiser mover
+	 * @param npc
+	 * @param direcao
+	 * @return boolean
+	 */
 	public boolean verificaPosicao(SerAnimado npc, int direcao) {
 
 		Celula c = getNewPosition(npc, direcao);
 		char casa = retornaCasa(c.x, c.y);
 
 		switch (casa) {
-		case 'X': // Andar para uma parede
+		case 'X':
 			return false;
 		case 'S':
 			if (npc instanceof Heroi && Dragao.getnDragoesVivos() > 0)
@@ -343,6 +445,12 @@ public class Labirinto {
 		return true;
 	}
 
+	/**
+	 * @brief Desenha o tabuleiro apos chamar a funçao que move e altera as flags do ser animado 
+	 * @param npc
+	 * @param direcao
+	 * @return boolean
+	 */
 	public boolean moveSerAnimado(SerAnimado npc, int direcao) {
 		if (!(npc.isAlive())) // Se tiver morto não se mexe
 			return false;
@@ -376,6 +484,12 @@ public class Labirinto {
 		return true;
 	}
 
+	/**
+	 * @brief Move o ser animado consoante o que se encontra na celula para que se moveu
+	 * @param npc
+	 * @param direcao
+	 * @return boolean
+	 */
 	public boolean moveParaCasa(SerAnimado npc, int direcao) {
 
 		npc.move(direcao);
