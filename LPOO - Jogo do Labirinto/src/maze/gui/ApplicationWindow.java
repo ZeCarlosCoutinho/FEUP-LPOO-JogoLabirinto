@@ -61,6 +61,7 @@ public class ApplicationWindow {
 			btnEsquerda.setEnabled(false);
 			btnGerarLabirinto.setEnabled(true);
 			btnStartGame.setEnabled(true);
+			
 		}
 		panel.repaint();
 	}

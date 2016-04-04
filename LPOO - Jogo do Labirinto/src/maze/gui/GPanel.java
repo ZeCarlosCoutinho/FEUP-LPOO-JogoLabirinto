@@ -27,18 +27,18 @@ public class GPanel extends JPanel {
 	}
 
 	public GPanel() {
-		background = new ImageIcon("background.jpg").getImage();
-		hero = new ImageIcon("hero.png").getImage();
+		background = new ImageIcon("background.png").getImage();
+		hero = new ImageIcon("hero.gif").getImage();
 		hero = hero.getScaledInstance(width, height, 1);
-		heroArmed = new ImageIcon("heroArmed.png").getImage();
+		heroArmed = new ImageIcon("heroArmed.gif").getImage();
 		heroArmed = heroArmed.getScaledInstance(width, height, 1);
 		wall = new ImageIcon("wall.png").getImage();
 		wall = wall.getScaledInstance(width, height, 1);
 		sword = new ImageIcon("sword.png").getImage();
 		sword = sword.getScaledInstance(width, height, 1);
-		exit = new ImageIcon("exit.png").getImage();
+		exit = new ImageIcon("exit.gif").getImage();
 		exit = exit.getScaledInstance(width, height, 1);
-		dragon = new ImageIcon("dragon.png").getImage();
+		dragon = new ImageIcon("dragon.gif").getImage();
 		dragon = dragon.getScaledInstance(width, height, 1);
 		dragonAsleep = new ImageIcon("dragonAsleep.png").getImage();
 		dragonAsleep = dragonAsleep.getScaledInstance(width, height, 1);
