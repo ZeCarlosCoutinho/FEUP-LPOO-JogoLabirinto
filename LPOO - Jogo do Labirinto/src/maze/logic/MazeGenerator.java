@@ -15,18 +15,39 @@ public class MazeGenerator {
 	private Stack<Celula> lastCells;
 	private Random generator;
 	
+	/**
+	 * @brief Retorna saída do tabuleiro criado aleatoriamente
+	 * @return Saída
+	 */
 	public Saida getExit() {
 		return exit;
 	}
+	
+	/**
+	 * @brief Retorna heroi do tabuleiro criado aleatoriamente 
+	 * @return Herói
+	 */
 	public Heroi getHero() {
 		return hero;
 	}
+
+	/**
+	 * @brief Retorna espada do tabuleiro criado aleatoriamente 
+	 * @return Espada
+	 */
 	public Espada getSword() {
 		return sword;
 	}
+	
+
+	/**
+	 * @brief Retorna array de dragoes com os dragoes do tabuleiro criado aleatoriamente 
+	 * @return Dragao[]
+	 */
 	public Dragao[] getDragons() {
 		return dragons;
 	}
+	
 	public VisitedCells getVisitedCells() {
 		return visitedCells;
 	}
