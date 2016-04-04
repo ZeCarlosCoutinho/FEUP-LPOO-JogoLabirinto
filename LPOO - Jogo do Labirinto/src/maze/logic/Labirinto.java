@@ -346,7 +346,13 @@ public class Labirinto {
 	public boolean moveSerAnimado(SerAnimado npc, int direcao) {
 		if (!(npc.isAlive())) // Se tiver morto não se mexe
 			return false;
-
+		
+		if(npc instanceof Dragao)
+		{
+			if(((Dragao) npc).isSleeping())
+				return false;
+		}
+		
 		if (!verificaPosicao(npc, direcao))
 			return false;
 

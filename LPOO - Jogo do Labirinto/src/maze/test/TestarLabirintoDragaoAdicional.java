@@ -95,39 +95,30 @@ public class TestarLabirintoDragaoAdicional {
 		}
 	}
 
-	@Test(timeout = 1000)
+	@Test
 	public void testNextPosition() {
 		Labirinto lab = new Labirinto();
 		Jogo game = new Jogo();
 		Random generator = new Random();
 
-		for (int i = 0; i < lab.getDragons().length; i++) {
-			Dragao[] dragons = new Dragao[1];
-			dragons[0] = new Dragao(5, 5);
-			lab.getDragons()[i].setSleeping(false);
-			boolean checkMove = false;
-			int posInitialX = lab.getDragons()[i].getPosX();
-			int posInitialY = lab.getDragons()[i].getPosY();
+		Dragao[] dragons = new Dragao[1];
+		dragons[0] = new Dragao(4, 5);
+		lab.setDragons(dragons);
+		Integer posInitialX = new Integer(lab.getDragons()[0].getPosX());
+		Integer posInitialY = new Integer(lab.getDragons()[0].getPosY());
 
-			while (checkMove == false) {
-				game.modificarEstadoDragao(lab.getDragons()[i]);
-				lab.moveSerAnimado(lab.getDragons()[i], generator.nextInt(4));
-				if (lab.getDragons()[i].isSleeping()) {
-					if (lab.getDragons()[i].getPosX() == posInitialX || lab.getDragons()[i].getPosX() == posInitialY)
-						checkMove = true;
-					/*
-					 * else fail();
-					 */
-				} else if (lab.getDragons()[i].getPosX() == posInitialX + 1
-						|| lab.getDragons()[i].getPosX() == posInitialY + 1
-						|| lab.getDragons()[i].getPosX() == posInitialX - 1
-						|| lab.getDragons()[i].getPosX() == posInitialY - 1
-						|| lab.getDragons()[i].getPosX() == posInitialX || lab.getDragons()[i].getPosX() == posInitialY)
-					checkMove = true;
-				else
-					fail();
-			}
-		}
+		//Se ele tiver mexido, mesmo estando a dormir
+		lab.getDragons()[0].setSleeping(true);
+		lab.moveSerAnimado(lab.getDragons()[0], generator.nextInt(4));
+		if (lab.getDragons()[0].getPosX() != posInitialX || lab.getDragons()[0].getPosY() != posInitialY)
+			fail();	
+
+		//Se ele não se conseguir mexer, estando acordado
+		lab.getDragons()[0].setSleeping(false);
+		lab.moveSerAnimado(lab.getDragons()[0], generator.nextInt(4));
+		if(lab.getDragons()[0].getPosX() == posInitialX && lab.getDragons()[0].getPosY() == posInitialY)
+			fail();
+
 	}
 
 	@Test
@@ -158,5 +149,27 @@ public class TestarLabirintoDragaoAdicional {
 		assertEquals(0, game.direcaoCharToInt('w'));
 		assertEquals(3, game.direcaoCharToInt('a'));
 		assertEquals(2, game.direcaoCharToInt('s'));
+	}
+	
+	@Test
+	public void testTurno()
+	{
+		Jogo game = new Jogo();
+		
+		Celula cell = new Celula(game.getLab().getHero().getPosX(), game.getLab().getHero().getPosY());
+		game.turno('s');
+		
+		if(cell.x == game.getLab().getHero().getPosX() && cell.y == game.getLab().getHero().getPosY())
+			fail();
+		/*
+		for(int i = 0; i < game.getLab().getNumDragoes(); i++)
+		{
+			game.getLab().getDragons()[i].setAlive(false);
+		}
+		
+		game.turno('s');
+		*/
+		return;
+		
 	}
 }

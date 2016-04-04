@@ -5,7 +5,10 @@ import org.junit.Test;
 
 import exceptions.TooManyDragonsException;
 import maze.cli.CommandLine;
+import maze.logic.Celula;
+import maze.logic.Jogo;
 import maze.logic.MazeGenerator;
+import maze.logic.VisitedCells;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -134,7 +137,6 @@ public class TestarMazeGenerator {
 			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
 			char[][]m = builder.buildMaze(size);
 			CommandLine CL = new CommandLine();
-			CL.display(builder.getMaze());
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
 			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
 			assertTrue("Invalid spaces in maze:\n" + m, ! hasSquare(m, badSpaces));
@@ -147,6 +149,77 @@ public class TestarMazeGenerator {
 			assertNotNull("Missing sward in maze:\n" + m, findPos(m, 'E'));
 			assertFalse("Adjacent hero and dragon in maze:\n" + str(m), findPos(m, 'H').adjacentTo(findPos(m, 'D')));
 		}	
+		
+		for (int i = 0; i < numMazes; i++) {
+			int size = maxMazeSize == minMazeSize? minMazeSize : minMazeSize + 2 * rand.nextInt((maxMazeSize - minMazeSize)/2);
+			char[][]m = builder.buildMaze(size, 1);
+			CommandLine CL = new CommandLine();
+			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));			
+			assertTrue("Invalid walls in maze:\n" + m, ! hasSquare(m, badWalls));
+			assertTrue("Invalid spaces in maze:\n" + m, ! hasSquare(m, badSpaces));
+			assertTrue("Invalid diagonals in maze:\n" + m, ! hasSquare(m, badDiagonalDown));
+			assertTrue("Invalid diagonals in maze:\n" + m, ! hasSquare(m, badDiagonalUp));
+			assertTrue("Maze exit not reachable in maze:\n" + m, checkExitReachable(m));			
+			assertNotNull("Missing exit in maze:\n" + m, findPos(m, 'S'));
+			assertNotNull("Missing hero in maze:\n" + m, findPos(m, 'H'));
+			assertNotNull("Missing dragon in maze:\n" + m, findPos(m, 'D'));
+			assertNotNull("Missing sward in maze:\n" + m, findPos(m, 'E'));
+			assertFalse("Adjacent hero and dragon in maze:\n" + str(m), findPos(m, 'H').adjacentTo(findPos(m, 'D')));
+		}	
+	}
+	
+	@Test
+	public void testCelldeVerificacaoOutOfBoundsNorte()
+	{
+		MazeGenerator mg = new MazeGenerator(5);
+		Celula cell = new Celula(0, 10);
+		
+		mg.temNaoVisitadaAdjacente(cell);
+		
+		return;
+	}
+	
+	@Test
+	public void testCelldeVerificacaoOutOfBoundsSul()
+	{
+		MazeGenerator mg = new MazeGenerator(5);
+		Celula cell = new Celula(-1, -1);
+		
+		mg.temNaoVisitadaAdjacente(cell);
+		
+		return;
+	}
+	
+	@Test
+	public void testCelldeVerificacaoOutOfBoundsEste()
+	{
+		MazeGenerator mg = new MazeGenerator(5);
+		for(int i = 0; i < mg.getVisitedCells().getTam();i++)
+		{
+			for(int j = 0; j < mg.getVisitedCells().getTam(); j++)
+			{
+				mg.getVisitedCells().setCell(i, j);
+			}
+		}
+		Celula cell = new Celula(mg.getVisitedCells().getTam()-1, 1);
+		
+		mg.temNaoVisitadaAdjacente(cell);
+		
+		return;
+	}
+	
+	@Test
+	public void testMudarTabuleiro() throws TooManyDragonsException
+	{
+		Jogo game = new Jogo();
+
+		char[][] grid = game.getLab().getBoard().getBoard().clone();
+		
+		game.criaLabirintoAleatorio(grid.length, 4);
+		
+		if(grid == game.getLab().getBoard().getBoard())
+			fail();
+		return;
 	}
 	
 	public String str(char [][] maze) {
