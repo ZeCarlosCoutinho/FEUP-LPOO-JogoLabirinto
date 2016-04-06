@@ -53,7 +53,7 @@ public class ApplicationWindow {
 			btnDireita.setEnabled(false);
 			btnEsquerda.setEnabled(false);
 			btnGerarLabirinto.setEnabled(true);
-			btnStartGame.setEnabled(true);
+			btnStartGame.setEnabled(false);
 		} else if (jogar.isGameOver()) {
 			info.setText("Perdeu... Tente outra vez! Pode gerar novo labirinto.");
 			btnCima.setEnabled(false);
@@ -61,7 +61,7 @@ public class ApplicationWindow {
 			btnDireita.setEnabled(false);
 			btnEsquerda.setEnabled(false);
 			btnGerarLabirinto.setEnabled(true);
-			btnStartGame.setEnabled(true);
+			btnStartGame.setEnabled(false);
 		}
 	}
 
@@ -263,6 +263,8 @@ public class ApplicationWindow {
 				btnGerarLabirinto.setEnabled(false);
 				info.setText("Pode mover o herói... ");
 				btnStartGame.setEnabled(false);
+				jogar.setWin(false);
+				jogar.setGameOver(false);
 
 				panel.addKeyListener(new KeyListener() {
 
